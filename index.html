@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Your Name - Resume</title>
+    <meta name="description" content="Professional resume of [Your Name] - [Your Role]" />
+    <meta name="keywords" content="resume, [your skills], [your role]" />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="assets/images/favicon.ico" />
+
+    <!-- Google Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- CSS Files -->
+    <link rel="stylesheet" href="css/main.css" />
+    <link rel="stylesheet" href="css/components.css" />
+    <link rel="stylesheet" href="css/animations.css" />
+
+    <!-- AOS CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet" />
+  </head>
+  <body>
+    <!-- Loading Screen -->
+    <div id="loading-screen" class="loading-screen">
+      <div class="loading-content">
+        <div class="loading-spinner"></div>
+        <p>Loading Resume...</p>
+      </div>
+    </div>
+
+    <!-- Main Content Container -->
+    <div id="main-content" class="main-content hidden">
+      <!-- Header/Navigation Section -->
+      <div id="header-container"></div>
+
+      <!-- Hero Section -->
+      <div id="hero-container"></div>
+
+      <!-- About Section -->
+      <div id="about-container"></div>
+
+      <!-- Skills Section -->
+      <div id="skills-container"></div>
+
+      <!-- Experience Section -->
+      <div id="experience-container"></div>
+
+      <!-- Projects Section -->
+      <div id="projects-container"></div>
+
+      <!-- Hobbies Section -->
+      <div id="hobbies-container"></div>
+
+      <!-- Contact Section -->
+      <div id="contact-container"></div>
+    </div>
+
+    <!-- Mobile Menu Overlay -->
+    <div id="mobile-menu-overlay" class="mobile-menu-overlay hidden">
+      <div class="mobile-menu-content">
+        <div class="mobile-menu-close">&times;</div>
+        <nav class="mobile-nav">
+          <a href="#about" class="mobile-nav-link">About</a>
+          <a href="#skills" class="mobile-nav-link">Skills</a>
+          <a href="#experience" class="mobile-nav-link">Experience</a>
+          <a href="#projects" class="mobile-nav-link">Projects</a>
+          <a href="#contact" class="mobile-nav-link">Contact</a>
+        </nav>
+      </div>
+    </div>
+
+    <!-- External Scripts -->
+    <!-- GSAP Core -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <!-- GSAP ScrollTrigger -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <!-- AOS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+
+    <!-- Custom Scripts -->
+    <script src="js/main.js"></script>
+    <script src="js/animations.js"></script>
+    <script src="js/interactions.js"></script>
+  </body>
+</html>

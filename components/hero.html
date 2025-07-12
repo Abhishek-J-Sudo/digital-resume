@@ -1,0 +1,762 @@
+<!-- Hero Section Component -->
+<section class="hero" id="hero" data-section="hero" role="banner">
+  <!-- Background Elements -->
+  <div class="hero-background">
+    <!-- Animated gradient background -->
+    <div class="hero-gradient" aria-hidden="true"></div>
+
+    <!-- Floating particles (desktop only) -->
+    <div class="hero-particles" aria-hidden="true">
+      <div class="particle" style="--delay: 0s; --duration: 8s"></div>
+      <div class="particle" style="--delay: 2s; --duration: 10s"></div>
+      <div class="particle" style="--delay: 4s; --duration: 12s"></div>
+      <div class="particle" style="--delay: 6s; --duration: 9s"></div>
+      <div class="particle" style="--delay: 1s; --duration: 11s"></div>
+    </div>
+  </div>
+
+  <!-- Hero Content -->
+  <div class="hero-content">
+    <!-- Main Heading with Typewriter Effect -->
+    <h1 class="hero-name" id="hero-name">
+      <span class="hero-greeting">Hi, I'm</span>
+      <span class="hero-name-text" data-text="Alex Johnson">Alex Johnson</span>
+    </h1>
+
+    <!-- Dynamic Job Title -->
+    <p class="hero-title" id="hero-title">
+      <span class="title-prefix">I'm a</span>
+      <span class="title-main" data-job-title="Marketing Operations Lead"
+        >Marketing Operations Lead</span
+      >
+    </p>
+
+    <!-- Hero Subtitle -->
+    <p class="hero-subtitle" id="hero-subtitle">
+      Passionate about driving growth through data-driven marketing strategies, automation, and
+      cross-functional collaboration. Let's build something amazing together.
+    </p>
+
+    <!-- Hero Call-to-Action Buttons -->
+    <div class="hero-actions" id="hero-actions">
+      <a href="#about" class="hero-cta primary" aria-label="Learn more about me">
+        <span class="cta-text">Learn More About Me</span>
+        <svg
+          class="cta-icon"
+          width="16"
+          height="16"
+          viewBox="0 0 16 16"
+          fill="currentColor"
+          aria-hidden="true"
+        >
+          <path d="M8 12L3 7h10l-5 5z" />
+        </svg>
+      </a>
+
+      <a href="#contact" class="hero-cta secondary" aria-label="Get in touch">
+        <span class="cta-text">Get In Touch</span>
+        <svg
+          class="cta-icon"
+          width="16"
+          height="16"
+          viewBox="0 0 16 16"
+          fill="currentColor"
+          aria-hidden="true"
+        >
+          <path d="M2 3h12l-6 4L2 3zm0 2v8h12V5l-6 4L2 5z" />
+        </svg>
+      </a>
+    </div>
+
+    <!-- Social Links -->
+    <div class="hero-social" id="hero-social">
+      <span class="social-label">Connect with me:</span>
+      <div class="social-links">
+        <a
+          href="https://linkedin.com/in/yourprofile"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="LinkedIn profile"
+          class="social-link linkedin"
+        >
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path
+              d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"
+            />
+          </svg>
+        </a>
+
+        <a
+          href="https://github.com/yourusername"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="GitHub profile"
+          class="social-link github"
+        >
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path
+              d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"
+            />
+          </svg>
+        </a>
+
+        <a href="mailto:your.email@example.com" aria-label="Send email" class="social-link email">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path
+              d="M24 5.457v13.909c0 .904-.732 1.636-1.636 1.636h-3.819V11.73L12 16.64l-6.545-4.91v9.273H1.636A1.636 1.636 0 0 1 0 19.366V5.457c0-.904.732-1.636 1.636-1.636h3.819v.727L12 10.1l6.545-5.552v-.727h3.819c.904 0 1.636.732 1.636 1.636z"
+            />
+          </svg>
+        </a>
+
+        <a
+          href="/resume.pdf"
+          target="_blank"
+          aria-label="Download resume PDF"
+          class="social-link resume"
+        >
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path
+              d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z"
+            />
+          </svg>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scroll Indicator -->
+  <div class="scroll-indicator" aria-hidden="true">
+    <div class="scroll-mouse">
+      <div class="scroll-wheel"></div>
+    </div>
+    <span class="scroll-text">Scroll to explore</span>
+  </div>
+</section>
+
+<!-- Hero Component Specific JavaScript -->
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    initializeHeroAnimations();
+    initializeHeroInteractions();
+  });
+
+  /**
+   * Initialize hero section animations
+   */
+  function initializeHeroAnimations() {
+    // Check if GSAP is available, otherwise use CSS animations
+    if (typeof gsap !== 'undefined') {
+      initializeGSAPHeroAnimations();
+    } else {
+      initializeCSSHeroAnimations();
+    }
+  }
+
+  /**
+   * GSAP-based hero animations
+   */
+  function initializeGSAPHeroAnimations() {
+    const heroName = document.getElementById('hero-name');
+    const heroTitle = document.getElementById('hero-title');
+    const heroSubtitle = document.getElementById('hero-subtitle');
+    const heroActions = document.getElementById('hero-actions');
+    const heroSocial = document.getElementById('hero-social');
+
+    // Set initial states
+    gsap.set([heroTitle, heroSubtitle, heroActions, heroSocial], {
+      opacity: 0,
+      y: 30,
+    });
+
+    // Create main timeline
+    const heroTimeline = gsap.timeline({ delay: 1 });
+
+    // Typewriter effect for name
+    if (heroName) {
+      const nameText = heroName.querySelector('.hero-name-text');
+      if (nameText) {
+        const originalText = nameText.textContent;
+        nameText.textContent = '';
+
+        // Animate typing
+        let currentIndex = 0;
+        const typeInterval = setInterval(() => {
+          nameText.textContent += originalText[currentIndex];
+          currentIndex++;
+
+          if (currentIndex >= originalText.length) {
+            clearInterval(typeInterval);
+            // Continue with other animations
+            continueHeroAnimations();
+          }
+        }, 100);
+      }
+    }
+
+    function continueHeroAnimations() {
+      heroTimeline
+        .to(heroTitle, {
+          opacity: 1,
+          y: 0,
+          duration: 0.8,
+          ease: 'power2.out',
+        })
+        .to(
+          heroSubtitle,
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.8,
+            ease: 'power2.out',
+          },
+          '-=0.4'
+        )
+        .to(
+          heroActions,
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.8,
+            ease: 'back.out(1.7)',
+          },
+          '-=0.4'
+        )
+        .to(
+          heroSocial,
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.8,
+            ease: 'power2.out',
+          },
+          '-=0.6'
+        );
+    }
+  }
+
+  /**
+   * CSS-based hero animations (fallback)
+   */
+  function initializeCSSHeroAnimations() {
+    const heroElements = document.querySelectorAll(
+      '#hero-title, #hero-subtitle, #hero-actions, #hero-social'
+    );
+
+    heroElements.forEach((element, index) => {
+      element.style.opacity = '0';
+      element.style.transform = 'translateY(30px)';
+      element.style.transition = 'all 0.8s ease';
+
+      setTimeout(() => {
+        element.style.opacity = '1';
+        element.style.transform = 'translateY(0)';
+      }, 1500 + index * 200);
+    });
+
+    // Typewriter effect
+    const nameText = document.querySelector('.hero-name-text');
+    if (nameText) {
+      const originalText = nameText.textContent;
+      nameText.textContent = '';
+
+      let currentIndex = 0;
+      const typeInterval = setInterval(() => {
+        nameText.textContent += originalText[currentIndex];
+        currentIndex++;
+
+        if (currentIndex >= originalText.length) {
+          clearInterval(typeInterval);
+        }
+      }, 100);
+    }
+  }
+
+  /**
+   * Initialize hero interactions
+   */
+  function initializeHeroInteractions() {
+    // Parallax effect for particles (desktop only)
+    if (window.innerWidth > 768) {
+      window.addEventListener('scroll', () => {
+        const scrolled = window.pageYOffset;
+        const particles = document.querySelectorAll('.particle');
+
+        particles.forEach((particle, index) => {
+          const speed = 0.5 + index * 0.1;
+          particle.style.transform = `translateY(${scrolled * speed}px)`;
+        });
+      });
+    }
+
+    // Dynamic job title rotation (optional)
+    initializeTitleRotation();
+
+    // CTA button interactions
+    initializeCTAInteractions();
+  }
+
+  /**
+   * Initialize dynamic title rotation
+   */
+  function initializeTitleRotation() {
+    const titleElement = document.querySelector('.title-main');
+    const titles = [
+      'Marketing Operations Lead',
+      'Data-Driven Marketer',
+      'Growth Strategy Expert',
+      'Marketing Automation Specialist',
+    ];
+
+    if (!titleElement) return;
+
+    let currentIndex = 0;
+
+    // Rotate titles every 4 seconds
+    setInterval(() => {
+      currentIndex = (currentIndex + 1) % titles.length;
+
+      // Fade out
+      titleElement.style.opacity = '0';
+      titleElement.style.transform = 'translateY(-10px)';
+
+      setTimeout(() => {
+        titleElement.textContent = titles[currentIndex];
+        titleElement.style.opacity = '1';
+        titleElement.style.transform = 'translateY(0)';
+      }, 300);
+    }, 4000);
+  }
+
+  /**
+   * Initialize CTA button interactions
+   */
+  function initializeCTAInteractions() {
+    const ctaButtons = document.querySelectorAll('.hero-cta');
+
+    ctaButtons.forEach((button) => {
+      button.addEventListener('mouseenter', () => {
+        const icon = button.querySelector('.cta-icon');
+        if (icon) {
+          icon.style.transform = 'translateX(3px)';
+        }
+      });
+
+      button.addEventListener('mouseleave', () => {
+        const icon = button.querySelector('.cta-icon');
+        if (icon) {
+          icon.style.transform = 'translateX(0)';
+        }
+      });
+
+      button.addEventListener('click', (e) => {
+        // Add click ripple effect
+        const ripple = document.createElement('div');
+        ripple.className = 'ripple';
+
+        const rect = button.getBoundingClientRect();
+        const size = Math.max(rect.width, rect.height);
+        const x = e.clientX - rect.left - size / 2;
+        const y = e.clientY - rect.top - size / 2;
+
+        ripple.style.width = ripple.style.height = size + 'px';
+        ripple.style.left = x + 'px';
+        ripple.style.top = y + 'px';
+
+        button.appendChild(ripple);
+
+        setTimeout(() => {
+          ripple.remove();
+        }, 600);
+      });
+    });
+  }
+</script>
+
+<!-- Hero Component Styles -->
+<style>
+  /* Hero Section Specific Styles */
+  .hero {
+    position: relative;
+    min-height: 60vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    margin-top: 60px; /* Account for fixed header */
+  }
+
+  .hero-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1;
+  }
+
+  .hero-gradient {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: var(--gradient-hero);
+    opacity: 0.8;
+  }
+
+  .hero-particles {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    pointer-events: none;
+  }
+
+  .particle {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background: var(--primary-color);
+    border-radius: 50%;
+    opacity: 0.6;
+    animation: float var(--duration, 8s) ease-in-out infinite var(--delay, 0s);
+  }
+
+  .particle:nth-child(1) {
+    left: 10%;
+    top: 20%;
+  }
+  .particle:nth-child(2) {
+    left: 80%;
+    top: 10%;
+  }
+  .particle:nth-child(3) {
+    left: 20%;
+    top: 80%;
+  }
+  .particle:nth-child(4) {
+    left: 90%;
+    top: 70%;
+  }
+  .particle:nth-child(5) {
+    left: 60%;
+    top: 30%;
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    max-width: 800px;
+    padding: 0 var(--space-xl);
+  }
+
+  .hero-name {
+    font-size: clamp(2.5rem, 8vw, 4.5rem);
+    font-weight: var(--font-bold);
+    line-height: var(--leading-tight);
+    margin-bottom: var(--space-lg);
+    color: var(--text-color);
+  }
+
+  .hero-greeting {
+    display: block;
+    font-size: 0.6em;
+    font-weight: var(--font-medium);
+    color: var(--text-secondary);
+    margin-bottom: var(--space-sm);
+  }
+
+  .hero-name-text {
+    display: block;
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    position: relative;
+  }
+
+  .hero-title {
+    font-size: clamp(1.25rem, 4vw, 2rem);
+    font-weight: var(--font-medium);
+    color: var(--text-secondary);
+    margin-bottom: var(--space-xl);
+    line-height: var(--leading-normal);
+  }
+
+  .title-prefix {
+    color: var(--text-tertiary);
+  }
+
+  .title-main {
+    color: var(--primary-color);
+    font-weight: var(--font-semibold);
+    transition: var(--transition-smooth);
+  }
+
+  .hero-subtitle {
+    font-size: clamp(1rem, 2.5vw, 1.25rem);
+    color: var(--text-secondary);
+    line-height: var(--leading-relaxed);
+    margin-bottom: var(--space-2xl);
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .hero-actions {
+    display: flex;
+    gap: var(--space-lg);
+    justify-content: center;
+    margin-bottom: var(--space-2xl);
+    flex-wrap: wrap;
+  }
+
+  .hero-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-sm);
+    padding: var(--space-lg) var(--space-2xl);
+    border-radius: var(--radius-full);
+    text-decoration: none;
+    font-weight: var(--font-semibold);
+    font-size: var(--text-base);
+    transition: var(--transition-smooth);
+    position: relative;
+    overflow: hidden;
+    min-width: 180px;
+    justify-content: center;
+  }
+
+  .hero-cta.primary {
+    background: var(--gradient-primary);
+    color: var(--text-inverse);
+    box-shadow: var(--shadow-lg);
+  }
+
+  .hero-cta.primary:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-glow), var(--shadow-xl);
+    color: var(--text-inverse);
+  }
+
+  .hero-cta.secondary {
+    background: transparent;
+    color: var(--primary-color);
+    border: 2px solid var(--primary-color);
+  }
+
+  .hero-cta.secondary:hover {
+    background: var(--primary-color);
+    color: var(--text-inverse);
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-lg);
+  }
+
+  .cta-icon {
+    transition: var(--transition-smooth);
+  }
+
+  .hero-social {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-md);
+  }
+
+  .social-label {
+    font-size: var(--text-sm);
+    color: var(--text-tertiary);
+    font-weight: var(--font-medium);
+  }
+
+  .social-links {
+    display: flex;
+    gap: var(--space-lg);
+  }
+
+  .social-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    background: var(--surface);
+    border-radius: var(--radius-lg);
+    color: var(--text-secondary);
+    transition: var(--transition-smooth);
+    border: 1px solid transparent;
+  }
+
+  .social-link:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+    border-color: var(--primary-color);
+  }
+
+  .social-link.linkedin:hover {
+    background: #0077b5;
+    color: white;
+  }
+
+  .social-link.github:hover {
+    background: #333;
+    color: white;
+  }
+
+  .social-link.email:hover {
+    background: var(--primary-color);
+    color: white;
+  }
+
+  .social-link.resume:hover {
+    background: var(--accent-color);
+    color: white;
+  }
+
+  .scroll-indicator {
+    position: absolute;
+    bottom: var(--space-2xl);
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-sm);
+    color: var(--text-tertiary);
+    animation: bounce 2s infinite;
+  }
+
+  .scroll-mouse {
+    width: 20px;
+    height: 32px;
+    border: 2px solid var(--text-tertiary);
+    border-radius: 12px;
+    position: relative;
+  }
+
+  .scroll-wheel {
+    width: 2px;
+    height: 6px;
+    background: var(--text-tertiary);
+    border-radius: 1px;
+    position: absolute;
+    top: 6px;
+    left: 50%;
+    transform: translateX(-50%);
+    animation: scroll-wheel 2s infinite;
+  }
+
+  .scroll-text {
+    font-size: var(--text-xs);
+    font-weight: var(--font-medium);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  /* Ripple effect */
+  .ripple {
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.6);
+    transform: scale(0);
+    animation: ripple-animation 0.6s linear;
+    pointer-events: none;
+  }
+
+  /* Animations */
+  @keyframes float {
+    0%,
+    100% {
+      transform: translateY(0px) rotate(0deg);
+    }
+    33% {
+      transform: translateY(-10px) rotate(120deg);
+    }
+    66% {
+      transform: translateY(5px) rotate(240deg);
+    }
+  }
+
+  @keyframes scroll-wheel {
+    0% {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+    50% {
+      opacity: 0.5;
+      transform: translateX(-50%) translateY(8px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+  }
+
+  @keyframes ripple-animation {
+    to {
+      transform: scale(4);
+      opacity: 0;
+    }
+  }
+
+  /* Mobile optimizations */
+  @media (max-width: 768px) {
+    .hero {
+      min-height: 70vh;
+      text-align: center;
+    }
+
+    .hero-content {
+      padding: 0 var(--space-md);
+    }
+
+    .hero-actions {
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .hero-cta {
+      width: 100%;
+      max-width: 280px;
+    }
+
+    .social-links {
+      gap: var(--space-md);
+    }
+
+    .hero-particles {
+      display: none; /* Hide particles on mobile for performance */
+    }
+
+    .scroll-indicator {
+      bottom: var(--space-lg);
+    }
+  }
+
+  @media (max-width: 480px) {
+    .hero-subtitle {
+      font-size: var(--text-base);
+    }
+
+    .social-link {
+      width: 40px;
+      height: 40px;
+    }
+  }
+
+  /* Dark mode adjustments */
+  [data-theme='dark'] .particle {
+    background: var(--accent-color);
+  }
+
+  [data-theme='dark'] .hero-cta.secondary {
+    border-color: var(--accent-color);
+    color: var(--accent-color);
+  }
+
+  [data-theme='dark'] .hero-cta.secondary:hover {
+    background: var(--accent-color);
+  }
+</style>
