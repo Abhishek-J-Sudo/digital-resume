@@ -564,6 +564,7 @@
 
   .mobile-menu-toggle {
     display: flex;
+    margin-left: auto;
   }
 
   .theme-switcher {
@@ -572,11 +573,23 @@
 
   .nav {
     padding: 0 var(--space-md);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--space-md);
   }
 
   .header {
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
+  }
+
+  /* Ensure buttons are properly sized on mobile */
+  .theme-switcher,
+  .mobile-menu-toggle {
+    width: 40px;
+    height: 40px;
+    flex-shrink: 0; /* Prevent buttons from shrinking */
   }
 }
 
@@ -584,10 +597,6 @@
   .mobile-menu-content {
     width: 100%;
     max-width: none;
-  }
-
-  .nav {
-    padding: 0 var(--space-sm);
   }
 
   .logo {
