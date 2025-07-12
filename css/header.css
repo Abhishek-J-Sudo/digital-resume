@@ -19,7 +19,7 @@
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   border-bottom: 1px solid rgba(0, 0, 0, var(--theme-border-opacity));
-  z-index: var(--z-fixed);
+  z-index: 1000; /* CHANGE FROM var(--z-fixed) to 1000 */
   transition: var(--transition-normal);
 }
 
@@ -216,6 +216,8 @@
   align-items: center;
   justify-content: center;
   transition: var(--transition-normal);
+  z-index: var(--z-fixed); /* ADD THIS LINE */
+  position: relative; /* ADD THIS LINE */
 }
 
 .mobile-menu-toggle:hover {
@@ -279,17 +281,19 @@
   width: 100%;
   height: 100%;
   background: var(--color-overlay);
-  z-index: var(--z-modal-backdrop);
+  z-index: 9999;
   opacity: 0;
   visibility: hidden;
-  transition: var(--transition-normal);
+  transition: all 0.3s ease;
   backdrop-filter: blur(4px);
   -webkit-backdrop-filter: blur(4px);
+  pointer-events: none; /* ADD THIS LINE */
 }
 
 .mobile-menu-overlay.active {
   opacity: 1;
   visibility: visible;
+  pointer-events: all; /* ADD THIS LINE */
 }
 
 /* ===================================
@@ -306,9 +310,10 @@
   background: var(--color-surface-elevated);
   padding: var(--space-2xl);
   transform: translateX(100%);
-  transition: var(--transition-normal);
+  transition: transform 0.3s ease;
   overflow-y: auto;
   box-shadow: var(--shadow-2xl);
+  z-index: 10000; /* ADD THIS LINE */
 }
 
 .mobile-menu-overlay.active .mobile-menu-content {

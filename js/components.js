@@ -26,7 +26,6 @@ window.App = {
  * Component paths configuration
  */
 const COMPONENT_PATHS = {
-  header: 'components/header.html',
   hero: 'components/hero.html',
   about: 'components/about.html',
   skills: 'components/skills.html',

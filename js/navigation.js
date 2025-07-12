@@ -15,12 +15,12 @@ const NavigationState = {
   sections: [],
 };
 
-/**
- * Initialize navigation system when DOM is loaded
- */
-document.addEventListener('DOMContentLoaded', () => {
-  initializeNavigation();
-});
+// /**
+//  * Initialize navigation system when DOM is loaded
+//  */
+// document.addEventListener('DOMContentLoaded', () => {
+//   initializeNavigation();
+// });
 
 /**
  * Main navigation initialization
@@ -45,20 +45,30 @@ function initializeNavigation() {
  * Mobile menu functionality
  */
 function initializeMobileMenu() {
+  console.log('🔍 Looking for mobile menu elements...');
+
   const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
   const mobileMenuOverlay = document.getElementById('mobile-menu-overlay');
   const mobileMenuClose = document.querySelector('.mobile-menu-close');
   const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
 
+  console.log('Toggle button found:', !!mobileMenuToggle);
+  console.log('Menu overlay found:', !!mobileMenuOverlay);
+  console.log('Close button found:', !!mobileMenuClose);
+  console.log('Nav links found:', mobileNavLinks.length);
+
   if (!mobileMenuToggle || !mobileMenuOverlay) {
-    console.warn('⚠️ Mobile menu elements not found');
+    console.error('❌ Mobile menu elements not found');
     return;
   }
+
+  console.log('✅ All mobile menu elements found! Setting up events...');
 
   // Toggle mobile menu
   mobileMenuToggle.addEventListener('click', (e) => {
     e.preventDefault();
     e.stopPropagation();
+    console.log('🔘 Mobile menu toggle clicked');
     toggleMobileMenu();
   });
 
@@ -66,6 +76,7 @@ function initializeMobileMenu() {
   if (mobileMenuClose) {
     mobileMenuClose.addEventListener('click', (e) => {
       e.preventDefault();
+      console.log('❌ Mobile menu close clicked');
       closeMobileMenu();
     });
   }
@@ -73,6 +84,7 @@ function initializeMobileMenu() {
   // Close menu when clicking overlay background
   mobileMenuOverlay.addEventListener('click', (e) => {
     if (e.target === mobileMenuOverlay) {
+      console.log('🔘 Overlay clicked - closing menu');
       closeMobileMenu();
     }
   });
@@ -80,6 +92,7 @@ function initializeMobileMenu() {
   // Close menu when clicking nav links
   mobileNavLinks.forEach((link) => {
     link.addEventListener('click', () => {
+      console.log('🔗 Nav link clicked - closing menu');
       closeMobileMenu();
     });
   });
@@ -87,9 +100,23 @@ function initializeMobileMenu() {
   // Close menu on swipe up gesture
   initializeTouchGestures(mobileMenuOverlay);
 
-  console.log('📱 Mobile menu initialized');
+  console.log('📱 Mobile menu initialized successfully');
 }
 
+function setupMobileMenuEvents(mobileMenuToggle, mobileMenuOverlay) {
+  const mobileMenuClose = document.querySelector('.mobile-menu-close');
+  const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
+
+  // Your existing event listeners here...
+  mobileMenuToggle.addEventListener('click', (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    toggleMobileMenu();
+  });
+
+  // Rest of your mobile menu setup...
+  console.log('📱 Mobile menu initialized successfully');
+}
 /**
  * Toggle mobile menu state
  */
