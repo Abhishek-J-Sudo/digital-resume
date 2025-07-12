@@ -1,4 +1,11 @@
 /* ===================================
+   ANIMATIONS & TRANSITIONS
+   File: css/animations.css (~500 lines)
+   Purpose: Keyframe animations, scroll triggers, hover effects, and motion design
+   Dependencies: css/variables.css, css/base.css
+   =================================== */
+
+/* ===================================
    KEYFRAME ANIMATIONS
    =================================== */
 
@@ -58,7 +65,17 @@
     border-color: transparent;
   }
   50% {
-    border-color: var(--primary-color);
+    border-color: var(--brand-primary);
+  }
+}
+
+/* Entrance Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
   }
 }
 
@@ -162,10 +179,10 @@
 @keyframes glow {
   0%,
   100% {
-    box-shadow: 0 0 5px var(--primary-color);
+    box-shadow: 0 0 5px var(--brand-primary);
   }
   50% {
-    box-shadow: 0 0 20px var(--primary-color), 0 0 30px var(--primary-color);
+    box-shadow: 0 0 20px var(--brand-primary), 0 0 30px var(--brand-primary);
   }
 }
 
@@ -182,15 +199,45 @@
   }
 }
 
-/* Particle Animation */
-@keyframes particle {
+/* Shimmer Effect */
+@keyframes shimmer {
   0% {
-    transform: translateY(100vh) scale(0);
-    opacity: 1;
+    transform: translateX(-100%);
   }
   100% {
-    transform: translateY(-100vh) scale(1);
+    transform: translateX(100%);
+  }
+}
+
+/* Ripple Effect */
+@keyframes ripple {
+  to {
+    transform: scale(4);
     opacity: 0;
+  }
+}
+
+/* Wave Animation */
+@keyframes wave {
+  0%,
+  100% {
+    transform: rotate(0deg);
+  }
+  10%,
+  30% {
+    transform: rotate(14deg);
+  }
+  20% {
+    transform: rotate(-8deg);
+  }
+  40% {
+    transform: rotate(-4deg);
+  }
+  50% {
+    transform: rotate(10deg);
+  }
+  60% {
+    transform: rotate(0deg);
   }
 }
 
@@ -396,12 +443,12 @@
 }
 
 /* ===================================
-   HERO SECTION SPECIFIC ANIMATIONS
+   HERO SECTION ANIMATIONS
    =================================== */
 
 .hero-name {
   overflow: hidden;
-  border-right: 3px solid var(--primary-color);
+  border-right: 3px solid var(--brand-primary);
   white-space: nowrap;
   animation: typewriter 3s steps(40, end), blink-caret 0.75s step-end infinite;
 }
@@ -440,7 +487,7 @@
 .skill-progress {
   width: 100%;
   height: 8px;
-  background: var(--surface);
+  background: var(--color-surface);
   border-radius: var(--radius-full);
   overflow: hidden;
   margin-top: var(--space-md);
@@ -461,7 +508,7 @@
 .skill-percentage {
   font-size: var(--text-sm);
   font-weight: var(--font-semibold);
-  color: var(--primary-color);
+  color: var(--brand-primary);
   margin-top: var(--space-sm);
   opacity: 0;
   transition: opacity 0.5s ease-out 1s;
@@ -472,100 +519,259 @@
 }
 
 /* ===================================
-   EXPERIENCE TIMELINE ANIMATIONS
+   HOVER EFFECTS
    =================================== */
 
-.timeline-dot {
-  transform: scale(0);
-  transition: transform 0.6s ease-out;
+/* Button hover effects */
+.btn:hover {
+  transform: translateY(-2px);
 }
 
-.timeline-dot.animated {
-  transform: scale(1);
-}
-
-.experience-item {
-  opacity: 0;
-  transform: translateX(-30px);
-  transition: all 0.6s ease-out;
-}
-
-.experience-item.animated {
-  opacity: 1;
-  transform: translateX(0);
-}
-
-.experience-item:nth-child(even) {
-  transform: translateX(30px);
-}
-
-.experience-item:nth-child(even).animated {
-  transform: translateX(0);
-}
-
-/* ===================================
-   PROJECT CARD ANIMATIONS
-   =================================== */
-
-.project-card {
-  opacity: 0;
-  transform: translateY(30px) scale(0.95);
-  transition: all 0.6s ease-out;
-}
-
-.project-card.animated {
-  opacity: 1;
-  transform: translateY(0) scale(1);
-}
-
-.project-card:hover .project-image {
-  overflow: hidden;
-}
-
-.project-card:hover .project-image::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-  animation: shimmer 1.5s ease-out;
-}
-
-@keyframes shimmer {
-  0% {
-    left: -100%;
-  }
-  100% {
-    left: 100%;
-  }
-}
-
-/* ===================================
-   CONTACT SECTION ANIMATIONS
-   =================================== */
-
-.contact-item {
-  opacity: 0;
-  transform: translateY(20px);
-  transition: all 0.6s ease-out;
-}
-
-.contact-item.animated {
-  opacity: 1;
+.btn:active {
   transform: translateY(0);
 }
 
-.contact-item:hover .contact-icon {
-  animation: bounce 0.6s ease-out;
+/* Card hover effects */
+.hover-lift {
+  transition: transform var(--duration-normal) ease-out, box-shadow var(--duration-normal) ease-out;
+}
+
+.hover-lift:hover {
+  transform: translateY(-8px);
+  box-shadow: var(--shadow-xl);
+}
+
+.hover-scale {
+  transition: transform var(--duration-normal) ease-out;
+}
+
+.hover-scale:hover {
+  transform: scale(1.05);
+}
+
+.hover-glow {
+  transition: box-shadow var(--duration-normal) ease-out;
+}
+
+.hover-glow:hover {
+  box-shadow: var(--shadow-glow);
+}
+
+.hover-rotate {
+  transition: transform var(--duration-normal) ease-out;
+}
+
+.hover-rotate:hover {
+  transform: rotate(5deg);
+}
+
+/* Image hover effects */
+.hover-zoom img {
+  transition: transform var(--duration-slow) ease-out;
+}
+
+.hover-zoom:hover img {
+  transform: scale(1.1);
+}
+
+.hover-brightness img {
+  transition: filter var(--duration-normal) ease-out;
+}
+
+.hover-brightness:hover img {
+  filter: brightness(1.1);
+}
+
+/* ===================================
+   INTERACTIVE ANIMATIONS
+   =================================== */
+
+/* Ripple effect for buttons */
+.ripple-effect {
+  position: relative;
+  overflow: hidden;
+}
+
+.ripple-effect::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.6);
+  transform: translate(-50%, -50%);
+  transition: width 0.6s, height 0.6s;
+}
+
+.ripple-effect:active::before {
+  width: 300px;
+  height: 300px;
+}
+
+/* Loading dots animation */
+.loading-dots {
+  display: inline-flex;
+  gap: 4px;
+}
+
+.loading-dots span {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--brand-primary);
+  animation: pulse 1.4s ease-in-out infinite both;
+}
+
+.loading-dots span:nth-child(1) {
+  animation-delay: -0.32s;
+}
+
+.loading-dots span:nth-child(2) {
+  animation-delay: -0.16s;
+}
+
+/* Floating elements */
+.float {
+  animation: float 3s ease-in-out infinite;
+}
+
+.float-delayed {
+  animation: float 3s ease-in-out infinite;
+  animation-delay: 1.5s;
+}
+
+/* Gradient animation for text */
+.gradient-text {
+  background: linear-gradient(
+    -45deg,
+    var(--brand-primary),
+    var(--brand-secondary),
+    var(--brand-accent),
+    var(--brand-primary)
+  );
+  background-size: 400% 400%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: gradientShift 4s ease infinite;
+}
+
+/* Typewriter effect */
+.typewriter {
+  overflow: hidden;
+  border-right: 2px solid var(--brand-primary);
+  white-space: nowrap;
+  margin: 0 auto;
+  letter-spacing: 0.1em;
+  animation: typewriter 3.5s steps(40, end), blink-caret 0.75s step-end infinite;
+}
+
+/* Wave animation for icons */
+.wave {
+  animation: wave 2s linear infinite;
+  transform-origin: 70% 70%;
+  display: inline-block;
+}
+
+/* ===================================
+   SCROLL PROGRESS ANIMATIONS
+   =================================== */
+
+.scroll-indicator {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: var(--color-surface);
+  z-index: var(--z-fixed);
+}
+
+.scroll-progress {
+  height: 100%;
+  background: var(--gradient-primary);
+  width: 0%;
+  transition: width 0.1s ease;
+}
+
+/* ===================================
+   THEME TRANSITION ANIMATIONS
+   =================================== */
+
+* {
+  transition: background-color var(--duration-normal) ease, border-color var(--duration-normal) ease,
+    color var(--duration-normal) ease, box-shadow var(--duration-normal) ease;
+}
+
+/* Smooth theme transitions */
+html {
+  transition: background-color var(--duration-normal) ease;
+}
+
+body {
+  transition: background-color var(--duration-normal) ease, color var(--duration-normal) ease;
+}
+
+/* ===================================
+   LOADING STATES
+   =================================== */
+
+.loading-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(255, 255, 255, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: var(--z-dropdown);
+  opacity: 0;
+  visibility: hidden;
+  transition: var(--transition-normal);
+}
+
+.loading-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    var(--color-surface) 25%,
+    var(--color-background) 50%,
+    var(--color-surface) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 2s infinite;
+}
+
+.skeleton-text {
+  height: 1em;
+  border-radius: var(--radius-sm);
+  margin-bottom: var(--space-sm);
+}
+
+.skeleton-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+}
+
+.skeleton-card {
+  height: 200px;
+  border-radius: var(--radius-lg);
 }
 
 /* ===================================
    PARALLAX EFFECTS
    =================================== */
 
-.parallax-element {
+.parallax {
   will-change: transform;
 }
 
@@ -579,81 +785,6 @@
 
 .parallax-fast {
   transform: translateY(var(--parallax-offset-fast, 0));
-}
-
-/* ===================================
-   HOVER ANIMATIONS
-   =================================== */
-
-.hover-lift {
-  transition: transform 0.3s ease-out, box-shadow 0.3s ease-out;
-}
-
-.hover-lift:hover {
-  transform: translateY(-5px);
-  box-shadow: var(--shadow-lg);
-}
-
-.hover-scale {
-  transition: transform 0.3s ease-out;
-}
-
-.hover-scale:hover {
-  transform: scale(1.05);
-}
-
-.hover-glow {
-  transition: box-shadow 0.3s ease-out;
-}
-
-.hover-glow:hover {
-  box-shadow: var(--shadow-glow);
-}
-
-.hover-rotate {
-  transition: transform 0.3s ease-out;
-}
-
-.hover-rotate:hover {
-  transform: rotate(5deg);
-}
-
-/* ===================================
-   LOADING STATES
-   =================================== */
-
-.loading {
-  position: relative;
-  pointer-events: none;
-}
-
-.loading::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(255, 255, 255, 0.8);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 10;
-}
-
-.loading::after {
-  content: '';
-  width: 20px;
-  height: 20px;
-  border: 2px solid var(--surface);
-  border-top: 2px solid var(--primary-color);
-  border-radius: 50%;
-  animation: spin 1s linear infinite;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 11;
 }
 
 /* ===================================
@@ -680,18 +811,31 @@
     transition-delay: 0.05s;
   }
 
-  .project-card:hover .project-image::before {
+  /* Disable complex animations on mobile for performance */
+  .parallax {
+    transform: none !important;
+  }
+
+  .float,
+  .float-delayed {
     animation: none;
   }
 
-  /* Disable parallax on mobile for performance */
-  .parallax-element {
-    transform: none !important;
+  .gradient-text {
+    animation: none;
+    background: var(--brand-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
   }
 }
 
+/* ===================================
+   ACCESSIBILITY - REDUCED MOTION
+   =================================== */
+
 @media (prefers-reduced-motion: reduce) {
-  /* Respect user's motion preferences */
+  /* Disable all animations for users who prefer reduced motion */
   *,
   *::before,
   *::after {
@@ -706,8 +850,24 @@
     border-right: none;
   }
 
-  .parallax-element {
+  .parallax {
     transform: none !important;
+  }
+
+  .float,
+  .float-delayed,
+  .wave,
+  .gradient-text {
+    animation: none;
+  }
+
+  .typewriter {
+    animation: none;
+    border-right: none;
+  }
+
+  .loading-dots span {
+    animation: none;
   }
 }
 
@@ -725,13 +885,67 @@
 .slide-in-up,
 .slide-in-left,
 .slide-in-right,
-.project-card,
-.contact-item,
-.skill-category,
-.hobby-item {
+.hover-lift,
+.hover-scale,
+.card,
+.btn {
   will-change: transform, opacity;
 }
 
 .animated {
   will-change: auto;
+}
+
+/* Optimize transform and opacity changes */
+.optimized-animation {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
+
+/* ===================================
+   SPECIAL EFFECTS
+   =================================== */
+
+/* Glitch effect */
+.glitch {
+  position: relative;
+  animation: glitch 2s infinite;
+}
+
+@keyframes glitch {
+  0%,
+  100% {
+    transform: translate(0);
+  }
+  20% {
+    transform: translate(-2px, 2px);
+  }
+  40% {
+    transform: translate(-2px, -2px);
+  }
+  60% {
+    transform: translate(2px, 2px);
+  }
+  80% {
+    transform: translate(2px, -2px);
+  }
+}
+
+/* Neon glow effect */
+.neon {
+  color: var(--brand-primary);
+  text-shadow: 0 0 5px var(--brand-primary), 0 0 10px var(--brand-primary),
+    0 0 15px var(--brand-primary), 0 0 20px var(--brand-primary);
+  animation: neon-flicker 1.5s infinite alternate;
+}
+
+@keyframes neon-flicker {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.8;
+  }
 }

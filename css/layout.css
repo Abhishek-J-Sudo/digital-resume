@@ -1,0 +1,1084 @@
+/* ===================================
+   LAYOUT SYSTEM - CONTAINERS, GRIDS & SPACING
+   File: css/layout.css (~400 lines)
+   Purpose: Layout utilities, containers, grid systems, and spacing
+   Dependencies: css/variables.css, css/base.css
+   =================================== */
+
+/* ===================================
+   CONTAINER SYSTEM
+   =================================== */
+
+/* Main content wrapper */
+.main-content {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Standard container */
+.container {
+  width: var(--content-width);
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 var(--space-xl);
+}
+
+/* Narrow container for focused content */
+.container-narrow {
+  width: var(--content-width-narrow);
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 var(--space-xl);
+}
+
+/* Full width container */
+.container-full {
+  width: 100%;
+  max-width: none;
+  margin: 0;
+  padding: 0 var(--space-xl);
+}
+
+/* Fluid container that grows with viewport */
+.container-fluid {
+  width: 100%;
+  padding: 0 var(--space-lg);
+}
+
+/* No padding container */
+.container-flush {
+  padding: 0;
+}
+
+/* ===================================
+   SECTION SYSTEM
+   =================================== */
+
+/* Base section styling */
+.section {
+  padding: var(--section-padding) 0;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Section variations */
+.section-sm {
+  padding: var(--space-3xl) 0;
+}
+
+.section-lg {
+  padding: calc(var(--section-padding) * 1.5) 0;
+}
+
+.section-xl {
+  padding: calc(var(--section-padding) * 2) 0;
+}
+
+/* No padding section */
+.section-flush {
+  padding: 0;
+}
+
+/* Section with background */
+.section-bg {
+  background: var(--color-surface);
+}
+
+.section-bg-secondary {
+  background: var(--color-background-secondary);
+}
+
+.section-bg-gradient {
+  background: var(--gradient-hero);
+}
+
+/* Section with border */
+.section-border {
+  border-bottom: 1px solid rgba(0, 0, 0, var(--theme-border-opacity));
+}
+
+/* ===================================
+   SECTION HEADERS
+   =================================== */
+
+.section-header {
+  text-align: center;
+  margin-bottom: var(--space-4xl);
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.section-header-left {
+  text-align: left;
+  margin-bottom: var(--space-3xl);
+}
+
+.section-title {
+  font-size: var(--text-section);
+  font-weight: var(--font-bold);
+  margin-bottom: var(--space-md);
+  color: var(--color-text);
+  line-height: var(--leading-tight);
+}
+
+.section-subtitle {
+  font-size: var(--text-lg);
+  color: var(--color-text-secondary);
+  line-height: var(--leading-relaxed);
+  margin: 0;
+}
+
+/* ===================================
+   GRID SYSTEMS
+   =================================== */
+
+/* CSS Grid System */
+.grid {
+  display: grid;
+  gap: var(--space-lg);
+}
+
+/* Grid column variations */
+.grid-cols-1 {
+  grid-template-columns: 1fr;
+}
+
+.grid-cols-2 {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.grid-cols-3 {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.grid-cols-4 {
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.grid-cols-5 {
+  grid-template-columns: repeat(5, 1fr);
+}
+
+.grid-cols-6 {
+  grid-template-columns: repeat(6, 1fr);
+}
+
+/* Auto-fit grids */
+.grid-auto {
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+}
+
+.grid-auto-sm {
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+}
+
+.grid-auto-lg {
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+
+.grid-auto-xl {
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+}
+
+/* Grid gaps */
+.grid-gap-none {
+  gap: 0;
+}
+
+.grid-gap-sm {
+  gap: var(--space-sm);
+}
+
+.grid-gap-md {
+  gap: var(--space-md);
+}
+
+.grid-gap-lg {
+  gap: var(--space-lg);
+}
+
+.grid-gap-xl {
+  gap: var(--space-xl);
+}
+
+.grid-gap-2xl {
+  gap: var(--space-2xl);
+}
+
+/* Grid alignment */
+.grid-center {
+  place-items: center;
+}
+
+.grid-start {
+  place-items: start;
+}
+
+.grid-end {
+  place-items: end;
+}
+
+/* ===================================
+   FLEXBOX SYSTEM
+   =================================== */
+
+/* Flex containers */
+.flex {
+  display: flex;
+}
+
+.inline-flex {
+  display: inline-flex;
+}
+
+/* Flex direction */
+.flex-row {
+  flex-direction: row;
+}
+
+.flex-col {
+  flex-direction: column;
+}
+
+.flex-row-reverse {
+  flex-direction: row-reverse;
+}
+
+.flex-col-reverse {
+  flex-direction: column-reverse;
+}
+
+/* Flex wrap */
+.flex-wrap {
+  flex-wrap: wrap;
+}
+
+.flex-nowrap {
+  flex-wrap: nowrap;
+}
+
+.flex-wrap-reverse {
+  flex-wrap: wrap-reverse;
+}
+
+/* Justify content */
+.justify-start {
+  justify-content: flex-start;
+}
+
+.justify-center {
+  justify-content: center;
+}
+
+.justify-end {
+  justify-content: flex-end;
+}
+
+.justify-between {
+  justify-content: space-between;
+}
+
+.justify-around {
+  justify-content: space-around;
+}
+
+.justify-evenly {
+  justify-content: space-evenly;
+}
+
+/* Align items */
+.items-start {
+  align-items: flex-start;
+}
+
+.items-center {
+  align-items: center;
+}
+
+.items-end {
+  align-items: flex-end;
+}
+
+.items-baseline {
+  align-items: baseline;
+}
+
+.items-stretch {
+  align-items: stretch;
+}
+
+/* Align self */
+.self-start {
+  align-self: flex-start;
+}
+
+.self-center {
+  align-self: center;
+}
+
+.self-end {
+  align-self: flex-end;
+}
+
+.self-stretch {
+  align-self: stretch;
+}
+
+/* Flex grow/shrink */
+.flex-1 {
+  flex: 1 1 0%;
+}
+
+.flex-auto {
+  flex: 1 1 auto;
+}
+
+.flex-initial {
+  flex: 0 1 auto;
+}
+
+.flex-none {
+  flex: none;
+}
+
+.flex-grow {
+  flex-grow: 1;
+}
+
+.flex-shrink {
+  flex-shrink: 1;
+}
+
+.flex-shrink-0 {
+  flex-shrink: 0;
+}
+
+/* ===================================
+   SPACING UTILITIES
+   =================================== */
+
+/* Margin utilities */
+.m-0 {
+  margin: 0;
+}
+.m-auto {
+  margin: auto;
+}
+.mx-auto {
+  margin-left: auto;
+  margin-right: auto;
+}
+.my-auto {
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+/* Margin sizes */
+.m-xs {
+  margin: var(--space-xs);
+}
+.m-sm {
+  margin: var(--space-sm);
+}
+.m-md {
+  margin: var(--space-md);
+}
+.m-lg {
+  margin: var(--space-lg);
+}
+.m-xl {
+  margin: var(--space-xl);
+}
+.m-2xl {
+  margin: var(--space-2xl);
+}
+.m-3xl {
+  margin: var(--space-3xl);
+}
+.m-4xl {
+  margin: var(--space-4xl);
+}
+
+/* Margin directions */
+.mt-0 {
+  margin-top: 0;
+}
+.mt-xs {
+  margin-top: var(--space-xs);
+}
+.mt-sm {
+  margin-top: var(--space-sm);
+}
+.mt-md {
+  margin-top: var(--space-md);
+}
+.mt-lg {
+  margin-top: var(--space-lg);
+}
+.mt-xl {
+  margin-top: var(--space-xl);
+}
+.mt-2xl {
+  margin-top: var(--space-2xl);
+}
+.mt-3xl {
+  margin-top: var(--space-3xl);
+}
+.mt-4xl {
+  margin-top: var(--space-4xl);
+}
+
+.mb-0 {
+  margin-bottom: 0;
+}
+.mb-xs {
+  margin-bottom: var(--space-xs);
+}
+.mb-sm {
+  margin-bottom: var(--space-sm);
+}
+.mb-md {
+  margin-bottom: var(--space-md);
+}
+.mb-lg {
+  margin-bottom: var(--space-lg);
+}
+.mb-xl {
+  margin-bottom: var(--space-xl);
+}
+.mb-2xl {
+  margin-bottom: var(--space-2xl);
+}
+.mb-3xl {
+  margin-bottom: var(--space-3xl);
+}
+.mb-4xl {
+  margin-bottom: var(--space-4xl);
+}
+
+.ml-0 {
+  margin-left: 0;
+}
+.ml-xs {
+  margin-left: var(--space-xs);
+}
+.ml-sm {
+  margin-left: var(--space-sm);
+}
+.ml-md {
+  margin-left: var(--space-md);
+}
+.ml-lg {
+  margin-left: var(--space-lg);
+}
+.ml-xl {
+  margin-left: var(--space-xl);
+}
+.ml-auto {
+  margin-left: auto;
+}
+
+.mr-0 {
+  margin-right: 0;
+}
+.mr-xs {
+  margin-right: var(--space-xs);
+}
+.mr-sm {
+  margin-right: var(--space-sm);
+}
+.mr-md {
+  margin-right: var(--space-md);
+}
+.mr-lg {
+  margin-right: var(--space-lg);
+}
+.mr-xl {
+  margin-right: var(--space-xl);
+}
+.mr-auto {
+  margin-right: auto;
+}
+
+/* Padding utilities */
+.p-0 {
+  padding: 0;
+}
+.p-xs {
+  padding: var(--space-xs);
+}
+.p-sm {
+  padding: var(--space-sm);
+}
+.p-md {
+  padding: var(--space-md);
+}
+.p-lg {
+  padding: var(--space-lg);
+}
+.p-xl {
+  padding: var(--space-xl);
+}
+.p-2xl {
+  padding: var(--space-2xl);
+}
+.p-3xl {
+  padding: var(--space-3xl);
+}
+.p-4xl {
+  padding: var(--space-4xl);
+}
+
+/* Padding directions */
+.pt-0 {
+  padding-top: 0;
+}
+.pt-xs {
+  padding-top: var(--space-xs);
+}
+.pt-sm {
+  padding-top: var(--space-sm);
+}
+.pt-md {
+  padding-top: var(--space-md);
+}
+.pt-lg {
+  padding-top: var(--space-lg);
+}
+.pt-xl {
+  padding-top: var(--space-xl);
+}
+.pt-2xl {
+  padding-top: var(--space-2xl);
+}
+
+.pb-0 {
+  padding-bottom: 0;
+}
+.pb-xs {
+  padding-bottom: var(--space-xs);
+}
+.pb-sm {
+  padding-bottom: var(--space-sm);
+}
+.pb-md {
+  padding-bottom: var(--space-md);
+}
+.pb-lg {
+  padding-bottom: var(--space-lg);
+}
+.pb-xl {
+  padding-bottom: var(--space-xl);
+}
+.pb-2xl {
+  padding-bottom: var(--space-2xl);
+}
+
+.pl-0 {
+  padding-left: 0;
+}
+.pl-xs {
+  padding-left: var(--space-xs);
+}
+.pl-sm {
+  padding-left: var(--space-sm);
+}
+.pl-md {
+  padding-left: var(--space-md);
+}
+.pl-lg {
+  padding-left: var(--space-lg);
+}
+.pl-xl {
+  padding-left: var(--space-xl);
+}
+
+.pr-0 {
+  padding-right: 0;
+}
+.pr-xs {
+  padding-right: var(--space-xs);
+}
+.pr-sm {
+  padding-right: var(--space-sm);
+}
+.pr-md {
+  padding-right: var(--space-md);
+}
+.pr-lg {
+  padding-right: var(--space-lg);
+}
+.pr-xl {
+  padding-right: var(--space-xl);
+}
+
+/* Horizontal and vertical padding */
+.px-0 {
+  padding-left: 0;
+  padding-right: 0;
+}
+.px-xs {
+  padding-left: var(--space-xs);
+  padding-right: var(--space-xs);
+}
+.px-sm {
+  padding-left: var(--space-sm);
+  padding-right: var(--space-sm);
+}
+.px-md {
+  padding-left: var(--space-md);
+  padding-right: var(--space-md);
+}
+.px-lg {
+  padding-left: var(--space-lg);
+  padding-right: var(--space-lg);
+}
+.px-xl {
+  padding-left: var(--space-xl);
+  padding-right: var(--space-xl);
+}
+
+.py-0 {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+.py-xs {
+  padding-top: var(--space-xs);
+  padding-bottom: var(--space-xs);
+}
+.py-sm {
+  padding-top: var(--space-sm);
+  padding-bottom: var(--space-sm);
+}
+.py-md {
+  padding-top: var(--space-md);
+  padding-bottom: var(--space-md);
+}
+.py-lg {
+  padding-top: var(--space-lg);
+  padding-bottom: var(--space-lg);
+}
+.py-xl {
+  padding-top: var(--space-xl);
+  padding-bottom: var(--space-xl);
+}
+
+/* ===================================
+   POSITIONING
+   =================================== */
+
+.relative {
+  position: relative;
+}
+
+.absolute {
+  position: absolute;
+}
+
+.fixed {
+  position: fixed;
+}
+
+.sticky {
+  position: sticky;
+}
+
+.static {
+  position: static;
+}
+
+/* Position values */
+.top-0 {
+  top: 0;
+}
+.right-0 {
+  right: 0;
+}
+.bottom-0 {
+  bottom: 0;
+}
+.left-0 {
+  left: 0;
+}
+
+.inset-0 {
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+/* Z-index utilities */
+.z-0 {
+  z-index: 0;
+}
+.z-10 {
+  z-index: 10;
+}
+.z-20 {
+  z-index: 20;
+}
+.z-30 {
+  z-index: 30;
+}
+.z-40 {
+  z-index: 40;
+}
+.z-50 {
+  z-index: 50;
+}
+.z-dropdown {
+  z-index: var(--z-dropdown);
+}
+.z-sticky {
+  z-index: var(--z-sticky);
+}
+.z-fixed {
+  z-index: var(--z-fixed);
+}
+.z-modal {
+  z-index: var(--z-modal);
+}
+
+/* ===================================
+   OVERFLOW
+   =================================== */
+
+.overflow-auto {
+  overflow: auto;
+}
+
+.overflow-hidden {
+  overflow: hidden;
+}
+
+.overflow-visible {
+  overflow: visible;
+}
+
+.overflow-scroll {
+  overflow: scroll;
+}
+
+.overflow-x-auto {
+  overflow-x: auto;
+}
+
+.overflow-y-auto {
+  overflow-y: auto;
+}
+
+.overflow-x-hidden {
+  overflow-x: hidden;
+}
+
+.overflow-y-hidden {
+  overflow-y: hidden;
+}
+
+/* ===================================
+   DISPLAY
+   =================================== */
+
+.block {
+  display: block;
+}
+
+.inline-block {
+  display: inline-block;
+}
+
+.inline {
+  display: inline;
+}
+
+.flex {
+  display: flex;
+}
+
+.inline-flex {
+  display: inline-flex;
+}
+
+.grid {
+  display: grid;
+}
+
+.inline-grid {
+  display: inline-grid;
+}
+
+.table {
+  display: table;
+}
+
+.table-cell {
+  display: table-cell;
+}
+
+.hidden {
+  display: none;
+}
+
+/* ===================================
+   WIDTH & HEIGHT
+   =================================== */
+
+/* Width utilities */
+.w-auto {
+  width: auto;
+}
+.w-full {
+  width: 100%;
+}
+.w-screen {
+  width: 100vw;
+}
+.w-min {
+  width: min-content;
+}
+.w-max {
+  width: max-content;
+}
+.w-fit {
+  width: fit-content;
+}
+
+.w-1\/2 {
+  width: 50%;
+}
+.w-1\/3 {
+  width: 33.333333%;
+}
+.w-2\/3 {
+  width: 66.666667%;
+}
+.w-1\/4 {
+  width: 25%;
+}
+.w-3\/4 {
+  width: 75%;
+}
+.w-1\/5 {
+  width: 20%;
+}
+.w-2\/5 {
+  width: 40%;
+}
+.w-3\/5 {
+  width: 60%;
+}
+.w-4\/5 {
+  width: 80%;
+}
+
+/* Height utilities */
+.h-auto {
+  height: auto;
+}
+.h-full {
+  height: 100%;
+}
+.h-screen {
+  height: 100vh;
+}
+.h-min {
+  height: min-content;
+}
+.h-max {
+  height: max-content;
+}
+.h-fit {
+  height: fit-content;
+}
+
+/* Min/Max width */
+.min-w-0 {
+  min-width: 0;
+}
+.min-w-full {
+  min-width: 100%;
+}
+.max-w-none {
+  max-width: none;
+}
+.max-w-full {
+  max-width: 100%;
+}
+.max-w-screen {
+  max-width: 100vw;
+}
+
+/* Min/Max height */
+.min-h-0 {
+  min-height: 0;
+}
+.min-h-full {
+  min-height: 100%;
+}
+.min-h-screen {
+  min-height: 100vh;
+}
+.max-h-full {
+  max-height: 100%;
+}
+.max-h-screen {
+  max-height: 100vh;
+}
+
+/* ===================================
+   RESPONSIVE DESIGN
+   =================================== */
+
+/* Mobile-first responsive containers */
+@media (max-width: 640px) {
+  .container,
+  .container-narrow {
+    padding: 0 var(--space-md);
+  }
+
+  .container-fluid {
+    padding: 0 var(--space-sm);
+  }
+
+  /* Mobile grid adjustments */
+  .grid-cols-2,
+  .grid-cols-3,
+  .grid-cols-4,
+  .grid-cols-5,
+  .grid-cols-6 {
+    grid-template-columns: 1fr;
+  }
+
+  /* Mobile spacing adjustments */
+  .section {
+    padding: var(--section-padding-mobile) 0;
+  }
+
+  .section-header {
+    margin-bottom: var(--space-2xl);
+  }
+
+  /* Mobile flexbox stack */
+  .flex-col-mobile {
+    flex-direction: column;
+  }
+
+  .text-center-mobile {
+    text-align: center;
+  }
+}
+
+@media (min-width: 641px) and (max-width: 768px) {
+  /* Tablet specific layouts */
+  .grid-cols-3,
+  .grid-cols-4,
+  .grid-cols-5,
+  .grid-cols-6 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 769px) {
+  /* Desktop specific layouts */
+  .desktop-grid-cols-2 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .desktop-grid-cols-3 {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .desktop-grid-cols-4 {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .desktop-flex-row {
+    flex-direction: row;
+  }
+
+  .desktop-text-left {
+    text-align: left;
+  }
+}
+
+/* ===================================
+   LOADING SCREEN LAYOUT
+   =================================== */
+
+.loading-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--color-background);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: var(--z-modal);
+  transition: opacity var(--duration-slow) ease-out;
+}
+
+.loading-content {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-lg);
+}
+
+.loading-spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid var(--color-surface);
+  border-top: 3px solid var(--brand-primary);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+/* ===================================
+   ASPECT RATIOS
+   =================================== */
+
+.aspect-square {
+  aspect-ratio: 1 / 1;
+}
+
+.aspect-video {
+  aspect-ratio: 16 / 9;
+}
+
+.aspect-4-3 {
+  aspect-ratio: 4 / 3;
+}
+
+.aspect-3-2 {
+  aspect-ratio: 3 / 2;
+}
+
+/* ===================================
+   OBJECT FIT
+   =================================== */
+
+.object-contain {
+  object-fit: contain;
+}
+
+.object-cover {
+  object-fit: cover;
+}
+
+.object-fill {
+  object-fit: fill;
+}
+
+.object-none {
+  object-fit: none;
+}
+
+.object-scale-down {
+  object-fit: scale-down;
+}
