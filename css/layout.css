@@ -57,7 +57,7 @@
 
 /* Base section styling */
 .section {
-  padding: var(--section-padding) 0;
+  padding: var(--space-2xl) 0;
   position: relative;
   overflow: hidden;
 }

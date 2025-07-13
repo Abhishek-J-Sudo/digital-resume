@@ -20,7 +20,7 @@
   position: relative;
   overflow: hidden;
   margin-top: var(--header-height);
-  padding: var(--space-4xl) 0;
+  padding: var(--space-2xl) 0;
 }
 
 .hero::before {
@@ -619,7 +619,7 @@
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: var(--space-2xl);
-  margin-top: var(--space-2xl);
+  margin-top: var(--space-md);
 }
 
 .skill-category {
@@ -629,7 +629,7 @@
   border: 1px solid rgba(0, 0, 0, var(--theme-border-opacity));
   transition: var(--transition-normal);
   opacity: 1;
-  transform: translateY(30px) scale(0.95);
+  transform: translateY(00px) scale(0.95);
 }
 
 .skill-category.animated {
@@ -801,7 +801,7 @@
 
 /* Certifications Section - ADD THIS ENTIRE SECTION */
 .certifications-section {
-  margin-top: var(--space-4xl);
+  margin-top: var(--space-lg);
   padding-top: var(--space-2xl);
   border-top: 1px solid rgba(0, 0, 0, var(--theme-border-opacity));
 }
@@ -879,7 +879,7 @@
 
 /* Skills Summary Section - ADD THIS ENTIRE SECTION */
 .skills-summary {
-  margin-top: var(--space-4xl);
+  margin-top: var(--space-xl);
   text-align: center;
 }
 
@@ -1337,14 +1337,14 @@
 
 .achievements-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: var(--space-xl);
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: var(--space-md);
   max-width: 800px;
   margin: 0 auto;
 }
 
 .achievement-item {
-  padding: var(--space-xl);
+  padding: var(--space-md);
   background: var(--color-surface);
   border-radius: var(--radius-xl);
   border: 1px solid rgba(0, 0, 0, var(--theme-border-opacity));
@@ -1549,7 +1549,7 @@
   transition: var(--transition-normal);
   border: 1px solid transparent;
   opacity: 1;
-  transform: translateY(30px) scale(0.95);
+  transform: translateY(10px) scale(0.95);
 }
 
 .project-card.animated {
@@ -1692,7 +1692,7 @@
 
 /* Photography Showcase Container */
 .photography-showcase {
-  margin-bottom: var(--space-4xl);
+  margin-bottom: var(--space-xl);
   background: var(--color-surface);
   border-radius: var(--radius-2xl);
   padding: var(--space-2xl);
@@ -1701,7 +1701,7 @@
 
 .showcase-header {
   text-align: center;
-  margin-bottom: var(--space-2xl);
+  margin-bottom: var(--space-xl);
 }
 
 .showcase-title {
@@ -1986,7 +1986,7 @@
 
 /* Enhanced Other Hobbies */
 .other-hobbies {
-  margin-bottom: var(--space-4xl);
+  margin-bottom: var(--space-xl);
 }
 
 .hobbies-title {
@@ -2069,10 +2069,6 @@
 /* Hobbies Summary */
 .hobbies-summary {
   text-align: center;
-  background: var(--color-surface);
-  border-radius: var(--radius-2xl);
-  padding: var(--space-2xl);
-  border: 1px solid rgba(0, 0, 0, var(--theme-border-opacity));
 }
 
 .summary-content {
