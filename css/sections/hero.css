@@ -44,7 +44,7 @@
 
 .hero-greeting {
   display: block;
-  font-size: 0.6em;
+  font-size: 1em;
   font-weight: var(--font-medium);
   color: var(--color-text-secondary);
   margin-bottom: var(--space-sm);
@@ -64,7 +64,7 @@
   font-weight: var(--font-medium);
   color: var(--color-text-secondary);
   margin-bottom: var(--space-xl);
-  line-height: var(--leading-normal);
+  /* line-height: var(--leading-normal); */
 }
 
 .hero-subtitle {

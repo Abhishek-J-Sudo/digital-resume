@@ -448,6 +448,8 @@
 
 .hero-name {
   overflow: hidden;
+  width: max-content;
+  margin: auto;
   border-right: 3px solid var(--brand-primary);
   white-space: nowrap;
   animation: typewriter 3s steps(40, end), blink-caret 0.75s step-end infinite;
@@ -458,7 +460,7 @@
   animation: none;
 }
 
-.hero-title {
+.hero-actions {
   opacity: 0;
   transform: translateY(20px);
 }
@@ -469,7 +471,7 @@
   transition: all 0.8s ease-out 3.5s;
 }
 
-.hero-cta {
+.hero-actions {
   opacity: 0;
   transform: translateY(20px);
 }
@@ -679,7 +681,7 @@
    SCROLL PROGRESS ANIMATIONS
    =================================== */
 
-.scroll-indicator {
+/* .scroll-indicator {
   position: fixed;
   top: 0;
   left: 0;
@@ -687,14 +689,14 @@
   height: 4px;
   background: var(--color-surface);
   z-index: var(--z-fixed);
-}
+} */
 
-.scroll-progress {
+/* .scroll-progress {
   height: 100%;
   background: var(--gradient-primary);
   width: 0%;
   transition: width 0.1s ease;
-}
+} */
 
 /* ===================================
    THEME TRANSITION ANIMATIONS

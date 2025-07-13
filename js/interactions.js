@@ -58,7 +58,8 @@ function initializeAllInteractions() {
    =================================== */
 
 /**
- * Initialize expand/collapse functionality for experience items
+ * FIXED: Initialize expand/collapse functionality for experience items
+ * Based on your actual utils.js structure
  */
 function initializeExpandCollapse() {
   console.log('📖 Initializing expand/collapse interactions...');
@@ -71,8 +72,8 @@ function initializeExpandCollapse() {
       button.id = `expand-btn-${index}`;
     }
 
-    // Set up click handler with debouncing
-    const debouncedToggle = Utils.performance.debounce(() => toggleExpandableItem(button), 200);
+    // FIXED: Use Utils.debounce (not Utils.performance.debounce)
+    const debouncedToggle = Utils.debounce(() => toggleExpandableItem(button), 200);
 
     button.addEventListener('click', (e) => {
       e.preventDefault();
@@ -95,7 +96,6 @@ function initializeExpandCollapse() {
 
   console.log(`📖 Initialized ${expandButtons.length} expand/collapse controls`);
 }
-
 /**
  * Toggle expandable item (experience, project details, etc.)
  */
@@ -232,7 +232,7 @@ function updateExpandButton(button, isExpanded) {
    =================================== */
 
 function initializeTouchInteractions() {
-  if (!Utils.device.isMobile()) {
+  if (!Utils.isMobile()) {
     console.log('📱 Skipping touch interactions on desktop');
     return;
   }
@@ -338,7 +338,7 @@ function initializeProjectCardInteractions() {
     if (!expandableContent) return;
 
     // Add tap handler for mobile
-    if (Utils.device.isMobile()) {
+    if (Utils.isMobile()) {
       card.addEventListener('click', (e) => {
         // Don't expand if clicking on a link
         if (e.target.closest('a')) return;
@@ -746,14 +746,54 @@ function initializeFocusManagement() {
    SCROLL EFFECTS
    =================================== */
 
+/**
+ * FIXED: Initialize scroll effects
+ */
 function initializeScrollEffects() {
   console.log('📜 Initializing scroll effects...');
 
-  initializeScrollToTop();
+  // Scroll to top button
+  const scrollToTopBtn = document.createElement('button');
+  scrollToTopBtn.innerHTML = '↑';
+  scrollToTopBtn.title = 'Scroll to top';
+  scrollToTopBtn.setAttribute('aria-label', 'Scroll to top');
+  scrollToTopBtn.style.cssText = `
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: var(--brand-primary);
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 1.5rem;
+    box-shadow: var(--shadow-lg);
+    z-index: 1000;
+    transform: scale(0);
+    transition: transform 0.3s ease;
+  `;
 
-  console.log('📜 Scroll effects initialized');
+  document.body.appendChild(scrollToTopBtn);
+
+  // FIXED: Use Utils.throttle (not Utils.performance.throttle)
+  const toggleScrollButton = Utils.throttle(() => {
+    if (window.pageYOffset > 500) {
+      scrollToTopBtn.style.transform = 'scale(1)';
+    } else {
+      scrollToTopBtn.style.transform = 'scale(0)';
+    }
+  }, 100);
+
+  window.addEventListener('scroll', toggleScrollButton, { passive: true });
+
+  // Handle click
+  scrollToTopBtn.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    console.log('📊 Scroll to top clicked');
+  });
 }
-
 function initializeScrollToTop() {
   // Create scroll to top button
   const scrollToTopBtn = document.createElement('button');

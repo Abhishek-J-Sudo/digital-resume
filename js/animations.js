@@ -129,6 +129,9 @@ async function waitForComponents() {
 /**
  * Initialize all GSAP animations
  */
+/**
+ * FIXED: Reduce the delay before starting hero animations
+ */
 function initializeGSAPAnimations() {
   try {
     // Handle reduced motion preferences first
@@ -144,7 +147,7 @@ function initializeGSAPAnimations() {
     createHeroAnimations();
     createScrollAnimations();
     createInteractionAnimations();
-    createParallaxEffects();
+    createParallaxEffects(); // Now has fixed parallax
 
     // Setup responsive handlers
     setupResponsiveAnimations();
@@ -154,10 +157,10 @@ function initializeGSAPAnimations() {
 
     console.log('✅ GSAP animations initialized successfully');
 
-    // Trigger initial hero animation after short delay
+    // FIXED: Start hero animation much sooner
     setTimeout(() => {
       startHeroSequence();
-    }, 500);
+    }, 100); // Reduced from 500ms to 100ms
   } catch (error) {
     console.error('❌ Error initializing GSAP animations:', error);
     initializeFallbackAnimations();
@@ -171,6 +174,9 @@ function initializeGSAPAnimations() {
 /**
  * Create hero section animations with typing effect
  * Implements: Page fade-in → Name types letter-by-letter → Title fades → CTA appears
+ */
+/**
+ * FIXED: Create hero section animations - Based on your actual code
  */
 function createHeroAnimations() {
   const heroSection = document.querySelector('.hero, #hero');
@@ -187,7 +193,7 @@ function createHeroAnimations() {
   // Create main hero timeline
   timelines.hero = gsap.timeline({ paused: true });
 
-  // Set initial states - everything hidden
+  // FIXED: Less aggressive initial hiding - keep content visible
   const heroElements = [
     heroGreeting,
     heroName,
@@ -196,14 +202,17 @@ function createHeroAnimations() {
     heroActions,
     heroSocial,
   ].filter(Boolean);
-  gsap.set(heroElements, { opacity: 0, y: 30 });
 
-  // Store original text for typing effect
+  // FIXED: Use minimal opacity so content stays visible during load
+  gsap.set(heroElements, { opacity: 0.1, y: 10 }); // Changed from opacity: 0, y: 30
+
+  // FIXED: Don't clear the hero name text, just animate it
   if (heroName) {
+    // Store original text but don't clear it
     const originalText = heroName.textContent || heroName.innerText;
     heroName.setAttribute('data-original-text', originalText);
-    heroName.textContent = '';
-    gsap.set(heroName, { opacity: 1 }); // Name container visible for typing
+    // REMOVED: heroName.textContent = ''; // Don't clear the text
+    gsap.set(heroName, { opacity: 0.1 }); // Just set low opacity
   }
 
   console.log('🎭 Hero animations created');
@@ -211,6 +220,9 @@ function createHeroAnimations() {
 
 /**
  * Start the hero animation sequence
+ */
+/**
+ * FIXED: Start the hero animation sequence - Simplified and faster
  */
 function startHeroSequence() {
   if (!timelines.hero) return;
@@ -227,7 +239,9 @@ function startHeroSequence() {
 
   console.log('🚀 Starting hero sequence');
 
-  // Step 1: Fade in greeting
+  // FIXED: Simplified sequence without complex typing effect
+
+  // Step 1: Fade in greeting quickly
   if (heroGreeting) {
     timelines.hero.to(heroGreeting, {
       opacity: 1,
@@ -237,76 +251,77 @@ function startHeroSequence() {
     });
   }
 
-  // Step 2: Typing effect for name
+  // Step 2: FIXED - Simple fade for name instead of complex typing
   if (heroName) {
-    const originalText = heroName.getAttribute('data-original-text') || 'Alex Johnson';
-    createTypingEffect(heroName, originalText, () => {
-      // Step 3: Continue with other elements after typing
-      continueHeroSequence();
-    });
-  } else {
-    continueHeroSequence();
+    timelines.hero.to(
+      heroName,
+      {
+        opacity: 1,
+        y: 0,
+        duration: ANIMATION_CONFIG.normal,
+        ease: ANIMATION_CONFIG.ease.smooth,
+      },
+      '-=0.1'
+    ); // Overlap timing
   }
 
-  function continueHeroSequence() {
-    // Step 4: Fade in title
-    if (heroTitle) {
-      timelines.hero.to(
-        heroTitle,
-        {
-          opacity: 1,
-          y: 0,
-          duration: ANIMATION_CONFIG.normal,
-          ease: ANIMATION_CONFIG.ease.smooth,
-        },
-        '-=0.2'
-      );
-    }
-
-    // Step 5: Fade in subtitle
-    if (heroSubtitle) {
-      timelines.hero.to(
-        heroSubtitle,
-        {
-          opacity: 1,
-          y: 0,
-          duration: ANIMATION_CONFIG.normal,
-          ease: ANIMATION_CONFIG.ease.smooth,
-        },
-        '-=0.3'
-      );
-    }
-
-    // Step 6: Fade in actions
-    if (heroActions) {
-      timelines.hero.to(
-        heroActions,
-        {
-          opacity: 1,
-          y: 0,
-          duration: ANIMATION_CONFIG.normal,
-          ease: ANIMATION_CONFIG.ease.bounce,
-        },
-        '-=0.2'
-      );
-    }
-
-    // Step 7: Fade in social
-    if (heroSocial) {
-      timelines.hero.to(
-        heroSocial,
-        {
-          opacity: 1,
-          y: 0,
-          duration: ANIMATION_CONFIG.normal,
-          ease: ANIMATION_CONFIG.ease.smooth,
-        },
-        '-=0.1'
-      );
-    }
+  // Step 3: Fade in title
+  if (heroTitle) {
+    timelines.hero.to(
+      heroTitle,
+      {
+        opacity: 1,
+        y: 0,
+        duration: ANIMATION_CONFIG.fast, // Faster animation
+        ease: ANIMATION_CONFIG.ease.smooth,
+      },
+      '-=0.1'
+    );
   }
 
-  // Play the timeline
+  // Step 4: Fade in subtitle
+  if (heroSubtitle) {
+    timelines.hero.to(
+      heroSubtitle,
+      {
+        opacity: 1,
+        y: 0,
+        duration: ANIMATION_CONFIG.fast,
+        ease: ANIMATION_CONFIG.ease.smooth,
+      },
+      '-=0.1'
+    );
+  }
+
+  // Step 5: Fade in actions (CTAs)
+  if (heroActions) {
+    timelines.hero.to(
+      heroActions,
+      {
+        opacity: 1,
+        y: 0,
+        duration: ANIMATION_CONFIG.normal,
+        ease: ANIMATION_CONFIG.ease.bounce,
+      },
+      '-=0.1'
+    );
+  }
+
+  // Step 6: Fade in social
+  if (heroSocial) {
+    timelines.hero.to(
+      heroSocial,
+      {
+        opacity: 1,
+        y: 0,
+        duration: ANIMATION_CONFIG.fast,
+        ease: ANIMATION_CONFIG.ease.smooth,
+      },
+      '-=0.1'
+    );
+  }
+
+  // Play the timeline immediately
   timelines.hero.play();
 }
 
@@ -820,17 +835,18 @@ function createSkillBarHovers() {
 // ===================================
 
 /**
- * Create parallax effects for hero and backgrounds
+ * FIXED: Create parallax effects - Remove problematic hero parallax
  */
 function createParallaxEffects() {
   // Skip parallax on mobile for performance
   if (ANIMATION_CONFIG.mobile.skipParallax) return;
 
+  // REMOVED: Problematic hero parallax that was causing layout shifts
+  /*
   const heroSection = document.querySelector('.hero, #hero');
   if (heroSection) {
-    // Hero parallax background
     gsap.to(heroSection, {
-      yPercent: -30,
+      yPercent: -30, // This was causing the layout issues
       ease: 'none',
       scrollTrigger: {
         trigger: heroSection,
@@ -840,8 +856,9 @@ function createParallaxEffects() {
       },
     });
   }
+  */
 
-  // Floating elements
+  // Keep only floating elements parallax
   const floatingElements = document.querySelectorAll('.floating-element');
   floatingElements.forEach((element, index) => {
     gsap.to(element, {
@@ -856,7 +873,7 @@ function createParallaxEffects() {
     });
   });
 
-  console.log('🌊 Parallax effects created');
+  console.log('🌊 Parallax effects created (hero parallax disabled)');
 }
 
 // ===================================
