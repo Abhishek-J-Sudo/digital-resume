@@ -348,7 +348,7 @@
 
 /* Enhanced Other Hobbies */
 .other-hobbies {
-  margin-bottom: var(--space-xl);
+  margin-bottom: var(--space-3xl);
 }
 
 .hobbies-title {
@@ -356,7 +356,7 @@
   font-weight: var(--font-bold);
   text-align: center;
   color: var(--color-text);
-  margin-bottom: var(--space-2xl);
+  margin-bottom: var(--space-sm);
 }
 
 .hobbies-grid {
