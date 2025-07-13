@@ -1,393 +1,253 @@
 /**
- * User Interactions JavaScript
- * Handles mobile menu, expand/collapse, form interactions, and other user interactions
+ * USER INTERACTIONS SYSTEM
+ * File: js/interactions.js (~300 lines)
+ * Purpose: Handle essential user interactions for resume website
+ * Dependencies: js/utils.js, js/components.js, js/navigation.js
  */
 
-// Interaction state management
+// Global interaction state
 const InteractionState = {
   expandedItems: new Set(),
-  activeModal: null,
   touchStartY: 0,
-  isScrolling: false,
+  touchStartX: 0,
 };
 
 /**
- * Initialize all interactions when DOM is loaded
+ * Initialize all interactions when DOM is ready
  */
 document.addEventListener('DOMContentLoaded', () => {
-  // Wait for app to be ready
-  if (window.App && window.App.isLoaded) {
-    initializeInteractions();
-  } else {
-    const checkAppLoaded = setInterval(() => {
-      if (window.App && window.App.isLoaded) {
-        clearInterval(checkAppLoaded);
-        initializeInteractions();
-      }
-    }, 100);
-  }
+  // Wait for app and utils to be ready
+  const initWhenReady = () => {
+    if (window.App && window.App.isLoaded && window.Utils) {
+      initializeAllInteractions();
+    } else {
+      setTimeout(initWhenReady, 50);
+    }
+  };
+  initWhenReady();
 });
 
 /**
- * Initialize all interaction handlers
+ * Main initialization function
  */
-function initializeInteractions() {
+function initializeAllInteractions() {
   try {
-    // Experience expand/collapse interactions
+    console.log('🎯 Initializing user interactions...');
+
+    // Core interactions
     initializeExpandCollapse();
-
-    // Form interactions
-    initializeFormHandling();
-
-    // Touch interactions for mobile
     initializeTouchInteractions();
-
-    // Keyboard shortcuts
     initializeKeyboardShortcuts();
 
-    // Copy to clipboard interactions
+    // UI enhancements
+    initializeButtonEffects();
     initializeCopyToClipboard();
+    initializeScrollEffects();
 
-    // Theme switcher (if implemented)
-    initializeThemeSwitcher();
-
-    // External link handling
+    // External links only (theme handled by theme.js)
     initializeExternalLinks();
 
-    console.log('🎯 User interactions initialized successfully');
+    console.log('✅ All user interactions initialized successfully');
   } catch (error) {
     console.error('❌ Error initializing interactions:', error);
   }
 }
 
+/* ===================================
+   EXPAND/COLLAPSE INTERACTIONS
+   =================================== */
+
 /**
- * Experience expand/collapse interactions
+ * Initialize expand/collapse functionality for experience items
  */
 function initializeExpandCollapse() {
-  const expandButtons = document.querySelectorAll('.expand-btn');
+  console.log('📖 Initializing expand/collapse interactions...');
 
-  expandButtons.forEach((button) => {
+  const expandButtons = document.querySelectorAll('.expand-btn, [data-expand-target]');
+
+  expandButtons.forEach((button, index) => {
+    // Add unique ID if not present
+    if (!button.id) {
+      button.id = `expand-btn-${index}`;
+    }
+
+    // Set up click handler with debouncing
+    const debouncedToggle = Utils.performance.debounce(() => toggleExpandableItem(button), 200);
+
     button.addEventListener('click', (e) => {
       e.preventDefault();
-      toggleExperienceItem(button);
+      debouncedToggle();
     });
+
+    // Keyboard support
+    button.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        toggleExpandableItem(button);
+      }
+    });
+
+    // Set initial ARIA attributes
+    button.setAttribute('aria-expanded', 'false');
+    button.setAttribute('role', 'button');
+    button.setAttribute('tabindex', '0');
+  });
+
+  console.log(`📖 Initialized ${expandButtons.length} expand/collapse controls`);
+}
+
+/**
+ * Toggle expandable item (experience, project details, etc.)
+ */
+function toggleExpandableItem(button) {
+  const experienceItem = button.closest('.experience-item') || button.closest('[data-expandable]');
+  if (!experienceItem) {
+    console.warn('⚠️ No expandable container found for button:', button);
+    return;
+  }
+
+  // Get unique identifier
+  const itemId =
+    experienceItem.querySelector('.company-name, .project-title')?.textContent?.trim() ||
+    `item-${Date.now()}`;
+
+  const isExpanded = InteractionState.expandedItems.has(itemId);
+  const hiddenContent = experienceItem.querySelector(
+    '.responsibilities-hidden, .details-hidden, [data-expandable-content]'
+  );
+
+  if (!hiddenContent) {
+    console.warn('⚠️ No expandable content found in:', experienceItem);
+    return;
+  }
+
+  if (isExpanded) {
+    collapseItem(experienceItem, hiddenContent, button, itemId);
+  } else {
+    expandItem(experienceItem, hiddenContent, button, itemId);
+  }
+
+  // Track interaction
+  Utils.analytics.trackEvent('expand_collapse_toggled', {
+    itemId,
+    action: isExpanded ? 'collapse' : 'expand',
+    section: experienceItem.closest('section')?.id || 'unknown',
   });
 }
 
 /**
- * Toggle experience item expanded state
+ * Expand an item with smooth animation
  */
-function toggleExperienceItem(button) {
-  const experienceItem = button.closest('.experience-item');
-  if (!experienceItem) return;
-
-  const itemId =
-    experienceItem.dataset.id ||
-    experienceItem.querySelector('.company-name')?.textContent ||
-    'unknown';
-  const hiddenResponsibilities = experienceItem.querySelector('.responsibilities-hidden');
-  const isExpanded = InteractionState.expandedItems.has(itemId);
-
-  if (!hiddenResponsibilities) return;
-
-  if (isExpanded) {
-    // Collapse
-    collapseExperienceItem(experienceItem, hiddenResponsibilities, button, itemId);
-  } else {
-    // Expand
-    expandExperienceItem(experienceItem, hiddenResponsibilities, button, itemId);
-  }
-}
-
-/**
- * Expand experience item
- */
-function expandExperienceItem(experienceItem, hiddenResponsibilities, button, itemId) {
-  // Add to expanded set
+function expandItem(container, content, button, itemId) {
   InteractionState.expandedItems.add(itemId);
 
-  // Update button text
-  button.innerHTML = `
-        <span>Show Less</span>
-        <svg width="12" height="12" viewBox="0 0 12 12" fill="currentColor">
-            <path d="M6 3L2 7h8L6 3z"/>
-        </svg>
-    `;
+  // Update button state
+  updateExpandButton(button, true);
 
-  // Show hidden content with animation
-  hiddenResponsibilities.style.display = 'block';
-  hiddenResponsibilities.style.opacity = '0';
-  hiddenResponsibilities.style.maxHeight = '0px';
-  hiddenResponsibilities.style.overflow = 'hidden';
-  hiddenResponsibilities.style.transition = 'all 0.3s ease';
+  // Show content with animation
+  content.style.display = 'block';
+  content.style.opacity = '0';
+  content.style.maxHeight = '0px';
+  content.style.overflow = 'hidden';
+  content.style.transition = 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)';
 
   // Force reflow
-  hiddenResponsibilities.offsetHeight;
+  content.offsetHeight;
 
   // Animate to full height
-  const fullHeight = hiddenResponsibilities.scrollHeight;
-  hiddenResponsibilities.style.maxHeight = fullHeight + 'px';
-  hiddenResponsibilities.style.opacity = '1';
+  const fullHeight = content.scrollHeight;
+  content.style.maxHeight = fullHeight + 'px';
+  content.style.opacity = '1';
 
   // Clean up after animation
   setTimeout(() => {
-    hiddenResponsibilities.style.maxHeight = '';
-    hiddenResponsibilities.style.overflow = '';
-  }, 300);
+    content.style.maxHeight = '';
+    content.style.overflow = '';
+    content.setAttribute('aria-hidden', 'false');
+  }, 400);
 
-  // Update ARIA attributes
-  button.setAttribute('aria-expanded', 'true');
-  hiddenResponsibilities.setAttribute('aria-hidden', 'false');
-
-  // Analytics tracking (if implemented)
-  trackEvent('experience_expanded', { company: itemId });
+  // Add expanded class to container
+  container.classList.add('expanded');
 }
 
 /**
- * Collapse experience item
+ * Collapse an item with smooth animation
  */
-function collapseExperienceItem(experienceItem, hiddenResponsibilities, button, itemId) {
-  // Remove from expanded set
+function collapseItem(container, content, button, itemId) {
   InteractionState.expandedItems.delete(itemId);
 
-  // Update button text
-  button.innerHTML = `
-        <span>Show More</span>
-        <svg width="12" height="12" viewBox="0 0 12 12" fill="currentColor">
-            <path d="M6 9L2 5h8L6 9z"/>
-        </svg>
-    `;
+  // Update button state
+  updateExpandButton(button, false);
 
-  // Animate to collapsed
-  const currentHeight = hiddenResponsibilities.scrollHeight;
-  hiddenResponsibilities.style.maxHeight = currentHeight + 'px';
-  hiddenResponsibilities.style.overflow = 'hidden';
-  hiddenResponsibilities.style.transition = 'all 0.3s ease';
+  // Animate to collapsed state
+  const currentHeight = content.scrollHeight;
+  content.style.maxHeight = currentHeight + 'px';
+  content.style.overflow = 'hidden';
+  content.style.transition = 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)';
 
   // Force reflow
-  hiddenResponsibilities.offsetHeight;
+  content.offsetHeight;
 
   // Animate to zero height
-  hiddenResponsibilities.style.maxHeight = '0px';
-  hiddenResponsibilities.style.opacity = '0';
+  content.style.maxHeight = '0px';
+  content.style.opacity = '0';
 
   // Hide after animation
   setTimeout(() => {
-    hiddenResponsibilities.style.display = 'none';
-    hiddenResponsibilities.style.maxHeight = '';
-    hiddenResponsibilities.style.overflow = '';
-    hiddenResponsibilities.style.transition = '';
-  }, 300);
+    content.style.display = 'none';
+    content.style.maxHeight = '';
+    content.style.overflow = '';
+    content.style.transition = '';
+    content.setAttribute('aria-hidden', 'true');
+  }, 400);
 
-  // Update ARIA attributes
-  button.setAttribute('aria-expanded', 'false');
-  hiddenResponsibilities.setAttribute('aria-hidden', 'true');
-
-  // Analytics tracking (if implemented)
-  trackEvent('experience_collapsed', { company: itemId });
+  // Remove expanded class from container
+  container.classList.remove('expanded');
 }
 
 /**
- * Form handling interactions
+ * Update expand button appearance and accessibility
  */
-function initializeFormHandling() {
-  const forms = document.querySelectorAll('form');
-  const inputs = document.querySelectorAll('input, textarea');
+function updateExpandButton(button, isExpanded) {
+  // Update ARIA state
+  button.setAttribute('aria-expanded', isExpanded.toString());
 
-  // Form submission handling
-  forms.forEach((form) => {
-    form.addEventListener('submit', handleFormSubmission);
-  });
+  // Update button text and icon
+  const buttonText = isExpanded ? 'Show Less' : 'Show More';
+  const iconDirection = isExpanded ? 'up' : 'down';
 
-  // Input validation and styling
-  inputs.forEach((input) => {
-    input.addEventListener('focus', handleInputFocus);
-    input.addEventListener('blur', handleInputBlur);
-    input.addEventListener('input', handleInputChange);
-  });
+  button.innerHTML = `
+    <span>${buttonText}</span>
+    <svg width="12" height="12" viewBox="0 0 12 12" fill="currentColor" aria-hidden="true">
+      <path d="${iconDirection === 'up' ? 'M6 3L2 7h8L6 3z' : 'M6 9L2 5h8L6 9z'}"/>
+    </svg>
+  `;
+
+  // Update aria-label
+  button.setAttribute('aria-label', `${buttonText} details`);
 }
 
-/**
- * Handle form submission
- */
-function handleFormSubmission(e) {
-  e.preventDefault();
+/* ===================================
+   TOUCH INTERACTIONS
+   =================================== */
 
-  const form = e.target;
-  const submitButton = form.querySelector('button[type="submit"]');
-  const formData = new FormData(form);
-
-  // Show loading state
-  if (submitButton) {
-    submitButton.disabled = true;
-    submitButton.textContent = 'Sending...';
-  }
-
-  // Simulate form submission (replace with actual submission logic)
-  setTimeout(() => {
-    showNotification('Message sent successfully!', 'success');
-    form.reset();
-
-    if (submitButton) {
-      submitButton.disabled = false;
-      submitButton.textContent = 'Send Message';
-    }
-  }, 2000);
-
-  // Analytics tracking
-  trackEvent('form_submitted', { form_id: form.id });
-}
-
-/**
- * Handle input focus
- */
-function handleInputFocus(e) {
-  const input = e.target;
-  const label = input.previousElementSibling;
-
-  input.classList.add('focused');
-  if (label) {
-    label.classList.add('focused');
-  }
-}
-
-/**
- * Handle input blur
- */
-function handleInputBlur(e) {
-  const input = e.target;
-  const label = input.previousElementSibling;
-
-  input.classList.remove('focused');
-  if (label) {
-    label.classList.remove('focused');
-  }
-
-  // Validate input
-  validateInput(input);
-}
-
-/**
- * Handle input change
- */
-function handleInputChange(e) {
-  const input = e.target;
-
-  // Real-time validation
-  if (input.value.length > 0) {
-    input.classList.add('has-value');
-  } else {
-    input.classList.remove('has-value');
-  }
-
-  // Clear previous validation errors
-  input.classList.remove('error');
-  const errorMessage = input.parentElement.querySelector('.error-message');
-  if (errorMessage) {
-    errorMessage.remove();
-  }
-}
-
-/**
- * Validate input field
- */
-function validateInput(input) {
-  const value = input.value.trim();
-  const type = input.type;
-  const required = input.hasAttribute('required');
-
-  let isValid = true;
-  let errorMessage = '';
-
-  // Required field validation
-  if (required && !value) {
-    isValid = false;
-    errorMessage = 'This field is required';
-  }
-
-  // Email validation
-  if (type === 'email' && value) {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(value)) {
-      isValid = false;
-      errorMessage = 'Please enter a valid email address';
-    }
-  }
-
-  // Phone validation
-  if (type === 'tel' && value) {
-    const phoneRegex = /^[\+]?[1-9][\d]{0,15}$/;
-    if (!phoneRegex.test(value.replace(/\s/g, ''))) {
-      isValid = false;
-      errorMessage = 'Please enter a valid phone number';
-    }
-  }
-
-  // Show validation result
-  if (!isValid) {
-    showInputError(input, errorMessage);
-  } else {
-    clearInputError(input);
-  }
-
-  return isValid;
-}
-
-/**
- * Show input error
- */
-function showInputError(input, message) {
-  input.classList.add('error');
-
-  // Remove existing error message
-  const existingError = input.parentElement.querySelector('.error-message');
-  if (existingError) {
-    existingError.remove();
-  }
-
-  // Add new error message
-  const errorElement = document.createElement('div');
-  errorElement.className = 'error-message';
-  errorElement.textContent = message;
-  input.parentElement.appendChild(errorElement);
-}
-
-/**
- * Clear input error
- */
-function clearInputError(input) {
-  input.classList.remove('error');
-  const errorMessage = input.parentElement.querySelector('.error-message');
-  if (errorMessage) {
-    errorMessage.remove();
-  }
-}
-
-/**
- * Touch interactions for mobile
- */
 function initializeTouchInteractions() {
-  // Prevent zoom on double tap for iOS
-  let lastTouchEnd = 0;
-  document.addEventListener(
-    'touchend',
-    (e) => {
-      const now = new Date().getTime();
-      if (now - lastTouchEnd <= 300) {
-        e.preventDefault();
-      }
-      lastTouchEnd = now;
-    },
-    false
-  );
+  if (!Utils.device.isMobile()) {
+    console.log('📱 Skipping touch interactions on desktop');
+    return;
+  }
 
-  // Add touch feedback to buttons
-  const touchElements = document.querySelectorAll('button, .btn, a, .card');
+  console.log('📱 Initializing touch interactions...');
+
+  // Add touch feedback to interactive elements
+  const touchElements = document.querySelectorAll(
+    'button, .btn, a, .card, .nav-link, .mobile-nav-link, .skill-category, .project-card, .contact-item'
+  );
 
   touchElements.forEach((element) => {
     element.addEventListener(
       'touchstart',
-      (e) => {
+      () => {
         element.classList.add('touch-active');
       },
       { passive: true }
@@ -395,7 +255,7 @@ function initializeTouchInteractions() {
 
     element.addEventListener(
       'touchend',
-      (e) => {
+      () => {
         setTimeout(() => {
           element.classList.remove('touch-active');
         }, 150);
@@ -405,62 +265,321 @@ function initializeTouchInteractions() {
 
     element.addEventListener(
       'touchcancel',
-      (e) => {
+      () => {
         element.classList.remove('touch-active');
       },
       { passive: true }
     );
   });
+
+  // Initialize swipe gestures for mobile menu
+  initializeSwipeGestures();
+
+  // Initialize tap-to-expand for project cards on mobile
+  initializeProjectCardInteractions();
+
+  console.log('📱 Touch interactions initialized');
 }
 
 /**
- * Keyboard shortcuts
+ * Initialize swipe gestures (primarily for closing mobile menu)
  */
-function initializeKeyboardShortcuts() {
-  document.addEventListener('keydown', (e) => {
-    // Escape key - close any open overlays
-    if (e.key === 'Escape') {
-      closeModal();
-    }
+function initializeSwipeGestures() {
+  let startX, startY;
 
-    // Enter key on buttons
-    if (e.key === 'Enter' && e.target.tagName === 'BUTTON') {
-      e.target.click();
+  document.addEventListener(
+    'touchstart',
+    (e) => {
+      startX = e.touches[0].clientX;
+      startY = e.touches[0].clientY;
+    },
+    { passive: true }
+  );
+
+  document.addEventListener(
+    'touchend',
+    (e) => {
+      if (!startX || !startY) return;
+
+      const endX = e.changedTouches[0].clientX;
+      const endY = e.changedTouches[0].clientY;
+
+      const deltaX = endX - startX;
+      const deltaY = endY - startY;
+      const absDeltaX = Math.abs(deltaX);
+      const absDeltaY = Math.abs(deltaY);
+
+      // Minimum swipe distance
+      if (absDeltaX < 50 && absDeltaY < 50) return;
+
+      // Close mobile menu on left swipe or upward swipe
+      if ((absDeltaX > absDeltaY && deltaX < 0) || (absDeltaY > absDeltaX && deltaY < 0)) {
+        if (window.Navigation && window.Navigation.state.mobileMenuOpen) {
+          window.Navigation.closeMobileMenu();
+        }
+      }
+
+      // Reset values
+      startX = startY = null;
+    },
+    { passive: true }
+  );
+}
+
+/**
+ * Initialize project card interactions (tap to expand on mobile)
+ */
+function initializeProjectCardInteractions() {
+  const projectCards = document.querySelectorAll('.project-card');
+
+  projectCards.forEach((card) => {
+    // Check if card has expandable content
+    const expandableContent = card.querySelector('.project-details-hidden, [data-project-details]');
+    if (!expandableContent) return;
+
+    // Add tap handler for mobile
+    if (Utils.device.isMobile()) {
+      card.addEventListener('click', (e) => {
+        // Don't expand if clicking on a link
+        if (e.target.closest('a')) return;
+
+        e.preventDefault();
+        toggleProjectCard(card, expandableContent);
+      });
+
+      // Add visual indicator that card is tappable
+      card.style.cursor = 'pointer';
+      card.setAttribute('aria-expanded', 'false');
+      card.setAttribute('role', 'button');
+      card.setAttribute('tabindex', '0');
     }
   });
 }
 
 /**
- * Copy to clipboard functionality
+ * Toggle project card expanded state
  */
-function initializeCopyToClipboard() {
-  const copyButtons = document.querySelectorAll('[data-copy]');
+function toggleProjectCard(card, content) {
+  const isExpanded = card.getAttribute('aria-expanded') === 'true';
 
-  copyButtons.forEach((button) => {
-    button.addEventListener('click', (e) => {
-      e.preventDefault();
-      const textToCopy = button.dataset.copy || button.textContent;
+  if (isExpanded) {
+    // Collapse
+    content.style.maxHeight = '0';
+    content.style.opacity = '0';
+    card.setAttribute('aria-expanded', 'false');
 
-      if (navigator.clipboard) {
-        navigator.clipboard
-          .writeText(textToCopy)
-          .then(() => {
-            showNotification('Copied to clipboard!', 'success');
-          })
-          .catch((err) => {
-            console.error('Failed to copy:', err);
-            fallbackCopyToClipboard(textToCopy);
-          });
-      } else {
-        fallbackCopyToClipboard(textToCopy);
+    setTimeout(() => {
+      content.style.display = 'none';
+    }, 300);
+  } else {
+    // Expand
+    content.style.display = 'block';
+    content.style.maxHeight = content.scrollHeight + 'px';
+    content.style.opacity = '1';
+    card.setAttribute('aria-expanded', 'true');
+  }
+
+  // Track interaction
+  Utils.analytics.trackEvent('project_card_toggled', {
+    action: isExpanded ? 'collapse' : 'expand',
+    projectTitle: card.querySelector('.project-title')?.textContent?.trim() || 'unknown',
+  });
+}
+
+/* ===================================
+   BUTTON EFFECTS & INTERACTIONS
+   =================================== */
+
+function initializeButtonEffects() {
+  console.log('🔘 Initializing button effects...');
+
+  const rippleButtons = document.querySelectorAll('.btn, .hero-cta, .expand-btn, button');
+
+  rippleButtons.forEach((button) => {
+    button.addEventListener('click', createRippleEffect);
+  });
+
+  // Initialize hover effects for cards and interactive elements
+  initializeHoverEffects();
+
+  console.log('🔘 Button effects initialized');
+}
+
+/**
+ * Initialize hover effects for cards and interactive elements
+ */
+function initializeHoverEffects() {
+  // Project cards - lift + shadow on hover
+  const projectCards = document.querySelectorAll('.project-card');
+  projectCards.forEach((card) => {
+    card.addEventListener('mouseenter', () => {
+      card.style.transform = 'translateY(-8px)';
+      card.style.boxShadow = 'var(--shadow-xl)';
+    });
+
+    card.addEventListener('mouseleave', () => {
+      card.style.transform = 'translateY(0)';
+      card.style.boxShadow = '';
+    });
+  });
+
+  // Skill bars - pulse animation on hover
+  const skillItems = document.querySelectorAll('.skill-item');
+  skillItems.forEach((item) => {
+    item.addEventListener('mouseenter', () => {
+      const progressBar = item.querySelector('.skill-progress-bar');
+      if (progressBar) {
+        progressBar.style.animation = 'pulse 0.6s ease-in-out';
+        progressBar.style.boxShadow = '0 0 10px var(--brand-primary)';
+      }
+    });
+
+    item.addEventListener('mouseleave', () => {
+      const progressBar = item.querySelector('.skill-progress-bar');
+      if (progressBar) {
+        progressBar.style.animation = '';
+        progressBar.style.boxShadow = '';
       }
     });
   });
+
+  // General card hover effects
+  const cards = document.querySelectorAll('.card, .skill-category, .contact-item');
+  cards.forEach((card) => {
+    card.addEventListener('mouseenter', () => {
+      card.style.transform = 'translateY(-4px)';
+      card.style.boxShadow = 'var(--shadow-lg)';
+    });
+
+    card.addEventListener('mouseleave', () => {
+      card.style.transform = 'translateY(0)';
+      card.style.boxShadow = '';
+    });
+  });
+
+  console.log('✨ Hover effects initialized');
 }
 
-/**
- * Fallback copy to clipboard for older browsers
- */
+function createRippleEffect(e) {
+  const button = e.currentTarget;
+  const ripple = document.createElement('div');
+  const rect = button.getBoundingClientRect();
+  const size = Math.max(rect.width, rect.height);
+  const x = e.clientX - rect.left - size / 2;
+  const y = e.clientY - rect.top - size / 2;
+
+  ripple.style.cssText = `
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.6);
+    transform: scale(0);
+    animation: ripple-animation 0.6s linear;
+    pointer-events: none;
+    width: ${size}px;
+    height: ${size}px;
+    left: ${x}px;
+    top: ${y}px;
+  `;
+
+  // Ensure button has relative positioning for ripple
+  if (getComputedStyle(button).position === 'static') {
+    button.style.position = 'relative';
+  }
+
+  button.appendChild(ripple);
+
+  // Clean up after animation
+  setTimeout(() => {
+    if (ripple.parentElement) {
+      ripple.remove();
+    }
+  }, 600);
+}
+
+/* ===================================
+   THEME INTERACTIONS
+   =================================== */
+
+function initializeThemeInteractions() {
+  console.log('🎨 Initializing theme interactions...');
+
+  const themeSwitchers = document.querySelectorAll('.theme-switcher, .mobile-theme-toggle');
+
+  themeSwitchers.forEach((switcher) => {
+    const clickHandler = Utils.performance.debounce(() => {
+      toggleTheme();
+    }, 200);
+
+    switcher.addEventListener('click', clickHandler);
+
+    // Keyboard support
+    switcher.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        toggleTheme();
+      }
+    });
+  });
+
+  console.log('🎨 Theme interactions initialized');
+}
+
+function toggleTheme() {
+  const currentTheme = document.documentElement.getAttribute('data-theme') || 'light';
+  const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+
+  document.documentElement.setAttribute('data-theme', newTheme);
+  localStorage.setItem('theme', newTheme);
+
+  // Update mobile theme toggle visual state
+  updateMobileThemeToggle(newTheme);
+
+  Utils.analytics.trackEvent('theme_changed', { theme: newTheme });
+}
+
+function updateMobileThemeToggle(theme) {
+  const themeText = document.querySelector('.theme-text');
+  const themeSlider = document.querySelector('.theme-toggle-slider');
+
+  if (themeText) {
+    themeText.textContent = theme === 'dark' ? 'Dark Mode' : 'Light Mode';
+  }
+
+  if (themeSlider) {
+    themeSlider.style.transform = theme === 'dark' ? 'translateX(24px)' : 'translateX(0)';
+  }
+}
+
+/* ===================================
+   COPY TO CLIPBOARD
+   =================================== */
+
+function initializeCopyToClipboard() {
+  console.log('📋 Initializing copy to clipboard...');
+
+  const copyButtons = document.querySelectorAll('[data-copy]');
+
+  copyButtons.forEach((button) => {
+    button.addEventListener('click', async (e) => {
+      e.preventDefault();
+
+      const textToCopy = button.dataset.copy || button.textContent.trim();
+
+      try {
+        await navigator.clipboard.writeText(textToCopy);
+        showCopyFeedback(button, 'Copied!');
+        Utils.analytics.trackEvent('text_copied', { source: button.className });
+      } catch (error) {
+        // Fallback for older browsers
+        fallbackCopyToClipboard(textToCopy);
+        showCopyFeedback(button, 'Copied!');
+      }
+    });
+  });
+
+  console.log(`📋 Initialized ${copyButtons.length} copy buttons`);
+}
+
 function fallbackCopyToClipboard(text) {
   const textArea = document.createElement('textarea');
   textArea.value = text;
@@ -473,171 +592,241 @@ function fallbackCopyToClipboard(text) {
 
   try {
     document.execCommand('copy');
-    showNotification('Copied to clipboard!', 'success');
   } catch (err) {
     console.error('Fallback copy failed:', err);
-    showNotification('Failed to copy to clipboard', 'error');
   }
 
   document.body.removeChild(textArea);
 }
 
-/**
- * Theme switcher initialization
- */
-function initializeThemeSwitcher() {
-  const themeSwitcher = document.querySelector('.theme-switcher');
+function showCopyFeedback(button, message) {
+  const originalText = button.textContent;
 
-  if (themeSwitcher) {
-    themeSwitcher.addEventListener('click', () => {
-      toggleTheme();
-    });
+  button.textContent = message;
+  button.style.background = 'var(--color-success)';
 
-    // Set initial theme based on user preference
-    const savedTheme = localStorage.getItem('theme');
-    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-
-    if (savedTheme) {
-      setTheme(savedTheme);
-    } else if (prefersDark) {
-      setTheme('dark');
-    }
-  }
+  setTimeout(() => {
+    button.textContent = originalText;
+    button.style.background = '';
+  }, 2000);
 }
 
-/**
- * Toggle between light and dark theme
- */
-function toggleTheme() {
-  const currentTheme = document.body.dataset.theme || 'light';
-  const newTheme = currentTheme === 'light' ? 'dark' : 'light';
-  setTheme(newTheme);
-}
+/* ===================================
+   EXTERNAL LINKS
+   =================================== */
 
-/**
- * Set theme
- */
-function setTheme(theme) {
-  document.body.dataset.theme = theme;
-  localStorage.setItem('theme', theme);
-
-  // Update theme switcher icon if present
-  const themeSwitcher = document.querySelector('.theme-switcher');
-  if (themeSwitcher) {
-    themeSwitcher.textContent = theme === 'light' ? '🌙' : '☀️';
-  }
-
-  // Analytics tracking
-  trackEvent('theme_changed', { theme });
-}
-
-/**
- * External link handling
- */
 function initializeExternalLinks() {
-  const externalLinks = document.querySelectorAll(
-    'a[href^="http"]:not([href*="' + window.location.hostname + '"])'
-  );
+  console.log('🔗 Initializing external link handling...');
+
+  const externalLinks = document.querySelectorAll('a[href^="http"]');
 
   externalLinks.forEach((link) => {
-    // Add external link indicator
+    // Skip if it's an internal link
+    if (link.hostname === window.location.hostname) return;
+
+    // Add external link attributes
+    link.setAttribute('target', '_blank');
+    link.setAttribute('rel', 'noopener noreferrer');
+
+    // Add external link indicator if not present
     if (!link.querySelector('.external-icon')) {
       const icon = document.createElement('span');
       icon.className = 'external-icon';
       icon.innerHTML = '↗';
+      icon.setAttribute('aria-hidden', 'true');
+      icon.style.marginLeft = '0.25rem';
       link.appendChild(icon);
     }
 
-    // Add target="_blank" and security attributes
-    link.setAttribute('target', '_blank');
-    link.setAttribute('rel', 'noopener noreferrer');
-
     // Track external link clicks
-    link.addEventListener('click', (e) => {
-      trackEvent('external_link_clicked', {
+    link.addEventListener('click', () => {
+      Utils.analytics.trackEvent('external_link_clicked', {
         url: link.href,
-        text: link.textContent,
+        text: link.textContent.trim(),
+        section: link.closest('section')?.id || 'unknown',
       });
     });
   });
+
+  console.log(`🔗 Processed ${externalLinks.length} external links`);
 }
 
-/**
- * Show notification
- */
-function showNotification(message, type = 'info') {
-  const notification = document.createElement('div');
-  notification.className = `notification notification-${type}`;
-  notification.textContent = message;
+/* ===================================
+   KEYBOARD SHORTCUTS
+   =================================== */
 
-  // Style the notification
-  Object.assign(notification.style, {
-    position: 'fixed',
-    top: '20px',
-    right: '20px',
-    padding: '1rem 1.5rem',
-    borderRadius: '8px',
-    color: 'white',
-    fontWeight: '500',
-    zIndex: '10000',
-    transform: 'translateX(100%)',
-    transition: 'transform 0.3s ease',
-  });
+function initializeKeyboardShortcuts() {
+  console.log('⌨️ Initializing keyboard shortcuts...');
 
-  // Set background color based on type
-  const colors = {
-    success: '#30D158',
-    error: '#FF453A',
-    warning: '#FF9F0A',
-    info: '#007AFF',
-  };
-  notification.style.backgroundColor = colors[type] || colors.info;
+  document.addEventListener('keydown', handleGlobalKeyboard);
+  initializeFocusManagement();
 
-  document.body.appendChild(notification);
-
-  // Animate in
-  setTimeout(() => {
-    notification.style.transform = 'translateX(0)';
-  }, 10);
-
-  // Auto remove after 3 seconds
-  setTimeout(() => {
-    notification.style.transform = 'translateX(100%)';
-    setTimeout(() => {
-      document.body.removeChild(notification);
-    }, 300);
-  }, 3000);
+  console.log('⌨️ Keyboard shortcuts initialized');
 }
 
-/**
- * Close modal (if any)
- */
-function closeModal() {
-  const activeModal = document.querySelector('.modal.active');
-  if (activeModal) {
-    activeModal.classList.remove('active');
-    InteractionState.activeModal = null;
+function handleGlobalKeyboard(e) {
+  // Don't interfere with form inputs
+  if (e.target.matches('input, textarea, select, [contenteditable]')) {
+    return;
+  }
+
+  switch (e.key) {
+    case 'Escape':
+      handleEscapeKey();
+      break;
+    case 'Tab':
+      handleTabNavigation();
+      break;
+    case 't':
+      if (e.ctrlKey || e.metaKey) {
+        e.preventDefault();
+        // Use theme system instead of local function
+        if (window.ThemeSystem && window.ThemeSystem.toggleTheme) {
+          window.ThemeSystem.toggleTheme();
+        }
+      }
+      break;
+  }
+
+  // Number keys for quick navigation (1-6)
+  if (e.key >= '1' && e.key <= '6' && !e.ctrlKey && !e.metaKey) {
+    const sectionIndex = parseInt(e.key) - 1;
+    navigateToSection(sectionIndex);
   }
 }
 
-/**
- * Analytics event tracking (placeholder)
- */
-function trackEvent(eventName, properties = {}) {
-  // Placeholder for analytics tracking
-  // Replace with actual analytics implementation (Google Analytics, etc.)
-  console.log('📊 Event tracked:', eventName, properties);
+function handleEscapeKey() {
+  // Close mobile menu
+  if (window.Navigation?.state.mobileMenuOpen) {
+    window.Navigation.closeMobileMenu();
+    return;
+  }
 
-  // Example: Google Analytics 4
-  // if (typeof gtag !== 'undefined') {
-  //     gtag('event', eventName, properties);
-  // }
+  // Blur active element
+  if (document.activeElement && document.activeElement !== document.body) {
+    document.activeElement.blur();
+  }
 }
 
-// Export functions for external use
-window.InteractionHandlers = {
-  showNotification,
-  toggleTheme,
-  setTheme,
-  trackEvent,
+function handleTabNavigation() {
+  document.body.classList.add('keyboard-navigation');
+
+  // Remove keyboard navigation class after mouse use
+  const removeKeyboardClass = () => {
+    document.body.classList.remove('keyboard-navigation');
+    document.removeEventListener('mousedown', removeKeyboardClass);
+  };
+
+  document.addEventListener('mousedown', removeKeyboardClass);
+}
+
+function navigateToSection(index) {
+  const sections = ['hero', 'about', 'skills', 'experience', 'projects', 'contact'];
+  const sectionId = sections[index];
+
+  if (sectionId && window.Navigation?.scrollToElement) {
+    window.Navigation.scrollToElement(sectionId);
+  }
+}
+
+function initializeFocusManagement() {
+  // Enhanced focus styles for keyboard navigation
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Tab') {
+      document.body.classList.add('using-keyboard');
+    }
+  });
+
+  document.addEventListener('mousedown', () => {
+    document.body.classList.remove('using-keyboard');
+  });
+}
+
+/* ===================================
+   SCROLL EFFECTS
+   =================================== */
+
+function initializeScrollEffects() {
+  console.log('📜 Initializing scroll effects...');
+
+  initializeScrollToTop();
+
+  console.log('📜 Scroll effects initialized');
+}
+
+function initializeScrollToTop() {
+  // Create scroll to top button
+  const scrollToTopBtn = document.createElement('button');
+  scrollToTopBtn.className = 'scroll-to-top';
+  scrollToTopBtn.innerHTML = '↑';
+  scrollToTopBtn.setAttribute('aria-label', 'Scroll to top');
+  scrollToTopBtn.style.cssText = `
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: var(--brand-primary);
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 1.5rem;
+    box-shadow: var(--shadow-lg);
+    z-index: 1000;
+    transform: scale(0);
+    transition: transform 0.3s ease;
+  `;
+
+  document.body.appendChild(scrollToTopBtn);
+
+  // Show/hide based on scroll position
+  const toggleScrollButton = Utils.performance.throttle(() => {
+    if (window.pageYOffset > 500) {
+      scrollToTopBtn.style.transform = 'scale(1)';
+    } else {
+      scrollToTopBtn.style.transform = 'scale(0)';
+    }
+  }, 100);
+
+  window.addEventListener('scroll', toggleScrollButton, { passive: true });
+
+  // Handle click
+  scrollToTopBtn.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    Utils.analytics.trackEvent('scroll_to_top_clicked');
+  });
+}
+
+/* ===================================
+   PUBLIC API
+   =================================== */
+
+// Export public API
+window.Interactions = {
+  // State
+  state: InteractionState,
+
+  // Core functions
+  toggleExpandableItem,
+
+  // Utilities
+  refresh: () => {
+    console.log('🔄 Refreshing interactions...');
+    initializeExpandCollapse();
+    initializeButtonEffects();
+    initializeExternalLinks();
+  },
+
+  cleanup: () => {
+    console.log('🧹 Cleaning up interactions...');
+    InteractionState.expandedItems.clear();
+  },
 };
+
+// Cleanup on page unload
+window.addEventListener('beforeunload', () => {
+  InteractionState.expandedItems.clear();
+});
+
+console.log('🎯 Interactions system ready for initialization');
