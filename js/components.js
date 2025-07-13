@@ -205,58 +205,6 @@ function loadFallbackComponent(name, containerId) {
   if (!container) return;
 
   const fallbackContent = {
-    header: `
-      <header class="header" role="banner">
-        <nav class="nav" role="navigation">
-          <a href="#" class="logo">
-            <div class="logo-icon">AJ</div>
-            <span class="logo-text">Alex Johnson</span>
-          </a>
-          <ul class="nav-links">
-            <li><a href="#about" class="nav-link">About</a></li>
-            <li><a href="#skills" class="nav-link">Skills</a></li>
-            <li><a href="#experience" class="nav-link">Experience</a></li>
-            <li><a href="#projects" class="nav-link">Projects</a></li>
-            <li><a href="#contact" class="nav-link">Contact</a></li>
-          </ul>
-          <button class="theme-switcher" type="button" aria-label="Toggle dark mode">
-            <svg class="sun-icon" width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
-              <circle cx="10" cy="10" r="4" stroke="currentColor" stroke-width="1.5" fill="none" />
-              <path d="M10 1v2M10 17v2M19 10h-2M3 10H1M16.07 3.93l-1.41 1.41M5.34 14.66l-1.41 1.41M16.07 16.07l-1.41-1.41M5.34 5.34L3.93 3.93" />
-            </svg>
-            <svg class="moon-icon" width="20" height="20" viewBox="0 0 20 20" fill="currentColor" style="display: none;">
-              <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z" />
-            </svg>
-          </button>
-          <button class="mobile-menu-toggle" type="button" aria-expanded="false">
-            <span class="hamburger-line"></span>
-            <span class="hamburger-line"></span>
-            <span class="hamburger-line"></span>
-          </button>
-        </nav>
-        <div class="scroll-progress">
-          <div class="scroll-progress-bar"></div>
-        </div>
-      </header>
-    `,
-    hero: `
-      <section class="hero" id="hero" data-section="hero">
-        <div class="hero-content">
-          <h1 class="hero-name">
-            <span class="hero-greeting">Hi, I'm</span>
-            <span class="hero-name-text">Alex Johnson</span>
-          </h1>
-          <p class="hero-title">Marketing Operations Lead</p>
-          <p class="hero-subtitle">
-            Passionate about driving growth through data-driven marketing strategies, automation, and cross-functional collaboration.
-          </p>
-          <div class="hero-actions">
-            <a href="#about" class="hero-cta primary">Learn More About Me</a>
-            <a href="#contact" class="hero-cta secondary">Get In Touch</a>
-          </div>
-        </div>
-      </section>
-    `,
     about: `
       <section class="section about-section" id="about" data-section="about">
         <div class="container">
