@@ -360,13 +360,13 @@ async function loadAllComponents() {
     console.warn(`⚠️ ${totalComponents - successCount} components failed to load`);
   }
 
-  setTimeout(() => {
-    if (typeof initializeNavigation === 'function') {
-      initializeNavigation();
-    } else {
-      console.error('❌ initializeNavigation function not found');
-    }
-  }, 100);
+  // setTimeout(() => {
+  //   if (typeof initializeNavigation === 'function') {
+  //     initializeNavigation();
+  //   } else {
+  //     console.error('❌ initializeNavigation function not found');
+  //   }
+  // }, 100);
 
   return { successCount, totalComponents, loadTime };
 }
