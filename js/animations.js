@@ -436,51 +436,76 @@ function createScrollAnimations() {
 /**
  * About section - Pure GSAP
  */
+
 function createAboutAnimations() {
   const aboutSection = document.querySelector('#about, .about-section');
   if (!aboutSection) return;
 
+  // ROW 1: Introduction + Photo
   const aboutText = aboutSection.querySelector('.about-text');
-  const aboutImage = aboutSection.querySelector('.about-image, .about-photo');
-  const aboutStats = aboutSection.querySelectorAll('.about-stat');
+  const aboutImage = aboutSection.querySelector('.about-image');
 
+  // ROW 2: Stats + Fun Facts
+  const aboutStats = aboutSection.querySelectorAll('.stat-item');
+  const funFacts = aboutSection.querySelector('.fun-facts');
+  const funFactItems = aboutSection.querySelectorAll('.fun-fact-item');
+
+  // ROW 3: Values + Actions
+  const aboutValues = aboutSection.querySelector('.about-values');
+  const valueItems = aboutSection.querySelectorAll('.value-item');
+  const aboutActions = aboutSection.querySelector('.about-actions');
+
+  // CRITICAL FIX: Clear CSS transitions that conflict with GSAP
+  gsap.set([funFacts, aboutValues, aboutActions, ...valueItems], {
+    clearProps: 'transition,transform',
+    willChange: 'transform, opacity',
+  });
+
+  // Set initial states (hidden)
+  gsap.set([aboutText, aboutImage], { opacity: 0, y: 50 });
+  gsap.set(aboutStats, { opacity: 0, y: 30, scale: 0.9 });
+  gsap.set([funFacts, aboutValues, aboutActions], { opacity: 0, y: 40 });
+  gsap.set(funFactItems, { opacity: 0, x: -20 });
+  gsap.set(valueItems, { opacity: 0, y: 20 });
+
+  // Create main timeline with proper ScrollTrigger
   const tl = gsap.timeline({
     scrollTrigger: {
-      trigger: aboutText,
-      start: ANIMATION_CONFIG.scrollTrigger.start,
-      end: ANIMATION_CONFIG.scrollTrigger.end,
-      toggleActions: ANIMATION_CONFIG.scrollTrigger.toggleActions,
+      trigger: aboutSection,
+      start: 'top 80%',
+      end: 'bottom 20%',
+      toggleActions: 'play none none reverse',
+      scrub: false,
     },
   });
 
-  // Text from left
+  // ROW 1 ANIMATIONS
+  // Text from bottom
   if (aboutText) {
     tl.to(aboutText, {
       opacity: 1,
-      x: 0,
       y: 0,
-      duration: ANIMATION_CONFIG.normal,
-      ease: ANIMATION_CONFIG.ease.smooth,
+      duration: 0.8,
+      ease: 'power2.out',
     });
   }
 
-  // Image from right
+  // Image from bottom with slight delay
   if (aboutImage) {
     tl.to(
       aboutImage,
       {
         opacity: 1,
-        x: 0,
         y: 0,
-        scale: 1,
-        duration: ANIMATION_CONFIG.normal,
-        ease: ANIMATION_CONFIG.ease.bounce,
+        duration: 0.8,
+        ease: 'power2.out',
       },
       '-=0.4'
     );
   }
 
-  // Stats stagger
+  // ROW 2 ANIMATIONS
+  // Stats stagger animation
   if (aboutStats.length > 0) {
     tl.to(
       aboutStats,
@@ -488,15 +513,128 @@ function createAboutAnimations() {
         opacity: 1,
         y: 0,
         scale: 1,
-        duration: ANIMATION_CONFIG.fast,
-        ease: ANIMATION_CONFIG.ease.bounce,
-        stagger: ANIMATION_CONFIG.stagger.fast,
+        duration: 0.6,
+        ease: 'back.out(1.7)',
+        stagger: 0.1,
       },
       '-=0.2'
     );
   }
 
+  // Fun Facts fade in with smoother easing
+  if (funFacts) {
+    tl.to(
+      funFacts,
+      {
+        opacity: 1,
+        y: 0,
+        duration: 0.8,
+        ease: 'power2.out', // Changed from power2.out for smoother animation
+      },
+      '-=0.3'
+    );
+  }
+
+  // Fun Fact items stagger
+  if (funFactItems.length > 0) {
+    tl.to(
+      funFactItems,
+      {
+        opacity: 1,
+        x: 0,
+        duration: 0.5,
+        ease: 'power2.out',
+        stagger: 0.1,
+      },
+      '-=0.4'
+    );
+  }
+
+  // ROW 3 ANIMATIONS - FIXED EASING
+  // Values section fade in with gentler easing
+  if (aboutValues) {
+    tl.to(
+      aboutValues,
+      {
+        opacity: 1,
+        y: 0,
+        duration: 0.8,
+        ease: 'power1.out', // Gentler easing to prevent snap effect
+      },
+      '-=0.2'
+    );
+  }
+
+  // Value items stagger with smoother transition
+  if (valueItems.length > 0) {
+    tl.to(
+      valueItems,
+      {
+        opacity: 1,
+        y: 0,
+        duration: 0.6,
+        ease: 'power1.out', // Gentler easing
+        stagger: 0.08,
+      },
+      '-=0.6' // More overlap with parent container
+    );
+  }
+
+  // Actions/CTA section with gentle easing
+  if (aboutActions) {
+    tl.to(
+      aboutActions,
+      {
+        opacity: 1,
+        y: 0,
+        duration: 0.8,
+        ease: 'power1.out', // Gentler easing to prevent snap
+      },
+      '-=0.5' // More overlap to feel connected
+    );
+  }
+
+  // Store timeline
   timelines.sections.set('about', tl);
+
+  // BONUS: Animated stat counters (separate trigger)
+  animateStatCounters();
+}
+function animateStatCounters() {
+  const statNumbers = document.querySelectorAll('.stat-number[data-count]');
+
+  statNumbers.forEach((stat) => {
+    const targetValue = stat.getAttribute('data-count');
+    const isDecimal = targetValue.includes('.');
+
+    gsap.fromTo(
+      stat,
+      {
+        innerHTML: 0,
+      },
+      {
+        innerHTML: targetValue,
+        duration: 2,
+        ease: 'power2.out',
+        snap: isDecimal ? { innerHTML: 0.1 } : { innerHTML: 1 },
+        scrollTrigger: {
+          trigger: stat,
+          start: 'top 80%',
+          toggleActions: 'play none none reverse',
+        },
+        onUpdate: function () {
+          const value = parseFloat(this.targets()[0].innerHTML);
+          if (isDecimal) {
+            stat.innerHTML = value.toFixed(1);
+          } else if (value >= 1000) {
+            stat.innerHTML = Math.round(value).toLocaleString();
+          } else {
+            stat.innerHTML = Math.round(value);
+          }
+        },
+      }
+    );
+  });
 }
 
 /**

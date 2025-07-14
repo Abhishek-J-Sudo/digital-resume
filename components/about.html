@@ -9,96 +9,187 @@
       </p>
     </div>
 
-    <!-- About Content Grid -->
-    <div class="about-grid">
+    <!-- NEW 3-ROW LAYOUT STRUCTURE -->
+
+    <!-- ROW 1: Description + Photo -->
+    <div class="about-row about-intro-row">
       <!-- About Text Content -->
       <div class="about-text fade-in-left">
         <div class="about-intro">
           <p class="intro-paragraph">
-            <strong>Hi there! I'm Alex Johnson</strong>, a results-driven Marketing Operations Lead
-            with over <span class="highlight">5 years of experience</span> transforming marketing
-            strategies through data-driven insights, automation, and cross-functional collaboration.
+            <strong>Hi there! I'm Alex Johnson</strong>, a passionate Email Development & CRM Lead
+            with over <span class="highlight">8.5 years of experience</span> delivering high-quality
+            email campaigns and leading technical teams across diverse clients and platforms.
           </p>
         </div>
 
         <div class="about-details">
           <p>
-            I specialize in building <strong>scalable marketing systems</strong> that drive
-            measurable growth. My expertise spans marketing automation platforms, CRM optimization,
-            lead scoring models, and campaign performance analytics. I thrive in fast-paced
-            environments where strategic thinking meets tactical execution.
+            I specialize in <strong>end-to-end email campaign delivery</strong> and team leadership.
+            My expertise spans HTML/CSS/JS email development, CRM platforms (SAP, Microsoft
+            Dynamics), analytics (GA4, GTM), and multi-platform QA. I've successfully delivered
+            <strong>1200+ emails</strong>
+            last year while managing teams and maintaining the highest quality standards.
           </p>
 
           <p>
-            When I'm not optimizing conversion funnels or analyzing campaign data, you'll find me
-            exploring new marketing technologies, mentoring junior team members, or collaborating
-            with sales and product teams to align our go-to-market strategies.
+            When I'm not coding responsive emails or managing CRM transitions, you'll find me
+            creating process improvement tools, mentoring team members, or capturing the world
+            through my travel photography lens. I believe in building efficient workflows that scale
+            with business growth.
           </p>
         </div>
+      </div>
 
-        <!-- Key Stats -->
-        <div class="about-stats">
-          <div class="stat-item">
-            <div class="stat-number" data-count="150">0</div>
-            <div class="stat-label">Campaigns Optimized</div>
+      <!-- About Image/Visual -->
+      <div class="about-visual fade-in-right" style="display: var(--show-photo, block)">
+        <!-- Profile Image Container -->
+        <div class="about-image-container">
+          <div class="about-image">
+            <!-- Placeholder for profile photo -->
+            <img
+              src="assets/images/profile.jpg"
+              alt="Alex Johnson - Email Development & CRM Lead"
+              loading="lazy"
+              onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+            />
+
+            <!-- Fallback if image doesn't load -->
+            <div class="image-placeholder" style="display: none">
+              <div class="placeholder-icon">
+                <svg width="64" height="64" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12 4a4 4 0 100 8 4 4 0 000-8zM6 14a6 6 0 0112 0v6H6v-6z" />
+                </svg>
+              </div>
+              <p>Professional headshot goes here</p>
+            </div>
           </div>
 
-          <div class="stat-item">
-            <div class="stat-number" data-count="40">0</div>
-            <div class="stat-label">% Lead Quality Improvement</div>
-          </div>
-
-          <div class="stat-item">
-            <div class="stat-number" data-count="5">0</div>
-            <div class="stat-label">Years Experience</div>
-          </div>
-
-          <div class="stat-item">
-            <div class="stat-number" data-count="25">0</div>
-            <div class="stat-label">Team Members Mentored</div>
+          <!-- Visual Decorations -->
+          <div class="image-decorations">
+            <div class="decoration decoration-1"></div>
+            <div class="decoration decoration-2"></div>
+            <div class="decoration decoration-3"></div>
           </div>
         </div>
+      </div>
+    </div>
 
-        <!-- Core Values -->
-        <div class="about-values">
-          <h3 class="values-title">What Drives Me</h3>
-          <div class="values-grid">
-            <div class="value-item">
-              <div class="value-icon">📊</div>
-              <div class="value-content">
-                <h4>Data-Driven Decisions</h4>
-                <p>Every strategy is backed by solid data and measurable outcomes</p>
-              </div>
+    <!-- ROW 2: Stats + Fun Facts -->
+    <div class="about-row about-stats-row">
+      <!-- About Stats -->
+      <div class="about-stats fade-in-up">
+        <div class="stat-item">
+          <div class="stat-number" data-count="1200">1200</div>
+          <div class="stat-label">Emails Delivered</div>
+        </div>
+
+        <div class="stat-item">
+          <div class="stat-number" data-count="8">8+</div>
+          <div class="stat-label">Clients Managed</div>
+        </div>
+
+        <div class="stat-item">
+          <div class="stat-number" data-count="8.5">8.5</div>
+          <div class="stat-label">Years Experience</div>
+        </div>
+
+        <div class="stat-item">
+          <div class="stat-number" data-count="5">5</div>
+          <div class="stat-label">Process Improvement Tools</div>
+        </div>
+      </div>
+
+      <!-- Fun Facts About Me -->
+      <div class="fun-facts fade-in-up">
+        <h3 class="fun-facts-title">Fun Facts About Me</h3>
+
+        <div class="fun-facts-grid">
+          <div class="fun-fact-item">
+            <div class="fun-fact-icon" style="font-size: 25px !important">🏎️</div>
+            <div class="fun-fact-text">
+              <span class="fun-fact-label">F1 enthusiast</span>
+              <span class="fun-fact-detail">Team Max supporter</span>
             </div>
-
-            <div class="value-item">
-              <div class="value-icon">🚀</div>
-              <div class="value-content">
-                <h4>Continuous Innovation</h4>
-                <p>Always exploring new tools and methodologies to stay ahead</p>
-              </div>
+          </div>
+          <div class="fun-fact-item">
+            <div class="fun-fact-icon">🎵</div>
+            <div class="fun-fact-text">
+              <span class="fun-fact-label">Music producer</span>
+              <span class="fun-fact-detail">occasionally on FL Studio</span>
             </div>
+          </div>
 
-            <div class="value-item">
-              <div class="value-icon">🤝</div>
-              <div class="value-content">
-                <h4>Collaborative Growth</h4>
-                <p>Building strong cross-functional relationships for shared success</p>
-              </div>
+          <div class="fun-fact-item">
+            <div class="fun-fact-icon">📸</div>
+            <div class="fun-fact-text">
+              <span class="fun-fact-label">Travel photography</span>
+              <span class="fun-fact-detail">capturing world adventures</span>
             </div>
+          </div>
 
-            <div class="value-item">
-              <div class="value-icon">⚡</div>
-              <div class="value-content">
-                <h4>Operational Excellence</h4>
-                <p>Streamlining processes to maximize efficiency and impact</p>
-              </div>
+          <div class="fun-fact-item">
+            <div class="fun-fact-icon">🍗</div>
+            <div class="fun-fact-text">
+              <span class="fun-fact-label">Food elements</span>
+              <span class="fun-fact-detail">chicken, paneer & coffee</span>
             </div>
           </div>
         </div>
+      </div>
+    </div>
 
-        <!-- Quick Actions -->
-        <div class="about-actions">
+    <!-- ROW 3: What Drives Me + Call-to-Actions -->
+    <div class="about-row about-values-row">
+      <!-- What Drives Me -->
+      <div class="about-values fade-in-up">
+        <h3 class="values-title">What Drives Me</h3>
+
+        <div class="values-grid">
+          <div class="value-item">
+            <div class="value-icon">💻</div>
+            <div class="value-content">
+              <h4>Technical Excellence</h4>
+              <p>Delivering pixel-perfect email campaigns across all platforms and devices</p>
+            </div>
+          </div>
+
+          <div class="value-item">
+            <div class="value-icon">🔧</div>
+            <div class="value-content">
+              <h4>Process Innovation</h4>
+              <p>Creating tools and workflows that improve efficiency and reduce execution time</p>
+            </div>
+          </div>
+
+          <div class="value-item">
+            <div class="value-icon">👥</div>
+            <div class="value-content">
+              <h4>Team Leadership</h4>
+              <p>Mentoring developers and ensuring high-quality delivery standards</p>
+            </div>
+          </div>
+
+          <div class="value-item">
+            <div class="value-icon">🎯</div>
+            <div class="value-content">
+              <h4>Quality Focus</h4>
+              <p>
+                End-to-end ownership ensuring flawless campaign execution and client satisfaction
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Call-to-Actions -->
+      <div class="about-actions fade-in-up">
+        <h3 class="actions-title">Let's Build Something</h3>
+        <p class="actions-subtitle">
+          Ready to discuss your next email campaign or development challenge?
+        </p>
+
+        <div class="actions-buttons">
           <a href="#contact" class="btn btn-primary">
             <span>Let's Connect</span>
             <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
@@ -112,72 +203,6 @@
               <path d="M8 1v10L5 8h6L8 11V1zM2 13h12v2H2v-2z" />
             </svg>
           </a>
-        </div>
-      </div>
-
-      <!-- About Image/Visual -->
-      <div class="about-visual fade-in-right" style="display: var(--show-photo, block)">
-        <!-- Profile Image Container -->
-        <div class="about-image-container">
-          <div class="about-image">
-            <!-- Placeholder for profile photo -->
-            <img
-              src="assets/images/profile.jpg"
-              alt="Alex Johnson - Marketing Operations Lead"
-              loading="lazy"
-              onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
-            />
-
-            <!-- Fallback if image doesn't load -->
-            <div class="image-placeholder" style="display: none">
-              <div class="placeholder-icon">
-                <svg width="64" height="64" viewBox="0 0 24 24" fill="currentColor">
-                  <path
-                    d="M12 2C13.1 2 14 2.9 14 4C14 5.1 13.1 6 12 6C10.9 6 10 5.1 10 4C10 2.9 10.9 2 12 2ZM21 9V7L15 1H5C3.89 1 3 1.89 3 3V21C3 22.1 3.89 23 5 23H19C20.1 23 21 22.1 21 21V9M19 9H14V4H19V9Z"
-                  />
-                </svg>
-              </div>
-              <p>Alex Johnson</p>
-            </div>
-          </div>
-
-          <!-- Decorative Elements -->
-          <div class="image-decoration">
-            <div class="decoration-circle decoration-1"></div>
-            <div class="decoration-circle decoration-2"></div>
-            <div class="decoration-square decoration-3"></div>
-          </div>
-        </div>
-
-        <!-- Fun Facts -->
-        <div class="fun-facts">
-          <h4 class="fun-facts-title">Fun Facts About Me</h4>
-          <div class="facts-list">
-            <div class="fact-item">
-              <span class="fact-icon">☕</span>
-              <span class="fact-text">Coffee enthusiast - 3 cups minimum per day</span>
-            </div>
-
-            <div class="fact-item">
-              <span class="fact-icon">🎵</span>
-              <span class="fact-text">Love discovering indie music and live concerts</span>
-            </div>
-
-            <div class="fact-item">
-              <span class="fact-icon">🥾</span>
-              <span class="fact-text">Weekend hiker exploring new trails</span>
-            </div>
-
-            <div class="fact-item">
-              <span class="fact-icon">📚</span>
-              <span class="fact-text">Always reading marketing and psychology books</span>
-            </div>
-
-            <div class="fact-item">
-              <span class="fact-icon">🍳</span>
-              <span class="fact-text">Experimental cook trying global cuisines</span>
-            </div>
-          </div>
         </div>
       </div>
     </div>
