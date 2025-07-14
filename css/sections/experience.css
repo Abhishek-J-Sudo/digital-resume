@@ -115,9 +115,9 @@
   color: var(--color-text-tertiary);
 }
 
-.responsibilities {
+/* .responsibilities {
   margin-bottom: var(--space-lg);
-}
+} */
 
 .responsibilities ul {
   list-style: none;
@@ -356,7 +356,7 @@
 .responsibilities-hidden.expanded {
   max-height: 500px; /* Large enough for most content */
   opacity: 1;
-  margin-top: var(--space-lg);
+  /* margin-top: var(--space-lg); */
 }
 
 /* NEW SECTION - Key Achievements Summary */
@@ -531,7 +531,7 @@
   }
   .experience-item {
     padding-left: var(--space-md);
-    margin-bottom: var(--space-2xl);
+    margin-bottom: var(--space-xl);
   }
   .timeline-line {
     left: -10px; /* Moved closer to left from 30px */

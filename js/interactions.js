@@ -96,9 +96,6 @@ function initializeExpandCollapse() {
 
   console.log(`📖 Initialized ${expandButtons.length} expand/collapse controls`);
 }
-/**
- * Toggle expandable item (experience, project details, etc.)
- */
 function toggleExpandableItem(button) {
   const experienceItem = button.closest('.experience-item') || button.closest('[data-expandable]');
   if (!experienceItem) {
@@ -126,13 +123,6 @@ function toggleExpandableItem(button) {
   } else {
     expandItem(experienceItem, hiddenContent, button, itemId);
   }
-
-  // Track interaction
-  Utils.analytics.trackEvent('expand_collapse_toggled', {
-    itemId,
-    action: isExpanded ? 'collapse' : 'expand',
-    section: experienceItem.closest('section')?.id || 'unknown',
-  });
 }
 
 /**
@@ -144,15 +134,19 @@ function expandItem(container, content, button, itemId) {
   // Update button state
   updateExpandButton(button, true);
 
-  // Show content with animation
+  // CRITICAL FIX: Force display override and clear inline styles
   content.style.display = 'block';
+  content.style.visibility = 'visible';
   content.style.opacity = '0';
   content.style.maxHeight = '0px';
   content.style.overflow = 'hidden';
-  content.style.transition = 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)';
+  content.style.transition = 'all 0.4s ease';
 
   // Force reflow
   content.offsetHeight;
+
+  // Add expanded class for CSS targeting
+  content.classList.add('expanded');
 
   // Animate to full height
   const fullHeight = content.scrollHeight;
@@ -162,7 +156,7 @@ function expandItem(container, content, button, itemId) {
   // Clean up after animation
   setTimeout(() => {
     content.style.maxHeight = '';
-    content.style.overflow = '';
+    content.style.overflow = 'visible';
     content.setAttribute('aria-hidden', 'false');
   }, 400);
 
@@ -179,7 +173,7 @@ function collapseItem(container, content, button, itemId) {
   // Update button state
   updateExpandButton(button, false);
 
-  // Animate to collapsed state
+  // Set explicit height before animating
   const currentHeight = content.scrollHeight;
   content.style.maxHeight = currentHeight + 'px';
   content.style.overflow = 'hidden';
@@ -192,12 +186,14 @@ function collapseItem(container, content, button, itemId) {
   content.style.maxHeight = '0px';
   content.style.opacity = '0';
 
-  // Hide after animation
+  // Hide after animation and restore inline style
   setTimeout(() => {
-    content.style.display = 'none';
+    content.style.display = 'none'; // Restore hidden state
     content.style.maxHeight = '';
     content.style.overflow = '';
     content.style.transition = '';
+    content.style.visibility = '';
+    content.classList.remove('expanded');
     content.setAttribute('aria-hidden', 'true');
   }, 400);
 
