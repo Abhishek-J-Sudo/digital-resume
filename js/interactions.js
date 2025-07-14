@@ -308,8 +308,9 @@ function initializeSwipeGestures() {
       // Minimum swipe distance
       if (absDeltaX < 50 && absDeltaY < 50) return;
 
-      // Close mobile menu on left swipe or upward swipe
-      if ((absDeltaX > absDeltaY && deltaX < 0) || (absDeltaY > absDeltaX && deltaY < 0)) {
+      // FIXED: Only close mobile menu on LEFT swipe, removed upward swipe
+      if (absDeltaX > absDeltaY && deltaX < 0) {
+        // Only left swipe
         if (window.Navigation && window.Navigation.state.mobileMenuOpen) {
           window.Navigation.closeMobileMenu();
         }

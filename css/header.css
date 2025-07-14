@@ -652,9 +652,12 @@
     width: 28px;
   }
 
-  .mobile-menu-header,
   .mobile-menu-footer {
     padding: var(--space-lg);
+  }
+
+  .mobile-menu-header {
+    padding: var(--space-sm) var(--space-lg);
   }
 
   .mobile-social-links {

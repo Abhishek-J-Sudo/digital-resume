@@ -20,6 +20,9 @@ window.App = {
     showPhoto: true,
     companyTheme: '',
   },
+
+  carouselInitialized: false,
+  coreInitialized: false,
 };
 
 /**
@@ -372,7 +375,14 @@ async function loadAllComponents() {
  * Initialize core application functionality
  */
 function initializeApp() {
+  // PREVENT MULTIPLE INITIALIZATIONS
+  if (window.App.coreInitialized) {
+    console.log('⚠️ Core functionality already initialized, skipping...');
+    return;
+  }
+
   console.log('🔧 Initializing core functionality...');
+  window.App.coreInitialized = true; // Set flag immediately
 
   // Initialize theme system if available
   if (typeof initializeThemeSystem === 'function') {
@@ -397,6 +407,49 @@ function initializeApp() {
       initializeNavigation();
     }
   }, 2000);
+
+  // Initialize carousel ONLY ONCE
+  setTimeout(() => {
+    if (window.App.carouselInitialized) {
+      console.log('⚠️ Carousel already initialized, skipping...');
+      return;
+    }
+
+    console.log('📸 Initializing carousel after components loaded...');
+
+    // Check if hobbies section and carousel elements exist
+    const hobbiesSection = document.querySelector('.hobbies-section');
+    const photoGallery = document.querySelector('.photo-gallery');
+
+    if (hobbiesSection && photoGallery) {
+      console.log('📸 Hobbies section found, initializing carousel...');
+      window.App.carouselInitialized = true; // Set flag before initializing
+
+      // Check if carousel script is loaded
+      if (window.PhotoCarousel && typeof window.PhotoCarousel.initialize === 'function') {
+        window.PhotoCarousel.initialize();
+      } else {
+        console.warn('⚠️ PhotoCarousel script not loaded yet, retrying...');
+        // Retry after carousel script loads
+        setTimeout(() => {
+          if (window.PhotoCarousel && typeof window.PhotoCarousel.initialize === 'function') {
+            window.PhotoCarousel.initialize();
+          } else {
+            console.error('❌ PhotoCarousel failed to load');
+            window.App.carouselInitialized = false; // Reset flag on failure
+          }
+        }, 1000);
+      }
+    } else {
+      console.log('📸 No hobbies section found, skipping carousel initialization');
+    }
+
+    // Also initialize interactions after components load
+    if (typeof initializeAllInteractions === 'function') {
+      console.log('🎯 Initializing interactions...');
+      initializeAllInteractions();
+    }
+  }, 2500);
 
   console.log('✅ Core functionality initialized');
 }

@@ -216,27 +216,30 @@ function closeMobileMenu() {
 function initializeTouchGestures(element) {
   let startY = 0;
   let currentY = 0;
+  let startX = 0;
+  let currentX = 0;
   let isDragging = false;
 
   element.addEventListener(
     'touchstart',
     (e) => {
+      startX = e.touches[0].clientX;
       startY = e.touches[0].clientY;
       isDragging = true;
     },
     { passive: true }
   );
-
   element.addEventListener(
     'touchmove',
     (e) => {
       if (!isDragging) return;
 
-      currentY = e.touches[0].clientY;
-      const diffY = startY - currentY;
+      currentX = e.touches[0].clientX;
+      const diffX = startX - currentX;
 
       // Close menu on upward swipe (threshold: 50px)
-      if (diffY > 50) {
+      if (diffX > 50) {
+        // Left swipe threshold: 50px
         closeMobileMenu();
         isDragging = false;
       }

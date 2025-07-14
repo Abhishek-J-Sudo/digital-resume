@@ -338,7 +338,9 @@
     grid-template-columns: 1fr;
     gap: var(--space-md);
   }
-
+  .skills-section {
+    padding-top: 0;
+  }
   .certification-item {
     text-align: left;
     padding: var(--space-lg);

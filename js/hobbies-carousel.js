@@ -526,29 +526,29 @@ function showCarouselFallback() {
   console.log('🔄 Carousel fallback content displayed');
 }
 
-// Initialize when DOM is ready
-document.addEventListener('DOMContentLoaded', () => {
-  console.log('📸 DOM loaded, checking for photo carousel...');
+// // Initialize when DOM is ready
+// document.addEventListener('DOMContentLoaded', () => {
+//   console.log('📸 DOM loaded, checking for photo carousel...');
 
-  // Wait a bit for components to load
-  setTimeout(() => {
-    const photoGallery = document.querySelector('.photo-gallery');
-    if (photoGallery) {
-      console.log('📸 Photo gallery detected after delay, initializing...');
-      initializePhotoCarousel();
-    } else {
-      console.log('📸 No photo gallery found after delay');
-    }
-  }, 1000);
-});
+//   // Wait a bit for components to load
+//   setTimeout(() => {
+//     const photoGallery = document.querySelector('.photo-gallery');
+//     if (photoGallery) {
+//       console.log('📸 Photo gallery detected after delay, initializing...');
+//       initializePhotoCarousel();
+//     } else {
+//       console.log('📸 No photo gallery found after delay');
+//     }
+//   }, 1000);
+// });
 
-// Also try when window loads
-window.addEventListener('load', () => {
-  if (!CarouselState.initialized) {
-    console.log('📸 Window loaded, trying to initialize carousel...');
-    initializePhotoCarousel();
-  }
-});
+// // Also try when window loads
+// window.addEventListener('load', () => {
+//   if (!CarouselState.initialized) {
+//     console.log('📸 Window loaded, trying to initialize carousel...');
+//     initializePhotoCarousel();
+//   }
+// });
 
 // Export for debugging
 window.PhotoCarousel = {
