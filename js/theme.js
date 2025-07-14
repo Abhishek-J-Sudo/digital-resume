@@ -307,11 +307,11 @@ if (window.ThemeSystemInitialized) {
 
     if (sunIcon && moonIcon) {
       if (ThemeSystem.currentTheme === 'dark') {
-        sunIcon.style.display = 'none';
-        moonIcon.style.display = 'block';
-      } else {
         sunIcon.style.display = 'block';
         moonIcon.style.display = 'none';
+      } else {
+        sunIcon.style.display = 'none';
+        moonIcon.style.display = 'block';
       }
     }
 

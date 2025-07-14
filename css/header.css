@@ -149,7 +149,7 @@
 
 .theme-switcher {
   background: none;
-  border: 1px solid rgba(0, 0, 0, var(--theme-border-opacity));
+  border: 1px solid rgba(75, 75, 75, var(--theme-switcher-border-opacity));
   border-radius: var(--radius-lg);
   padding: var(--space-sm);
   cursor: pointer;
@@ -184,19 +184,19 @@
 }
 
 [data-theme='dark'] .sun-icon {
-  display: none;
+  display: block;
 }
 
 [data-theme='dark'] .moon-icon {
-  display: block;
+  display: none;
 }
 
 [data-theme='light'] .sun-icon {
-  display: block;
+  display: none;
 }
 
 [data-theme='light'] .moon-icon {
-  display: none;
+  display: block;
 }
 
 /* ===================================
