@@ -12,6 +12,149 @@ const InteractionState = {
   touchStartX: 0,
 };
 
+/* ===================================
+   TOAST NOTIFICATION SYSTEM
+   =================================== */
+
+class ToastManager {
+  constructor() {
+    this.container = null;
+    this.toasts = new Map();
+    this.toastCounter = 0;
+    this.init();
+  }
+
+  init() {
+    // Create toast container if it doesn't exist
+    this.container = document.querySelector('.toast-container');
+    if (!this.container) {
+      this.container = document.createElement('div');
+      this.container.className = 'toast-container';
+      document.body.appendChild(this.container);
+    }
+  }
+
+  show(options = {}) {
+    const {
+      type = 'success',
+      title = 'Success',
+      message = '',
+      duration = 3000,
+      closable = true,
+    } = options;
+
+    const toastId = `toast-${++this.toastCounter}`;
+
+    // Create toast element
+    const toast = document.createElement('div');
+    toast.className = `toast ${type}`;
+    toast.setAttribute('role', 'alert');
+    toast.setAttribute('aria-live', 'polite');
+
+    // Create toast content
+    toast.innerHTML = `
+      <div class="toast-icon">
+        ${this.getIconSVG(type)}
+      </div>
+      <div class="toast-content">
+        <div class="toast-title">${title}</div>
+        ${message ? `<div class="toast-message">${message}</div>` : ''}
+      </div>
+      ${
+        closable
+          ? `
+        <button class="toast-close" aria-label="Close notification">
+          <svg viewBox="0 0 12 12" fill="currentColor">
+            <path d="M6 4.586L2.707 1.293a1 1 0 0 0-1.414 1.414L4.586 6l-3.293 3.293a1 1 0 1 0 1.414 1.414L6 7.414l3.293 3.293a1 1 0 0 0 1.414-1.414L7.414 6l3.293-3.293a1 1 0 0 0-1.414-1.414L6 4.586z"/>
+          </svg>
+        </button>
+      `
+          : ''
+      }
+      ${duration > 0 ? '<div class="toast-progress"></div>' : ''}
+    `;
+
+    // Add to container
+    this.container.appendChild(toast);
+    this.toasts.set(toastId, toast);
+
+    // Trigger show animation
+    setTimeout(
+      () =>
+        requestAnimationFrame(() => {
+          toast.classList.add('show');
+        }),
+      10
+    );
+
+    // Add close button functionality
+    if (closable) {
+      const closeBtn = toast.querySelector('.toast-close');
+      closeBtn?.addEventListener('click', () => this.hide(toastId));
+    }
+
+    // Auto-hide after duration
+    if (duration > 0) {
+      setTimeout(() => {
+        this.hide(toastId);
+      }, duration);
+    }
+
+    return toastId;
+  }
+
+  hide(toastId) {
+    const toast = this.toasts.get(toastId);
+    if (!toast) return;
+
+    toast.classList.remove('show');
+    toast.classList.add('hide');
+
+    // Remove from DOM after animation
+    setTimeout(() => {
+      if (toast.parentNode) {
+        toast.parentNode.removeChild(toast);
+      }
+      this.toasts.delete(toastId);
+    }, 300);
+  }
+
+  hideAll() {
+    this.toasts.forEach((_, toastId) => {
+      this.hide(toastId);
+    });
+  }
+
+  getIconSVG(type) {
+    const icons = {
+      success: `
+        <svg viewBox="0 0 12 12" fill="currentColor">
+          <path d="M10.293 3.293a1 1 0 0 1 1.414 1.414l-6 6a1 1 0 0 1-1.414 0l-3-3a1 1 0 1 1 1.414-1.414L5 8.586l5.293-5.293z"/>
+        </svg>
+      `,
+      error: `
+        <svg viewBox="0 0 12 12" fill="currentColor">
+          <path d="M6 4.586L2.707 1.293a1 1 0 0 0-1.414 1.414L4.586 6l-3.293 3.293a1 1 0 1 0 1.414 1.414L6 7.414l3.293 3.293a1 1 0 0 0 1.414-1.414L7.414 6l3.293-3.293a1 1 0 0 0-1.414-1.414L6 4.586z"/>
+        </svg>
+      `,
+      warning: `
+        <svg viewBox="0 0 12 12" fill="currentColor">
+          <path d="M6 2a1 1 0 0 1 1 1v3a1 1 0 1 1-2 0V3a1 1 0 0 1 1-1zm0 7a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/>
+        </svg>
+      `,
+      info: `
+        <svg viewBox="0 0 12 12" fill="currentColor">
+          <path d="M6 2a1 1 0 0 1 1 1v6a1 1 0 1 1-2 0V3a1 1 0 0 1 1-1zm0-1a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/>
+        </svg>
+      `,
+    };
+    return icons[type] || icons.info;
+  }
+}
+
+// Create global instance
+window.toastManager = new ToastManager();
+
 /**
  * Initialize all interactions when DOM is ready
  */
@@ -559,18 +702,42 @@ function initializeCopyToClipboard() {
   copyButtons.forEach((button) => {
     button.addEventListener('click', async (e) => {
       e.preventDefault();
+      e.stopPropagation();
+
+      // Prevent duplicate triggers
+      if (button.dataset.copying === 'true') return;
+      button.dataset.copying = 'true';
 
       const textToCopy = button.dataset.copy || button.textContent.trim();
 
       try {
         await navigator.clipboard.writeText(textToCopy);
-        showCopyFeedback(button, 'Copied!');
-        Utils.analytics.trackEvent('text_copied', { source: button.className });
+        showCopySuccess(textToCopy, button);
+        if (Utils.analytics && Utils.analytics.trackEvent) {
+          if (Utils.analytics && Utils.analytics.trackEvent) {
+            Utils.analytics.trackEvent('text_copied', { source: button.className });
+          }
+        }
       } catch (error) {
         // Fallback for older browsers
-        fallbackCopyToClipboard(textToCopy);
-        showCopyFeedback(button, 'Copied!');
+        try {
+          fallbackCopyToClipboard(textToCopy);
+          showCopySuccess(textToCopy, button);
+          if (Utils.analytics && Utils.analytics.trackEvent) {
+            if (Utils.analytics && Utils.analytics.trackEvent) {
+              Utils.analytics.trackEvent('text_copied', { source: button.className });
+            }
+          }
+        } catch (fallbackError) {
+          showCopyError();
+          console.error('Copy failed:', fallbackError);
+        }
       }
+
+      // Reset the copying flag after a short delay
+      setTimeout(() => {
+        button.dataset.copying = 'false';
+      }, 500);
     });
   });
 
@@ -588,24 +755,60 @@ function fallbackCopyToClipboard(text) {
   textArea.select();
 
   try {
-    document.execCommand('copy');
+    const successful = document.execCommand('copy');
+    if (!successful) {
+      throw new Error('Copy command failed');
+    }
   } catch (err) {
-    console.error('Fallback copy failed:', err);
+    throw new Error('Fallback copy failed: ' + err.message);
+  } finally {
+    document.body.removeChild(textArea);
   }
-
-  document.body.removeChild(textArea);
 }
 
-function showCopyFeedback(button, message) {
-  const originalText = button.textContent;
+function showCopySuccess(copiedText, sourceElement) {
+  // Determine what was copied for better messaging
+  let title = 'Copied!';
+  let message = '';
 
-  button.textContent = message;
-  button.style.background = 'var(--color-success)';
+  if (copiedText.includes('@')) {
+    title = 'Email Copied!';
+    message = 'Ready to paste into your email client';
+  } else if (copiedText.includes('+') || copiedText.match(/\d{3}.*\d{3}.*\d{4}/)) {
+    title = 'Phone Copied!';
+    message = 'Ready to paste or dial';
+  } else if (copiedText.length > 50) {
+    title = 'Text Copied!';
+    message = `${copiedText.length} characters copied`;
+  } else {
+    title = 'Copied!';
+    message = copiedText.length < 30 ? copiedText : copiedText.substring(0, 27) + '...';
+  }
 
-  setTimeout(() => {
-    button.textContent = originalText;
-    button.style.background = '';
-  }, 2000);
+  // Show toast notification
+  window.toastManager.show({
+    type: 'success',
+    title,
+    message,
+    duration: 2500,
+  });
+
+  // Add brief visual feedback to the clicked element
+  if (sourceElement) {
+    sourceElement.style.transform = 'scale(0.95)';
+    setTimeout(() => {
+      sourceElement.style.transform = '';
+    }, 150);
+  }
+}
+
+function showCopyError() {
+  window.toastManager.show({
+    type: 'error',
+    title: 'Copy Failed',
+    message: 'Please try selecting and copying manually',
+    duration: 4000,
+  });
 }
 
 /* ===================================

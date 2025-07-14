@@ -336,7 +336,7 @@
   }
 
   .hero-actions {
-    gap: var(--space-sm);
+    gap: var(--space-lg);
     margin-bottom: var(--space-lg);
   }
 
