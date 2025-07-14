@@ -355,6 +355,14 @@ async function loadAllComponents() {
     console.warn(`⚠️ ${totalComponents - successCount} components failed to load`);
   }
 
+  setTimeout(() => {
+    if (typeof initializeNavigation === 'function') {
+      initializeNavigation();
+    } else {
+      console.error('❌ initializeNavigation function not found');
+    }
+  }, 100);
+
   return { successCount, totalComponents, loadTime };
 }
 
@@ -380,6 +388,13 @@ function initializeApp() {
 
   // Initialize error handling
   initializeErrorHandling();
+
+  setTimeout(() => {
+    console.log('🔗 Initializing navigation after components loaded...');
+    if (typeof initializeNavigation === 'function') {
+      initializeNavigation();
+    }
+  }, 2000);
 
   console.log('✅ Core functionality initialized');
 }

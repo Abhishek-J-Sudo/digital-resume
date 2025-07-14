@@ -330,22 +330,60 @@ function scrollToTop() {
 }
 
 /**
+ * Clear all active navigation states
+ */
+function clearAllActiveNavigation() {
+  // Clear desktop navigation
+  const desktopNavLinks = document.querySelectorAll('.nav-link');
+  desktopNavLinks.forEach((link) => {
+    link.classList.remove('active');
+  });
+
+  // Clear mobile navigation
+  const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
+  mobileNavLinks.forEach((link) => {
+    link.classList.remove('active');
+  });
+
+  // Reset the active section state
+  NavigationState.activeSection = '';
+
+  console.log('🧹 Cleared all active navigation states');
+}
+
+/**
  * Initialize active navigation state management
  */
 function initializeActiveNavigation() {
   // Find all sections with IDs or data-section attributes
-  NavigationState.sections = Array.from(document.querySelectorAll('[id], [data-section]'))
-    .map((el) => ({
-      id: el.id || el.dataset.section,
-      element: el,
-      offset: 0,
-    }))
-    .filter(
-      (section) => section.id && section.id !== 'loading-screen' && section.id !== 'main-content'
-    );
+  const sectionNames = ['about', 'skills', 'experience', 'projects', 'contact'];
 
+  NavigationState.sections = sectionNames
+    .map((name) => {
+      // Try multiple selectors to see what exists
+      let element = document.querySelector(`section#${name}`);
+      if (!element) element = document.querySelector(`section.${name}-section`);
+      if (!element) element = document.querySelector(`section[data-section="${name}"]`);
+      if (!element) element = document.querySelector(`#${name}`); // Fallback to any element
+
+      return element
+        ? {
+            id: name === 'hero' ? '' : name,
+            element: element,
+            offset: 0,
+          }
+        : null;
+    })
+    .filter((section) => section !== null);
+
+  console.log(
+    'Sections found:',
+    NavigationState.sections.map((s) => s.id)
+  );
   // Update section offsets
   updateSectionOffsets();
+
+  clearAllActiveNavigation();
 
   // Initialize scroll listener with throttling
   let scrollTimeout;
@@ -382,21 +420,41 @@ function updateSectionOffsets() {
 /**
  * Update active navigation based on scroll position
  */
+/**
+ * DEBUG: Add this to your updateActiveNavOnScroll function
+ * Replace the entire function with this version that has debug logging
+ */
 function updateActiveNavOnScroll() {
-  const scrollPosition = window.pageYOffset + NavigationState.headerHeight + 100;
+  const scrollTop = window.pageYOffset;
+  const headerHeight = NavigationState.headerHeight;
+  const scrollPosition = scrollTop + headerHeight;
+
   let activeSection = '';
 
-  // Find the current section
-  for (let i = NavigationState.sections.length - 1; i >= 0; i--) {
-    const section = NavigationState.sections[i];
-    if (section.offset <= scrollPosition) {
+  // Start from top, find first section that we haven't scrolled past
+  NavigationState.sections.forEach((section) => {
+    const sectionTop = section.offset;
+    const sectionHeight = section.element.offsetHeight;
+    const sectionBottom = sectionTop + sectionHeight;
+
+    const isInSection = scrollPosition >= sectionTop && scrollPosition < sectionBottom;
+
+    if (isInSection) {
       activeSection = section.id;
-      break;
     }
+  });
+
+  // If we're at the very top (hero area), no nav should be active
+  if (scrollTop < 100) {
+    activeSection = '';
+    console.log('🔝 At top - no active section');
   }
 
   // Update if section changed
   if (activeSection !== NavigationState.activeSection) {
+    console.log(
+      `🔄 Changing active section from "${NavigationState.activeSection}" to "${activeSection}"`
+    );
     updateActiveNavigation(activeSection);
   }
 }
@@ -636,8 +694,8 @@ window.Navigation = {
 /**
  * Initialize on page load if DOM is already ready
  */
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', initializeNavigation);
-} else {
-  initializeNavigation();
-}
+// if (document.readyState === 'loading') {
+//   document.addEventListener('DOMContentLoaded', initializeNavigation);
+// } else {
+//   initializeNavigation();
+// }
