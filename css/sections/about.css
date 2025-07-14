@@ -162,7 +162,7 @@
   font-weight: var(--font-bold);
   color: var(--brand-primary);
   line-height: 1;
-  margin-bottom: var(--space-xs);
+  /* margin-bottom: var(--space-xs); */
 }
 
 .stat-label {
@@ -231,10 +231,10 @@
   line-height: var(--leading-tight);
 }
 
-/* ROW 3: What Drives Me + Actions */
+/* ROW 3: What Drives Me + Actions 
 .about-values-row {
-  /* Uses default grid: 1fr 1fr */
-}
+  /* Uses default grid: 1fr 1fr 
+}*/
 
 /* About Values */
 .about-values {

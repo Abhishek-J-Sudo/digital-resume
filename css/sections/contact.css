@@ -279,13 +279,13 @@
   text-align: left;
 }
 
-.stat-number {
+/* .stat-number {
   font-size: var(--text-lg);
   font-weight: var(--font-bold);
   color: var(--brand-primary);
   line-height: 1;
   margin-bottom: var(--space-xs);
-}
+} */
 
 .stat-label {
   font-size: var(--text-sm);
