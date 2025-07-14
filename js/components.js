@@ -340,6 +340,8 @@ async function loadAllComponents() {
   // Wait for all components to load (or fail)
   const results = await Promise.allSettled(loadPromises);
 
+  await loadCarouselIfNeeded();
+
   // Calculate loading stats
   const successCount = results.filter(
     (result) => result.status === 'fulfilled' && result.value === true
@@ -560,6 +562,106 @@ function handleLoadError(error) {
 }
 
 /**
+ * CAROUSEL INTEGRATION: Load carousel module if photo gallery exists
+ */
+async function loadCarouselIfNeeded() {
+  try {
+    // Check if hobbies section is enabled and has photo gallery
+    const hobbiesEnabled = window.App.config.showHobbies;
+    const photoGallery = document.querySelector('.photo-gallery');
+
+    if (!hobbiesEnabled || !photoGallery) {
+      console.log('📸 Photo gallery not found, skipping carousel');
+      return;
+    }
+
+    console.log('📸 Photo gallery detected, loading carousel module...');
+    await loadCarouselModule();
+  } catch (error) {
+    console.warn('⚠️ Error checking for carousel:', error);
+  }
+}
+
+/**
+ * CAROUSEL INTEGRATION: Dynamically load carousel JavaScript
+ */
+async function loadCarouselModule() {
+  return new Promise((resolve, reject) => {
+    // Check if already loaded
+    if (window.PhotoCarousel) {
+      console.log('📸 Carousel already loaded');
+      resolve();
+      return;
+    }
+
+    const script = document.createElement('script');
+    script.src = 'js/hobbies-carousel.js';
+    script.async = true;
+
+    script.onload = () => {
+      console.log('✅ Carousel module loaded successfully');
+
+      // Store carousel reference in App components
+      window.App.components.set('carousel', {
+        loaded: true,
+        error: null,
+        module: window.PhotoCarousel,
+      });
+
+      resolve();
+    };
+
+    script.onerror = () => {
+      console.warn('⚠️ Failed to load carousel module');
+
+      // Store error in App components
+      window.App.components.set('carousel', {
+        loaded: false,
+        error: 'Failed to load carousel script',
+      });
+
+      // Show fallback instead of rejecting
+      showCarouselFallback();
+      resolve(); // Resolve anyway to not break the app
+    };
+
+    document.head.appendChild(script);
+  });
+}
+
+/**
+ * CAROUSEL INTEGRATION: Show fallback if carousel fails to load
+ */
+function showCarouselFallback() {
+  const gallery = document.querySelector('.photo-gallery');
+  if (!gallery) return;
+
+  gallery.innerHTML = `
+    <div class="carousel-fallback" style="
+      text-align: center;
+      padding: var(--space-2xl);
+      background: var(--color-surface);
+      border-radius: var(--radius-xl);
+      border: 1px solid rgba(0, 0, 0, var(--theme-border-opacity));
+    ">
+      <div class="fallback-icon" style="font-size: 3rem; margin-bottom: 1rem;">📸</div>
+      <h3 style="margin-bottom: 1rem; color: var(--color-text);">Photo Gallery</h3>
+      <p style="margin-bottom: 2rem; color: var(--color-text-secondary);">
+        Photos will be displayed here when configured.
+      </p>
+      <a href="https://instagram.com/yourusername" 
+         target="_blank" 
+         rel="noopener noreferrer" 
+         class="btn btn-secondary">
+        View on Instagram
+      </a>
+    </div>
+  `;
+
+  console.log('🔄 Carousel fallback content displayed');
+}
+
+/**
  * Utility functions for external access
  */
 window.App.utils = {
@@ -583,6 +685,18 @@ window.App.utils = {
       status[key] = value;
     });
     return status;
+  },
+
+  // CAROUSEL INTEGRATION: New utility functions
+  refreshCarousel: () => {
+    if (window.PhotoCarousel && window.PhotoCarousel.refresh) {
+      window.PhotoCarousel.refresh();
+      console.log('🔄 Carousel refreshed');
+    }
+  },
+
+  getCarouselStatus: () => {
+    return window.App.components.get('carousel') || null;
   },
 };
 

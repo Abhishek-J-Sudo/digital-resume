@@ -26,101 +26,152 @@
         <p class="showcase-subtitle">Capturing moments and cultures around the world</p>
       </div>
 
-      <!-- Photo Gallery Carousel -->
-      <div class="photo-gallery">
-        <div class="gallery-container">
-          <!-- Gallery Navigation -->
-          <button
-            class="gallery-nav gallery-prev"
-            aria-label="Previous photo"
-            data-gallery-nav="prev"
-          >
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z" />
-            </svg>
-          </button>
+      <div class="photo-grid">
+        <!-- Photo Gallery Carousel -->
+        <div class="photo-gallery">
+          <div class="gallery-container">
+            <!-- Gallery Navigation -->
+            <button
+              class="gallery-nav gallery-prev"
+              aria-label="Previous photo"
+              data-gallery-nav="prev"
+            >
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z" />
+              </svg>
+            </button>
 
-          <!-- Photo Display Area -->
-          <div class="gallery-display">
-            <div class="photo-container">
-              <!-- Photos will be populated here -->
-              <div class="gallery-photo active" data-photo-index="0">
-                <div class="photo-placeholder">
-                  <div class="placeholder-icon">📸</div>
-                  <p>Add your first Instagram photo URL</p>
-                  <small>Location and caption will appear here</small>
+            <!-- Photo Display Area -->
+            <div class="gallery-display">
+              <div class="photo-container">
+                <!-- Photos will be populated here -->
+                <div class="gallery-photo active" data-photo-index="0">
+                  <div class="photo-placeholder">
+                    <div class="placeholder-icon">📸</div>
+                    <p>Add your first Instagram photo URL</p>
+                    <small>Location and caption will appear here</small>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Photo Info Overlay -->
+              <div class="photo-info">
+                <div class="photo-location">
+                  <span class="location-icon">📍</span>
+                  <span class="location-text">Location will appear here</span>
+                </div>
+                <div class="photo-caption">
+                  <p>Photo caption will appear here...</p>
+                </div>
+                <div class="photo-meta">
+                  <span class="photo-counter">1 / 20</span>
+                  <a href="#" class="instagram-link" target="_blank" rel="noopener noreferrer">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                      <path
+                        d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"
+                      />
+                    </svg>
+                    View on Instagram
+                  </a>
                 </div>
               </div>
             </div>
 
-            <!-- Photo Info Overlay -->
-            <div class="photo-info">
-              <div class="photo-location">
-                <span class="location-icon">📍</span>
-                <span class="location-text">Location will appear here</span>
+            <!-- Gallery Navigation -->
+            <button
+              class="gallery-nav gallery-next"
+              aria-label="Next photo"
+              data-gallery-nav="next"
+            >
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M8.59 16.59L10 18l6-6-6-6-1.41 1.41L13.17 12z" />
+              </svg>
+            </button>
+          </div>
+
+          <!-- Gallery Progress Indicators -->
+          <div class="gallery-indicators">
+            <!-- Dots will be generated based on number of photos -->
+            <button
+              class="indicator-dot active"
+              data-photo-index="0"
+              aria-label="Go to photo 1"
+            ></button>
+            <button class="indicator-dot" data-photo-index="1" aria-label="Go to photo 2"></button>
+            <button class="indicator-dot" data-photo-index="2" aria-label="Go to photo 3"></button>
+            <button class="indicator-dot" data-photo-index="3" aria-label="Go to photo 4"></button>
+            <button class="indicator-dot" data-photo-index="4" aria-label="Go to photo 5"></button>
+            <!-- More dots will be added via JavaScript -->
+          </div>
+
+          <!-- Gallery Controls -->
+          <div class="gallery-controls">
+            <button
+              class="control-btn play-pause"
+              data-gallery-control="toggle"
+              aria-label="Play/Pause slideshow"
+            >
+              <svg class="play-icon" width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M8 5v14l11-7z" />
+              </svg>
+              <svg
+                class="pause-icon"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                style="display: none"
+              >
+                <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z" />
+              </svg>
+            </button>
+            <span class="control-label">Auto-play</span>
+          </div>
+        </div>
+
+        <!-- Other Hobbies Grid -->
+        <div class="other-hobbies fade-in-up" data-aos="fade-up" data-aos-delay="400">
+          <h3 class="hobbies-title">Other Passions</h3>
+          <div class="hobbies-grid">
+            <!-- Tech Enthusiast -->
+            <div class="hobby-item stagger-item" data-aos="fade-up" data-aos-delay="500">
+              <div class="hobby-icon">
+                <span class="icon-emoji">💻</span>
               </div>
-              <div class="photo-caption">
-                <p>Photo caption will appear here...</p>
+              <div class="hobby-content">
+                <h4 class="hobby-name">Tech Enthusiast</h4>
+                <p class="hobby-description">
+                  Exploring cutting-edge technologies and building innovative solutions
+                </p>
               </div>
-              <div class="photo-meta">
-                <span class="photo-counter">1 / 20</span>
-                <a href="#" class="instagram-link" target="_blank" rel="noopener noreferrer">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-                    <path
-                      d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"
-                    />
-                  </svg>
-                  View on Instagram
-                </a>
+            </div>
+
+            <!-- Music Production -->
+            <div class="hobby-item stagger-item" data-aos="fade-up" data-aos-delay="550">
+              <div class="hobby-icon">
+                <span class="icon-emoji">🎛️</span>
+              </div>
+              <div class="hobby-content">
+                <h4 class="hobby-name">Music Production</h4>
+                <p class="hobby-description">
+                  Creating beats and experimenting with electronic soundscapes
+                </p>
+              </div>
+            </div>
+
+            <!-- Guitar Playing -->
+            <div class="hobby-item stagger-item" data-aos="fade-up" data-aos-delay="600">
+              <div class="hobby-icon">
+                <span class="icon-emoji">🎸</span>
+              </div>
+              <div class="hobby-content">
+                <h4 class="hobby-name">Guitar Playing</h4>
+                <p class="hobby-description">
+                  Jamming acoustic melodies and learning new techniques
+                </p>
               </div>
             </div>
           </div>
-
-          <!-- Gallery Navigation -->
-          <button class="gallery-nav gallery-next" aria-label="Next photo" data-gallery-nav="next">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M8.59 16.59L10 18l6-6-6-6-1.41 1.41L13.17 12z" />
-            </svg>
-          </button>
-        </div>
-
-        <!-- Gallery Progress Indicators -->
-        <div class="gallery-indicators">
-          <!-- Dots will be generated based on number of photos -->
-          <button
-            class="indicator-dot active"
-            data-photo-index="0"
-            aria-label="Go to photo 1"
-          ></button>
-          <button class="indicator-dot" data-photo-index="1" aria-label="Go to photo 2"></button>
-          <button class="indicator-dot" data-photo-index="2" aria-label="Go to photo 3"></button>
-          <button class="indicator-dot" data-photo-index="3" aria-label="Go to photo 4"></button>
-          <button class="indicator-dot" data-photo-index="4" aria-label="Go to photo 5"></button>
-          <!-- More dots will be added via JavaScript -->
-        </div>
-
-        <!-- Gallery Controls -->
-        <div class="gallery-controls">
-          <button
-            class="control-btn play-pause"
-            data-gallery-control="toggle"
-            aria-label="Play/Pause slideshow"
-          >
-            <svg class="play-icon" width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M8 5v14l11-7z" />
-            </svg>
-            <svg
-              class="pause-icon"
-              width="16"
-              height="16"
-              viewBox="0 0 24 24"
-              fill="currentColor"
-              style="display: none"
-            >
-              <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z" />
-            </svg>
-          </button>
-          <span class="control-label">Auto-play</span>
         </div>
       </div>
 
@@ -128,71 +179,88 @@
       <script type="application/json" id="instagram-photos-data">
         [
           {
-            "url": "https://www.instagram.com/p/PLACEHOLDER1/",
-            "image": "https://via.placeholder.com/600x600/4A90E2/FFFFFF?text=Photo+1",
-            "location": "Add your location",
-            "caption": "Add your photo caption here...",
-            "alt": "Travel photo 1"
+            "url": "https://www.instagram.com/_abhishake_/",
+            "image": "assets/images/gallery/photo2.jpg",
+            "location": "Bir Billing, Himachal",
+            "caption": "2023",
+            "alt": "Image"
           },
           {
-            "url": "https://www.instagram.com/p/PLACEHOLDER2/",
-            "image": "https://via.placeholder.com/600x600/50C878/FFFFFF?text=Photo+2",
-            "location": "Add your location",
-            "caption": "Add your photo caption here...",
-            "alt": "Travel photo 2"
+            "url": "https://www.instagram.com/_abhishake_/",
+            "image": "assets/images/gallery/photo3.jpg",
+            "location": "SOL, Gujarat",
+            "caption": "2023",
+            "alt": "Image"
           },
           {
-            "url": "https://www.instagram.com/p/PLACEHOLDER3/",
-            "image": "https://via.placeholder.com/600x600/FF6B6B/FFFFFF?text=Photo+3",
-            "location": "Add your location",
-            "caption": "Add your photo caption here...",
-            "alt": "Travel photo 3"
+            "url": "https://www.instagram.com/_abhishake_/",
+            "image": "assets/images/gallery/photo4.jpg",
+            "location": "Amer Fort, Jaipur",
+            "caption": "2023",
+            "alt": "Image"
+          },
+          {
+            "url": "https://www.instagram.com/_abhishake_/",
+            "image": "assets/images/gallery/photo5.jpg",
+            "location": "Allepey Backwaters, Kerala",
+            "caption": "2022",
+            "alt": "Image"
+          },
+          {
+            "url": "https://www.instagram.com/_abhishake_/",
+            "image": "assets/images/gallery/photo6.jpg",
+            "location": "Allepey Beach, Kerala",
+            "caption": "2022",
+            "alt": "Image"
+          },
+          {
+            "url": "https://www.instagram.com/_abhishake_/",
+            "image": "assets/images/gallery/photo7.jpg",
+            "location": "Munnar, Kerala",
+            "caption": "2022",
+            "alt": "Image"
+          },
+          {
+            "url": "https://www.instagram.com/_abhishake_/",
+            "image": "assets/images/gallery/photo8.jpg",
+            "location": "KodaiKanal, Tamil Nadu",
+            "caption": "2022",
+            "alt": "Image"
+          },
+          {
+            "url": "https://www.instagram.com/_abhishake_/",
+            "image": "assets/images/gallery/photo9.jpg",
+            "location": "Mahabaleshwar, Maha",
+            "caption": "2024",
+            "alt": "Image"
+          },
+          {
+            "url": "https://www.instagram.com/_abhishake_/",
+            "image": "assets/images/gallery/photo10.jpg",
+            "location": "Cola Beach, Goa",
+            "caption": "2024",
+            "alt": "Image"
+          },
+          {
+            "url": "https://www.instagram.com/_abhishake_/",
+            "image": "assets/images/gallery/photo11.jpg",
+            "location": "Raigad, Maha",
+            "caption": "2024",
+            "alt": "Image"
           }
         ]
       </script>
-    </div>
-
-    <!-- Other Hobbies Grid -->
-    <div class="other-hobbies fade-in-up" data-aos="fade-up" data-aos-delay="400">
-      <h3 class="hobbies-title">Other Passions</h3>
-      <div class="hobbies-grid">
-        <!-- Tech Enthusiast -->
-        <div class="hobby-item stagger-item" data-aos="fade-up" data-aos-delay="500">
-          <div class="hobby-icon">
-            <span class="icon-emoji">💻</span>
-          </div>
-          <div class="hobby-content">
-            <h4 class="hobby-name">Tech Enthusiast</h4>
-            <p class="hobby-description">
-              Exploring cutting-edge technologies and building innovative solutions
-            </p>
-          </div>
-        </div>
-
-        <!-- Music Production -->
-        <div class="hobby-item stagger-item" data-aos="fade-up" data-aos-delay="550">
-          <div class="hobby-icon">
-            <span class="icon-emoji">🎛️</span>
-          </div>
-          <div class="hobby-content">
-            <h4 class="hobby-name">Music Production</h4>
-            <p class="hobby-description">
-              Creating beats and experimenting with electronic soundscapes
-            </p>
-          </div>
-        </div>
-
-        <!-- Guitar Playing -->
-        <div class="hobby-item stagger-item" data-aos="fade-up" data-aos-delay="600">
-          <div class="hobby-icon">
-            <span class="icon-emoji">🎸</span>
-          </div>
-          <div class="hobby-content">
-            <h4 class="hobby-name">Guitar Playing</h4>
-            <p class="hobby-description">Jamming acoustic melodies and learning new techniques</p>
-          </div>
-        </div>
-      </div>
+      <script>
+        // Force carousel to initialize after page loads
+        window.addEventListener('load', () => {
+          setTimeout(() => {
+            if (window.PhotoCarousel) {
+              console.log('🔄 Manually triggering carousel initialization...');
+              window.PhotoCarousel.initialize();
+            }
+          }, 2000);
+        });
+      </script>
     </div>
 
     <!-- Hobbies Section Summary -->

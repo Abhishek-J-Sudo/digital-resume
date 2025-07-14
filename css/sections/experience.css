@@ -354,14 +354,14 @@
 }
 
 .responsibilities-hidden.expanded {
-  max-height: 500px; /* Large enough for most content */
+  max-height: fit-content; /* Large enough for most content */
   opacity: 1;
   /* margin-top: var(--space-lg); */
 }
 
 /* NEW SECTION - Key Achievements Summary */
 .achievements-summary {
-  margin-top: var(--space-4xl);
+  margin-top: var(--space-2xl);
   padding-top: var(--space-2xl);
   border-top: 1px solid rgba(0, 0, 0, var(--theme-border-opacity));
   text-align: center;
@@ -520,10 +520,8 @@
   .job-title {
     font-size: var(--text-base);
   }
-
-  .achievements-grid {
-    grid-template-columns: 1fr;
-    gap: var(--space-md);
+  .achievements-title {
+    margin-bottom: var(--space-sm);
   }
 
   .achievement-item {
@@ -539,6 +537,10 @@
 
   .timeline-dot {
     left: -19px; /* Moved closer to left from 21px */
+  }
+  .achievements-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 
