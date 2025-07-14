@@ -340,13 +340,25 @@
   }
 
   .certification-item {
-    flex-direction: column;
-    text-align: center;
-    gap: var(--space-sm);
+    text-align: left;
+    padding: var(--space-lg);
+    gap: var(--space-lg);
   }
 
   .learning-tag {
     font-size: 10px;
     padding: 4px var(--space-sm);
+  }
+  .skill-category {
+    padding: var(--space-sm); /* Add bottom margin */
+  }
+  .skills-grid {
+    gap: var(--space-sm);
+  }
+  .certifications-title {
+    margin-bottom: var(--space-md);
+  }
+  .summary-content {
+    padding: var(--space-lg);
   }
 }

@@ -529,6 +529,17 @@
   .achievement-item {
     padding: var(--space-md);
   }
+  .experience-item {
+    padding-left: var(--space-md);
+    margin-bottom: var(--space-2xl);
+  }
+  .timeline-line {
+    left: -10px; /* Moved closer to left from 30px */
+  }
+
+  .timeline-dot {
+    left: -19px; /* Moved closer to left from 21px */
+  }
 }
 
 /* Dark Theme Adjustments */

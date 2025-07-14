@@ -128,10 +128,10 @@
   transform: rotate(45deg);
 }
 
-/* ROW 2: Stats + Fun Facts */
+/* ROW 2: Stats + Fun Facts
 .about-stats-row {
-  /* Uses default grid: 1fr 1fr */
-}
+  /* Uses default grid: 1fr 1fr 
+}*/
 
 /* About Stats */
 .about-stats {
@@ -456,6 +456,7 @@
 
   .fun-fact-item {
     padding: var(--space-xs);
+    text-align: left;
   }
 
   .values-grid {
@@ -467,11 +468,13 @@
   }
 
   .value-content h4 {
-    font-size: var(--text-xs);
+    font-size: var(--text-sm);
+    text-align: left;
   }
 
   .value-content p {
-    font-size: 10px;
+    font-size: 12px;
+    text-align: left;
   }
 
   .actions-buttons .btn {

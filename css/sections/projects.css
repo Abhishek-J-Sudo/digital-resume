@@ -604,10 +604,6 @@
     margin-right: var(--space-md);
   }
 
-  .summary-content {
-    padding: 0;
-  }
-
   .summary-title {
     font-size: var(--text-xl);
   }
