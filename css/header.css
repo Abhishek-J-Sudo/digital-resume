@@ -370,7 +370,6 @@
   flex-direction: column;
   gap: 0;
   /* padding: var(--space-lg) 0; */
-  flex: 1;
   /* overflow-y: auto; */
 }
 
@@ -605,7 +604,7 @@
   }
 
   .nav {
-    padding: 0 var(--space-md);
+    padding: 0 var(--space-lg);
     gap: var(--space-md);
   }
 
@@ -636,7 +635,7 @@
   }
 
   .logo-text {
-    display: none; /* Hide text on very small screens */
+    display: block; /* Hide text on very small screens */
   }
 
   .mobile-nav-link {
