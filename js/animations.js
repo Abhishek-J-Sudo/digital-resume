@@ -111,15 +111,38 @@ document.addEventListener('DOMContentLoaded', () => {
 /**
  * Wait for components to load
  */
+
 async function waitForComponents() {
   return new Promise((resolve) => {
     const checkComponents = () => {
       const heroExists = document.querySelector('#hero, .hero');
-      const sectionsExist = document.querySelectorAll('[data-section]').length > 0;
+      const aboutExists = document.querySelector('#about, .about-section');
+      const skillsExists = document.querySelector('#skills, .skills-section');
+      const experienceExists = document.querySelector('#experience, .experience-section');
+      const projectsExists = document.querySelector('#projects, .projects-section');
+      const contactExists = document.querySelector('#contact, .contact-section');
 
-      if (heroExists && sectionsExist) {
+      // Check if all main sections exist and have content
+      const allSectionsExist =
+        heroExists &&
+        aboutExists &&
+        skillsExists &&
+        experienceExists &&
+        projectsExists &&
+        contactExists;
+
+      if (allSectionsExist) {
+        console.log('✅ All components loaded and ready');
         resolve();
       } else {
+        console.log('⏳ Waiting for components to load...', {
+          hero: !!heroExists,
+          about: !!aboutExists,
+          skills: !!skillsExists,
+          experience: !!experienceExists,
+          projects: !!projectsExists,
+          contact: !!contactExists,
+        });
         setTimeout(checkComponents, 100);
       }
     };
@@ -373,19 +396,41 @@ function startHeroSequence() {
 // SCROLL ANIMATIONS - PURE GSAP
 // ===================================
 
+function waitForLayout(callback, maxWait = 3000) {
+  const startTime = Date.now();
+
+  function checkLayout() {
+    const aboutSection = document.querySelector('#about');
+
+    if (aboutSection && aboutSection.getBoundingClientRect().height > 0) {
+      console.log('✅ Layout ready, creating animations');
+      callback();
+    } else if (Date.now() - startTime < maxWait) {
+      setTimeout(checkLayout, 100);
+    } else {
+      console.log('⚠️ Layout timeout, creating animations anyway');
+      callback();
+    }
+  }
+
+  checkLayout();
+}
+
 /**
  * Create all scroll-triggered animations
  */
 function createScrollAnimations() {
-  createAboutAnimations();
-  createSkillsAnimations();
-  createExperienceAnimations();
-  createProjectsAnimations();
-  createHobbiesAnimations();
-  createContactAnimations();
+  waitForLayout(() => {
+    createAboutAnimations();
+    createSkillsAnimations();
+    createExperienceAnimations();
+    createProjectsAnimations();
+    createHobbiesAnimations();
+    createContactAnimations();
 
-  animationStates.sectionsInitialized = true;
-  console.log('📜 All scroll animations created with Pure GSAP');
+    animationStates.sectionsInitialized = true;
+    console.log('📜 All scroll animations created with Pure GSAP');
+  });
 }
 
 /**
@@ -401,7 +446,7 @@ function createAboutAnimations() {
 
   const tl = gsap.timeline({
     scrollTrigger: {
-      trigger: aboutSection,
+      trigger: aboutText,
       start: ANIMATION_CONFIG.scrollTrigger.start,
       end: ANIMATION_CONFIG.scrollTrigger.end,
       toggleActions: ANIMATION_CONFIG.scrollTrigger.toggleActions,
@@ -875,10 +920,9 @@ function createScrollProgress() {
   const progressBar = document.querySelector('.scroll-progress-bar');
   if (!progressBar) return;
 
-  gsap.set(progressBar, { scaleX: 0, transformOrigin: 'left center' });
+  gsap.set(progressBar, { transformOrigin: 'left center' });
 
   gsap.to(progressBar, {
-    scaleX: 1,
     ease: 'none',
     scrollTrigger: {
       trigger: 'body',

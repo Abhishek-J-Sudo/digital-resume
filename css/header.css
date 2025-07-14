@@ -265,9 +265,9 @@
 .scroll-progress-bar {
   height: 100%;
   background: var(--gradient-primary);
-  width: 0%;
+  /* width: 0%;
   transition: width 0.1s ease-out;
-  transform-origin: left;
+  transform-origin: left; */
 }
 
 /* ===================================
