@@ -1,4 +1,4 @@
-<!-- Hobbies Section Component -->
+<!-- Hobbies Section Component - Optimized Two-Column Layout -->
 <section
   class="section hobbies-section"
   id="hobbies"
@@ -16,269 +16,382 @@
       </p>
     </div>
 
-    <!-- Travel Photography Showcase -->
-    <div class="photography-showcase fade-in-up" data-aos="fade-up" data-aos-delay="200">
-      <div class="showcase-header">
-        <h3 class="showcase-title">
-          <span class="showcase-icon">📸</span>
-          Travel Photography
-        </h3>
-        <p class="showcase-subtitle">Capturing moments and cultures around the world</p>
-      </div>
+    <!-- New Two-Column Layout Container -->
+    <div class="hobbies-main-content fade-in-up" data-aos="fade-up" data-aos-delay="200">
+      <!-- Left Column: Travel Photography Showcase -->
+      <div class="photography-column">
+        <div class="photography-showcase">
+          <div class="showcase-header">
+            <h3 class="showcase-title">
+              <span class="showcase-icon">📸</span>
+              Travel Photography
+            </h3>
+            <p class="showcase-subtitle">Capturing moments and cultures around the world</p>
+          </div>
 
-      <div class="photo-grid">
-        <!-- Photo Gallery Carousel -->
-        <div class="photo-gallery">
-          <div class="gallery-container">
-            <!-- Gallery Navigation -->
-            <button
-              class="gallery-nav gallery-prev"
-              aria-label="Previous photo"
-              data-gallery-nav="prev"
-            >
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z" />
-              </svg>
-            </button>
+          <div class="photo-gallery">
+            <div class="gallery-container">
+              <!-- Gallery Navigation -->
+              <button
+                class="gallery-nav gallery-prev"
+                aria-label="Previous photo"
+                data-gallery-nav="prev"
+              >
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z" />
+                </svg>
+              </button>
 
-            <!-- Photo Display Area -->
-            <div class="gallery-display">
-              <div class="photo-container">
-                <!-- Photos will be populated here -->
-                <div class="gallery-photo active" data-photo-index="0">
-                  <div class="photo-placeholder">
-                    <div class="placeholder-icon">📸</div>
-                    <p>Add your first Instagram photo URL</p>
-                    <small>Location and caption will appear here</small>
+              <!-- Photo Display Area -->
+              <div class="gallery-display">
+                <div class="photo-container">
+                  <!-- Photos will be populated here -->
+                  <div class="gallery-photo active" data-photo-index="0">
+                    <div class="photo-placeholder">
+                      <div class="placeholder-icon">📸</div>
+                      <p>Add your first Instagram photo URL</p>
+                      <small>Location and caption will appear here</small>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Photo Info Overlay -->
+                <div class="photo-info">
+                  <div class="photo-location">
+                    <span class="location-icon">📍</span>
+                    <span class="location-text">Location will appear here</span>
+                  </div>
+                  <div class="photo-caption">
+                    <p>Photo caption will appear here...</p>
+                  </div>
+                  <div class="photo-meta">
+                    <span class="photo-counter">1 / 20</span>
+                    <a href="#" class="instagram-link" target="_blank" rel="noopener noreferrer">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                        <path
+                          d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"
+                        />
+                      </svg>
+                      View on Instagram
+                    </a>
                   </div>
                 </div>
               </div>
 
-              <!-- Photo Info Overlay -->
-              <div class="photo-info">
-                <div class="photo-location">
-                  <span class="location-icon">📍</span>
-                  <span class="location-text">Location will appear here</span>
-                </div>
-                <div class="photo-caption">
-                  <p>Photo caption will appear here...</p>
-                </div>
-                <div class="photo-meta">
-                  <span class="photo-counter">1 / 20</span>
-                  <a href="#" class="instagram-link" target="_blank" rel="noopener noreferrer">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-                      <path
-                        d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"
-                      />
-                    </svg>
-                    View on Instagram
-                  </a>
-                </div>
-              </div>
+              <!-- Gallery Navigation -->
+              <button
+                class="gallery-nav gallery-next"
+                aria-label="Next photo"
+                data-gallery-nav="next"
+              >
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M8.59 16.59L10 18l6-6-6-6-1.41 1.41L13.17 12z" />
+                </svg>
+              </button>
             </div>
 
-            <!-- Gallery Navigation -->
-            <button
-              class="gallery-nav gallery-next"
-              aria-label="Next photo"
-              data-gallery-nav="next"
-            >
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M8.59 16.59L10 18l6-6-6-6-1.41 1.41L13.17 12z" />
-              </svg>
-            </button>
-          </div>
+            <!-- Gallery Progress Indicators -->
+            <div class="gallery-indicators">
+              <!-- Dots will be generated based on number of photos -->
+              <button
+                class="indicator-dot active"
+                data-photo-index="0"
+                aria-label="Go to photo 1"
+              ></button>
+              <button
+                class="indicator-dot"
+                data-photo-index="1"
+                aria-label="Go to photo 2"
+              ></button>
+              <button
+                class="indicator-dot"
+                data-photo-index="2"
+                aria-label="Go to photo 3"
+              ></button>
+              <button
+                class="indicator-dot"
+                data-photo-index="3"
+                aria-label="Go to photo 4"
+              ></button>
+              <button
+                class="indicator-dot"
+                data-photo-index="4"
+                aria-label="Go to photo 5"
+              ></button>
+              <!-- More dots will be added via JavaScript -->
+            </div>
 
-          <!-- Gallery Progress Indicators -->
-          <div class="gallery-indicators">
-            <!-- Dots will be generated based on number of photos -->
-            <button
-              class="indicator-dot active"
-              data-photo-index="0"
-              aria-label="Go to photo 1"
-            ></button>
-            <button class="indicator-dot" data-photo-index="1" aria-label="Go to photo 2"></button>
-            <button class="indicator-dot" data-photo-index="2" aria-label="Go to photo 3"></button>
-            <button class="indicator-dot" data-photo-index="3" aria-label="Go to photo 4"></button>
-            <button class="indicator-dot" data-photo-index="4" aria-label="Go to photo 5"></button>
-            <!-- More dots will be added via JavaScript -->
-          </div>
-
-          <!-- Gallery Controls -->
-          <div class="gallery-controls">
-            <button
-              class="control-btn play-pause"
-              data-gallery-control="toggle"
-              aria-label="Play/Pause slideshow"
-            >
-              <svg class="play-icon" width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M8 5v14l11-7z" />
-              </svg>
-              <svg
-                class="pause-icon"
-                width="16"
-                height="16"
-                viewBox="0 0 24 24"
-                fill="currentColor"
-                style="display: none"
+            <!-- Gallery Controls -->
+            <div class="gallery-controls">
+              <button
+                class="control-btn play-pause"
+                data-gallery-control="toggle"
+                aria-label="Play/Pause slideshow"
               >
-                <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z" />
+                <svg
+                  class="play-icon"
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                >
+                  <path d="M8 5v14l11-7z" />
+                </svg>
+                <svg
+                  class="pause-icon"
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                  style="display: none"
+                >
+                  <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z" />
+                </svg>
+              </button>
+              <span class="control-label">Auto-play</span>
+            </div>
+          </div>
+          <div class="hobby-cta">
+            <a
+              href="https://instagram.com/yourusername"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="btn btn-secondary"
+            >
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                <path
+                  d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"
+                />
               </svg>
-            </button>
-            <span class="control-label">Auto-play</span>
+              <span>Follow My Photography Journey</span>
+            </a>
           </div>
         </div>
+      </div>
 
+      <!-- Right Column: Other Hobbies + Summary -->
+      <div class="other-interests-column">
         <!-- Other Hobbies Grid -->
         <div class="other-hobbies fade-in-up" data-aos="fade-up" data-aos-delay="400">
-          <h3 class="hobbies-title">Other Passions</h3>
-          <div class="hobbies-grid">
-            <!-- Tech Enthusiast -->
-            <div class="hobby-item stagger-item" data-aos="fade-up" data-aos-delay="500">
-              <div class="hobby-icon">
-                <span class="icon-emoji">💻</span>
-              </div>
-              <div class="hobby-content">
-                <h4 class="hobby-name">Tech Enthusiast</h4>
-                <p class="hobby-description">
-                  Exploring cutting-edge technologies and building innovative solutions
-                </p>
-              </div>
-            </div>
+          <!-- <h3 class="hobbies-title">Other Passions</h3> -->
+          <!-- Hobbies Section Summary -->
+          <div class="hobbies-summary fade-in-up" data-aos="fade-up" data-aos-delay="700">
+            <div class="hobbies-summary-content">
+              <h3 class="hobbies-summary-title">Life Beyond Work</h3>
+              <p class="hobbies-summary-text">
+                These creative pursuits fuel my innovation and problem-solving approach. Whether I'm
+                composing electronic beats, capturing a perfect moment through my lens, playing
+                guitar melodies, or diving into the latest tech trends, I believe diverse creative
+                experiences enhance my professional perspective and collaborative spirit.
+              </p>
+              <h3 class="hobbies-title">Other Passions</h3>
+              <div class="hobbies-grid compact-grid">
+                <!-- Tech Enthusiast -->
+                <div
+                  class="hobby-item compact-item stagger-item"
+                  data-aos="fade-up"
+                  data-aos-delay="500"
+                >
+                  <div class="hobby-icon">
+                    <span class="icon-emoji"
+                      ><svg
+                        width="24"
+                        height="24"
+                        fill="none"
+                        stroke="#4F46E5"
+                        stroke-width="2"
+                        viewBox="0 0 24 24"
+                      >
+                        <rect x="3" y="4" width="18" height="12" rx="2" ry="2" />
+                        <path d="M2 20h20M8 16h8" />
+                      </svg>
+                    </span>
+                  </div>
+                  <div class="hobby-content">
+                    <h4 class="hobby-name">Tech Enthusiast</h4>
+                    <p class="hobby-description">
+                      Exploring cutting-edge technologies and building innovative solutions
+                    </p>
+                  </div>
+                </div>
 
-            <!-- Music Production -->
-            <div class="hobby-item stagger-item" data-aos="fade-up" data-aos-delay="550">
-              <div class="hobby-icon">
-                <span class="icon-emoji">🎛️</span>
-              </div>
-              <div class="hobby-content">
-                <h4 class="hobby-name">Music Production</h4>
-                <p class="hobby-description">
-                  Creating beats and experimenting with electronic soundscapes
-                </p>
-              </div>
-            </div>
+                <!-- Music Production -->
+                <div
+                  class="hobby-item compact-item stagger-item"
+                  data-aos="fade-up"
+                  data-aos-delay="550"
+                >
+                  <div class="hobby-icon">
+                    <span class="icon-emoji"
+                      ><svg
+                        width="24"
+                        height="24"
+                        fill="none"
+                        stroke="#4F46E5"
+                        stroke-width="2"
+                        viewBox="0 0 24 24"
+                      >
+                        <line x1="4" y1="21" x2="4" y2="14" />
+                        <line x1="4" y1="10" x2="4" y2="3" />
+                        <line x1="12" y1="21" x2="12" y2="12" />
+                        <line x1="12" y1="8" x2="12" y2="3" />
+                        <line x1="20" y1="21" x2="20" y2="16" />
+                        <line x1="20" y1="12" x2="20" y2="3" />
+                      </svg>
+                    </span>
+                  </div>
+                  <div class="hobby-content">
+                    <h4 class="hobby-name">Music Production</h4>
+                    <p class="hobby-description">
+                      Creating beats and experimenting with electronic soundscapes
+                    </p>
+                  </div>
+                </div>
 
-            <!-- Guitar Playing -->
-            <div class="hobby-item stagger-item" data-aos="fade-up" data-aos-delay="600">
-              <div class="hobby-icon">
-                <span class="icon-emoji">🎸</span>
+                <!-- Guitar Playing -->
+                <div
+                  class="hobby-item compact-item stagger-item"
+                  data-aos="fade-up"
+                  data-aos-delay="600"
+                >
+                  <div class="hobby-icon">
+                    <span class="icon-emoji"
+                      ><svg
+                        fill="#000000"
+                        height="24"
+                        width="24"
+                        version="1.1"
+                        id="Capa_1"
+                        xmlns="http://www.w3.org/2000/svg"
+                        xmlns:xlink="http://www.w3.org/1999/xlink"
+                        viewBox="0 0 404.015 404.015"
+                        xml:space="preserve"
+                      >
+                        <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                        <g
+                          id="SVGRepo_tracerCarrier"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        ></g>
+                        <g id="SVGRepo_iconCarrier">
+                          <g>
+                            <path
+                              d="M401.817,43.812L360.201,2.197c-2.93-2.929-7.678-2.929-10.607,0L294.44,57.351c-2.42,2.42-2.834,6.081-1.255,8.933 l-67.502,67.503c-27.464-24.099-69.426-23.065-95.625,3.134c-3.509,3.509-6.644,7.385-9.316,11.52 c-2.581,3.992-4.771,8.303-6.517,12.825c-4.816,12.548-17.133,21.281-30.647,21.729c-21.993,0.732-42.677,9.708-58.242,25.273 C8.999,224.605,0.002,246.327,0.002,269.43c-0.008,23.1,8.989,44.823,25.333,61.167l48.084,48.083 c16.338,16.337,38.06,25.335,61.165,25.335c23.104,0,44.827-8.998,61.165-25.335c7.892-7.892,14.091-17.057,18.429-27.248 c4.18-9.845,6.482-20.272,6.844-30.995c0.448-13.514,9.181-25.83,21.729-30.646c9.152-3.514,17.341-8.844,24.337-15.841 c13.21-13.209,20.494-30.785,20.512-49.501c-0.008-17.155-6.153-33.354-17.369-46.116l67.503-67.503 c1.125,0.622,2.374,0.939,3.625,0.939c1.919,0,3.839-0.732,5.304-2.197l55.154-55.154C404.745,51.49,404.745,46.74,401.817,43.812z M201.099,226.253c-2.325-5.063-5.551-9.7-9.593-13.742c-4.043-4.042-8.679-7.268-13.742-9.592L303.582,77.1l23.335,23.335 L201.099,226.253z M272.6,224.447c-0.014,14.704-5.737,28.518-16.118,38.898c-5.501,5.501-11.93,9.688-19.106,12.443 c-18.386,7.058-30.689,24.388-31.346,44.148c-0.298,8.869-2.202,17.493-5.655,25.627c-3.58,8.409-8.705,15.983-15.232,22.51 c-13.504,13.504-31.46,20.941-50.558,20.941c-19.099,0-37.054-7.437-50.558-20.941l-48.084-48.083 c-13.51-13.51-20.947-31.465-20.94-50.559c0-19.099,7.437-37.054,20.94-50.558c12.864-12.864,29.958-20.282,48.134-20.887 c19.764-0.657,37.095-12.961,44.147-31.334c1.371-3.552,3.091-6.939,5.113-10.068c2.101-3.248,4.565-6.295,7.328-9.058 c10.389-10.389,24.2-16.11,38.891-16.11c13.146,0,25.579,4.594,35.495,13.001l-56.779,56.779c-2.009,2.01-2.71,4.982-1.811,7.678 c0.9,2.696,3.247,4.651,6.061,5.051c7.003,0.994,13.358,4.172,18.377,9.191c5.021,5.02,8.199,11.375,9.192,18.378 c0.399,2.814,2.354,5.16,5.051,6.06c0.778,0.26,1.579,0.386,2.374,0.386c1.958,0,3.875-0.767,5.305-2.197l56.778-56.778 C268,198.876,272.594,211.307,272.6,224.447z M341.359,93.662L310.35,62.654l44.548-44.548l31.009,31.009L341.359,93.662z"
+                            ></path>
+                            <path
+                              d="M110.823,231.39c-17.039,17.039-17.039,44.764,0,61.803c8.521,8.52,19.711,12.78,30.902,12.78s22.382-4.26,30.902-12.78 c17.039-17.039,17.039-44.764,0-61.803C155.586,214.351,127.864,214.351,110.823,231.39z M162.02,282.587 c-11.189,11.19-29.4,11.19-40.59,0c-11.191-11.191-11.191-29.399,0-40.59c5.595-5.595,12.945-8.393,20.295-8.393 s14.7,2.798,20.295,8.393C173.211,253.187,173.211,271.396,162.02,282.587z"
+                            ></path>
+                            <path
+                              d="M73.773,289.939c-2.93-2.929-7.678-2.929-10.607,0c-2.929,2.929-2.929,7.678,0,10.606l40.306,40.305 c1.465,1.464,3.385,2.197,5.304,2.197s3.839-0.732,5.304-2.197c2.929-2.929,2.929-7.678,0-10.606L73.773,289.939z"
+                            ></path>
+                          </g>
+                        </g>
+                      </svg>
+                    </span>
+                  </div>
+                  <div class="hobby-content">
+                    <h4 class="hobby-name">Guitar Playing</h4>
+                    <p class="hobby-description">
+                      Jamming acoustic melodies and learning new techniques
+                    </p>
+                  </div>
+                </div>
               </div>
-              <div class="hobby-content">
-                <h4 class="hobby-name">Guitar Playing</h4>
-                <p class="hobby-description">
-                  Jamming acoustic melodies and learning new techniques
-                </p>
-              </div>
+              <!-- <div class="hobby-cta">
+                <a
+                  href="https://instagram.com/yourusername"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="btn btn-secondary"
+                >
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                    <path
+                      d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"
+                    />
+                  </svg>
+                  <span>Follow My Photography Journey</span>
+                </a>
+              </div> -->
             </div>
           </div>
         </div>
       </div>
-
-      <!-- Photo Data Configuration (Hidden) -->
-      <script type="application/json" id="instagram-photos-data">
-        [
-          {
-            "url": "https://www.instagram.com/_abhishake_/",
-            "image": "https://abhishek-j-sudo.github.io/digital-resume/assets/images/gallery/photo2.jpg",
-            "location": "Bir Billing, Himachal",
-            "caption": "2023",
-            "alt": "Image"
-          },
-          {
-            "url": "https://www.instagram.com/_abhishake_/",
-            "image": "https://abhishek-j-sudo.github.io/digital-resume/assets/images/gallery/photo3.jpg",
-            "location": "SOL, Gujarat",
-            "caption": "2023",
-            "alt": "Image"
-          },
-          {
-            "url": "https://www.instagram.com/_abhishake_/",
-            "image": "https://abhishek-j-sudo.github.io/digital-resume/assets/images/gallery/photo4.jpg",
-            "location": "Amer Fort, Jaipur",
-            "caption": "2023",
-            "alt": "Image"
-          },
-          {
-            "url": "https://www.instagram.com/_abhishake_/",
-            "image": "https://abhishek-j-sudo.github.io/digital-resume/assets/images/gallery/photo5.jpg",
-            "location": "Allepey Backwaters, Kerala",
-            "caption": "2022",
-            "alt": "Image"
-          },
-          {
-            "url": "https://www.instagram.com/_abhishake_/",
-            "image": "https://abhishek-j-sudo.github.io/digital-resume/assets/images/gallery/photo6.jpg",
-            "location": "Allepey Beach, Kerala",
-            "caption": "2022",
-            "alt": "Image"
-          },
-          {
-            "url": "https://www.instagram.com/_abhishake_/",
-            "image": "https://abhishek-j-sudo.github.io/digital-resume/assets/images/gallery/photo7.jpg",
-            "location": "Munnar, Kerala",
-            "caption": "2022",
-            "alt": "Image"
-          },
-          {
-            "url": "https://www.instagram.com/_abhishake_/",
-            "image": "https://abhishek-j-sudo.github.io/digital-resume/assets/images/gallery/photo8.jpg",
-            "location": "KodaiKanal, Tamil Nadu",
-            "caption": "2022",
-            "alt": "Image"
-          },
-          {
-            "url": "https://www.instagram.com/_abhishake_/",
-            "image": "https://abhishek-j-sudo.github.io/digital-resume/assets/images/gallery/photo9.jpg",
-            "location": "Mahabaleshwar, Maha",
-            "caption": "2024",
-            "alt": "Image"
-          },
-          {
-            "url": "https://www.instagram.com/_abhishake_/",
-            "image": "https://abhishek-j-sudo.github.io/digital-resume/assets/images/gallery/photo10.jpg",
-            "location": "Cola Beach, Goa",
-            "caption": "2024",
-            "alt": "Image"
-          },
-          {
-            "url": "https://www.instagram.com/_abhishake_/",
-            "image": "https://abhishek-j-sudo.github.io/digital-resume/assets/images/gallery/photo11.jpg",
-            "location": "Raigad, Maha",
-            "caption": "2024",
-            "alt": "Image"
-          }
-        ]
-      </script>
     </div>
 
-    <!-- Hobbies Section Summary -->
-    <div class="hobbies-summary fade-in-up" data-aos="fade-up" data-aos-delay="800">
-      <div class="summary-content">
-        <h3 class="summary-title">Life Beyond Work</h3>
-        <p class="summary-text">
-          These creative pursuits fuel my innovation and problem-solving approach. Whether I'm
-          composing electronic beats, capturing a perfect moment through my lens, playing guitar
-          melodies, or diving into the latest tech trends, I believe diverse creative experiences
-          enhance my professional perspective and collaborative spirit.
-        </p>
-
-        <div class="hobby-cta">
-          <a
-            href="https://instagram.com/yourusername"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="btn btn-secondary"
-          >
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-              <path
-                d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"
-              />
-            </svg>
-            <span>Follow My Photography Journey</span>
-          </a>
-        </div>
-      </div>
-    </div>
+    <!-- Photo Data Configuration (Hidden) -->
+    <script type="application/json" id="instagram-photos-data">
+      [
+        {
+          "url": "https://www.instagram.com/_abhishake_/",
+          "image": "https://abhishek-j-sudo.github.io/digital-resume/assets/images/gallery/photo2.jpg",
+          "location": "Bir Billing, Himachal",
+          "caption": "2023",
+          "alt": "Image"
+        },
+        {
+          "url": "https://www.instagram.com/_abhishake_/",
+          "image": "https://abhishek-j-sudo.github.io/digital-resume/assets/images/gallery/photo3.jpg",
+          "location": "SOL, Gujarat",
+          "caption": "2023",
+          "alt": "Image"
+        },
+        {
+          "url": "https://www.instagram.com/_abhishake_/",
+          "image": "https://abhishek-j-sudo.github.io/digital-resume/assets/images/gallery/photo4.jpg",
+          "location": "Amer Fort, Jaipur",
+          "caption": "2023",
+          "alt": "Image"
+        },
+        {
+          "url": "https://www.instagram.com/_abhishake_/",
+          "image": "https://abhishek-j-sudo.github.io/digital-resume/assets/images/gallery/photo5.jpg",
+          "location": "Allepey Backwaters, Kerala",
+          "caption": "2022",
+          "alt": "Image"
+        },
+        {
+          "url": "https://www.instagram.com/_abhishake_/",
+          "image": "https://abhishek-j-sudo.github.io/digital-resume/assets/images/gallery/photo6.jpg",
+          "location": "Allepey Beach, Kerala",
+          "caption": "2022",
+          "alt": "Image"
+        },
+        {
+          "url": "https://www.instagram.com/_abhishake_/",
+          "image": "https://abhishek-j-sudo.github.io/digital-resume/assets/images/gallery/photo7.jpg",
+          "location": "Munnar, Kerala",
+          "caption": "2022",
+          "alt": "Image"
+        },
+        {
+          "url": "https://www.instagram.com/_abhishake_/",
+          "image": "https://abhishek-j-sudo.github.io/digital-resume/assets/images/gallery/photo8.jpg",
+          "location": "KodaiKanal, Tamil Nadu",
+          "caption": "2022",
+          "alt": "Image"
+        },
+        {
+          "url": "https://www.instagram.com/_abhishake_/",
+          "image": "https://abhishek-j-sudo.github.io/digital-resume/assets/images/gallery/photo9.jpg",
+          "location": "Mahabaleshwar, Maha",
+          "caption": "2024",
+          "alt": "Image"
+        },
+        {
+          "url": "https://www.instagram.com/_abhishake_/",
+          "image": "https://abhishek-j-sudo.github.io/digital-resume/assets/images/gallery/photo10.jpg",
+          "location": "Cola Beach, Goa",
+          "caption": "2024",
+          "alt": "Image"
+        },
+        {
+          "url": "https://www.instagram.com/_abhishake_/",
+          "image": "https://abhishek-j-sudo.github.io/digital-resume/assets/images/gallery/photo11.jpg",
+          "location": "Raigad, Maha",
+          "caption": "2024",
+          "alt": "Image"
+        }
+      ]
+    </script>
   </div>
 </section>
