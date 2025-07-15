@@ -42,8 +42,8 @@ const ANIMATION_CONFIG = {
 
   // Scroll trigger settings - pure GSAP approach
   scrollTrigger: {
-    start: 'top 80%', // Animation starts when 20% visible
-    end: 'bottom 20%',
+    start: 'top 60%', // Animation starts when 20% visible
+    end: 'bottom 40%',
     toggleActions: 'play none none reverse',
     fastScrollEnd: 'top 70%',
   },
@@ -71,6 +71,8 @@ const animationStates = {
 // INITIALIZATION
 // ===================================
 
+const IS_IOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+
 /**
  * Initialize Pure GSAP animations
  */
@@ -85,7 +87,12 @@ document.addEventListener('DOMContentLoaded', () => {
   // Register ScrollTrigger plugin
   if (typeof ScrollTrigger !== 'undefined') {
     gsap.registerPlugin(ScrollTrigger);
-    console.log('✅ Pure GSAP system initialized');
+
+    if (IS_IOS) {
+      // iOS: use normalize scroll
+      ScrollTrigger.normalizeScroll(true);
+      console.log('✅ Pure GSAP system initialized with normalizeScroll');
+    }
   }
 
   // Set global GSAP defaults

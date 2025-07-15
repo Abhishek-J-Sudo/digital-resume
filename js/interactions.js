@@ -210,24 +210,56 @@ function initializeExpandCollapse() {
   const expandButtons = document.querySelectorAll('.expand-btn, [data-expand-target]');
 
   expandButtons.forEach((button, index) => {
+    // PREVENT DOUBLE INITIALIZATION
+    if (button.dataset.initialized === 'true') {
+      console.log('⚠️ Button already initialized, skipping:', button);
+      return;
+    }
+    button.dataset.initialized = 'true';
+
     // Add unique ID if not present
     if (!button.id) {
       button.id = `expand-btn-${index}`;
     }
 
-    // FIXED: Use Utils.debounce (not Utils.performance.debounce)
-    const debouncedToggle = Utils.debounce(() => toggleExpandableItem(button), 200);
+    // ADD CLICK GUARD TO PREVENT RAPID CLICKS
+    let isProcessing = false;
 
     button.addEventListener('click', (e) => {
+      console.log('🖱️ BUTTON CLICKED!', button);
+
+      // PREVENT MULTIPLE RAPID CLICKS
+      if (isProcessing) {
+        console.log('⏳ Already processing, ignoring click');
+        return;
+      }
+
       e.preventDefault();
-      debouncedToggle();
+      e.stopPropagation(); // PREVENT EVENT BUBBLING
+
+      isProcessing = true;
+
+      toggleExpandableItem(button);
+
+      // Reset processing flag after animation completes
+      setTimeout(() => {
+        isProcessing = false;
+      }, 500);
     });
 
     // Keyboard support
     button.addEventListener('keydown', (e) => {
       if (e.key === 'Enter' || e.key === ' ') {
         e.preventDefault();
-        toggleExpandableItem(button);
+        e.stopPropagation();
+
+        if (!isProcessing) {
+          isProcessing = true;
+          toggleExpandableItem(button);
+          setTimeout(() => {
+            isProcessing = false;
+          }, 500);
+        }
       }
     });
 
