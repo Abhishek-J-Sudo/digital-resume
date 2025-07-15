@@ -227,7 +227,6 @@ function setInitialStates() {
     .about-photo,
     .about-stat,
     .skill-category,
-    .skill-progress-bar,
     .experience-item,
     .timeline-dot,
     .project-card,
@@ -244,6 +243,7 @@ function setInitialStates() {
   const skillBars = document.querySelectorAll('.skill-progress-bar');
   gsap.set(skillBars, {
     width: '0%',
+    opacity: 0,
   });
 
   const timelineLine = document.querySelector('.timeline-line');
@@ -647,24 +647,73 @@ function animateStatCounters() {
 /**
  * Skills section - Pure GSAP with progress bars
  */
+// Add this debug logging to your createSkillsAnimations function in animations.js:
 function createSkillsAnimations() {
   const skillsSection = document.querySelector('#skills, .skills-section');
   if (!skillsSection) return;
 
   const skillCategories = skillsSection.querySelectorAll('.skill-category');
-  const skillProgressBars = skillsSection.querySelectorAll('.skill-progress-bar');
+  const isMobile = window.innerWidth <= 768;
 
-  const tl = gsap.timeline({
-    scrollTrigger: {
-      trigger: skillsSection,
-      start: ANIMATION_CONFIG.scrollTrigger.start,
-      end: ANIMATION_CONFIG.scrollTrigger.end,
-      toggleActions: ANIMATION_CONFIG.scrollTrigger.toggleActions,
-    },
-  });
+  if (isMobile) {
+    // MOBILE: Create separate ScrollTrigger for each card
+    console.log('📱 Using mobile per-card skills animation');
 
-  // Skill categories
-  if (skillCategories.length > 0) {
+    skillCategories.forEach((card, cardIndex) => {
+      const cardBars = card.querySelectorAll('.skill-progress-bar');
+
+      // Create timeline for this specific card
+      const cardTimeline = gsap.timeline({
+        scrollTrigger: {
+          trigger: card, // Each card triggers its own animation
+          start: 'top 80%', // When this card is 20% visible
+          end: 'bottom 20%',
+          toggleActions: 'play none none reverse',
+        },
+      });
+
+      // Animate the card container first
+      cardTimeline.to(card, {
+        opacity: 1,
+        y: 0,
+        scale: 1,
+        duration: ANIMATION_CONFIG.normal,
+        ease: ANIMATION_CONFIG.ease.bounce,
+      });
+
+      // Then animate skill bars row-wise within this card
+      cardBars.forEach((bar, rowIndex) => {
+        const percentage = parseInt(bar.getAttribute('data-percentage')) || 75;
+
+        cardTimeline.to(
+          bar,
+          {
+            opacity: 1,
+            width: `${percentage}%`,
+            duration: ANIMATION_CONFIG.fast,
+            ease: ANIMATION_CONFIG.ease.smooth,
+          },
+          `-=${rowIndex === 0 ? 0.3 : 0.0}` // First row starts earlier, others overlap
+        );
+      });
+
+      // Store timeline for cleanup
+      timelines.sections.set(`skills-card-${cardIndex}`, cardTimeline);
+    });
+  } else {
+    // DESKTOP: Single ScrollTrigger, row-wise across all cards
+    console.log('🖥️ Using desktop cross-card skills animation');
+
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: skillsSection,
+        start: ANIMATION_CONFIG.scrollTrigger.start,
+        end: ANIMATION_CONFIG.scrollTrigger.end,
+        toggleActions: ANIMATION_CONFIG.scrollTrigger.toggleActions,
+      },
+    });
+
+    // Animate all skill categories first
     tl.to(skillCategories, {
       opacity: 1,
       y: 0,
@@ -673,27 +722,42 @@ function createSkillsAnimations() {
       ease: ANIMATION_CONFIG.ease.bounce,
       stagger: ANIMATION_CONFIG.stagger.normal,
     });
-  }
 
-  // Progress bars animate to their percentage
-  if (skillProgressBars.length > 0) {
-    skillProgressBars.forEach((bar, index) => {
-      const percentage = parseInt(bar.getAttribute('data-percentage')) || 75;
+    // Group skill bars by row position across all cards
+    const skillsByRow = {};
 
-      tl.to(
-        bar,
-        {
-          width: `${percentage}%`,
-          duration: ANIMATION_CONFIG.slow,
-          ease: ANIMATION_CONFIG.ease.smooth,
-          delay: index * 0.1,
-        },
-        '-=0.8'
-      );
+    skillCategories.forEach((category) => {
+      const barsInCategory = category.querySelectorAll('.skill-progress-bar');
+      barsInCategory.forEach((bar, index) => {
+        if (!skillsByRow[index]) {
+          skillsByRow[index] = [];
+        }
+        skillsByRow[index].push(bar);
+      });
     });
-  }
 
-  timelines.sections.set('skills', tl);
+    // Animate each row across all cards simultaneously
+    Object.keys(skillsByRow).forEach((rowIndex, timelineIndex) => {
+      const barsInRow = skillsByRow[rowIndex];
+
+      barsInRow.forEach((bar) => {
+        const percentage = parseInt(bar.getAttribute('data-percentage')) || 75;
+
+        tl.to(
+          bar,
+          {
+            opacity: 1,
+            width: `${percentage}%`,
+            duration: ANIMATION_CONFIG.slow,
+            ease: ANIMATION_CONFIG.ease.smooth,
+          },
+          timelineIndex === 0 ? '-=0.9' : '-=1'
+        );
+      });
+    });
+
+    timelines.sections.set('skills', tl);
+  }
 }
 
 /**
