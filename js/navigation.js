@@ -548,20 +548,20 @@ function initializeHeaderEffects() {
       header.classList.remove('scrolled');
     }
 
-    // Hide/show header based on scroll direction (optional)
-    if (Math.abs(lastScrollTop - scrollTop) <= 5) return;
-
-    if (scrollTop > lastScrollTop && scrollTop > 100) {
-      // Scrolling down - hide header
-      header.classList.add('header-hidden');
-      header.classList.remove('header-visible');
-    } else {
-      // Scrolling up - show header
-      header.classList.remove('header-hidden');
-      header.classList.add('header-visible');
-    }
+    header.classList.remove('header-hidden');
+    header.classList.add('header-visible');
 
     lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
+
+    // // Optional: Enhanced scroll-based styling
+    // const opacity = Math.min(0.98, 0.85 + (scrollTop / 200) * 0.13);
+    // const blur = Math.min(20, 10 + (scrollTop / 100) * 10);
+
+    // if (scrollTop > 0) {
+    //   header.style.background = `rgba(var(--color-background-rgb), ${opacity})`;
+    //   header.style.backdropFilter = `blur(${blur}px)`;
+    //   header.style.webkitBackdropFilter = `blur(${blur}px)`;
+    // }
   };
 
   // Throttled scroll listener
@@ -577,6 +577,10 @@ function initializeHeaderEffects() {
     },
     { passive: true }
   );
+
+  // ✅ Force header to be visible on load
+  header.classList.remove('header-hidden');
+  header.classList.add('header-visible');
 
   console.log('🎬 Header scroll effects initialized');
 }

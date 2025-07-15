@@ -10,7 +10,7 @@
    =================================== */
 
 .header {
-  position: fixed;
+  position: sticky;
   top: 0;
   left: 0;
   right: 0;
@@ -441,7 +441,7 @@
 
 .mobile-menu-footer {
   padding: var(--space-xl);
-  border-top: 1px solid rgba(0, 0, 0, var(--theme-border-opacity));
+  /* border-top: 1px solid rgba(0, 0, 0, var(--theme-border-opacity)); */
   flex-shrink: 0;
   background: var(--color-background);
 }

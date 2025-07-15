@@ -329,7 +329,7 @@ if (window.ThemeSystemInitialized) {
     const slider = toggle.querySelector('.theme-toggle-slider');
 
     if (themeText) {
-      themeText.textContent = ThemeSystem.currentTheme === 'dark' ? 'Dark Mode' : 'Light Mode';
+      themeText.textContent = ThemeSystem.currentTheme === 'dark' ? 'Light Mode' : 'Dark Mode';
     }
 
     // CSS handles the slider position via [data-theme] selectors
