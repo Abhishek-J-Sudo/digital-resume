@@ -50,7 +50,7 @@ ol[role='list'] {
 
 /* Set core body defaults */
 body {
-  min-height: 100vh;
+  min-height: calc(var(--vh) * 100);
   line-height: var(--leading-normal);
   font-family: var(--font-primary);
   font-size: var(--text-base);
