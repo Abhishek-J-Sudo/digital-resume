@@ -350,6 +350,14 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
 
     <!-- Custom Scripts (Load in dependency order) -->
+    <script>
+      // Hide console logs in production
+      if (window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1') {
+        console.log = function () {};
+        console.warn = function () {};
+        console.info = function () {};
+      }
+    </script>
     <script src="js/utils.js"></script>
     <script src="js/theme.js"></script>
     <script src="js/components.js"></script>
@@ -379,14 +387,6 @@
           });
         }
       });
-    </script>
-    <script>
-      // Hide console logs in production
-      if (window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1') {
-        console.log = function () {};
-        console.warn = function () {};
-        console.info = function () {};
-      }
     </script>
   </body>
 </html>
