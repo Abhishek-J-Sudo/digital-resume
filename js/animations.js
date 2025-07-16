@@ -218,8 +218,11 @@ function setInitialStates() {
   const sectionElements = document.querySelectorAll(`
     .about-text,
     .about-image,
-    .about-photo,
     .about-stat,
+    .fun-facts,
+    .about-values,
+    .about-actions,
+    .certification-item,
     .skill-category,
     .experience-item,
     .timeline-dot,
@@ -425,6 +428,8 @@ function createScrollAnimations() {
     createAboutAnimations();
     createSkillsAnimations();
     createExperienceAnimations();
+    createCertificationsAnimations();
+    createAchievementsSummaryAnimations();
     createProjectsAnimations();
     createHobbiesAnimations();
     createContactAnimations();
@@ -473,10 +478,11 @@ function createAboutAnimations() {
   const tl = gsap.timeline({
     scrollTrigger: {
       trigger: aboutSection,
-      start: 'top 80%',
+      start: 'top 60%',
       end: 'bottom 20%',
       toggleActions: 'play none none reverse',
       scrub: false,
+      // markers: true,
     },
   });
 
@@ -500,6 +506,12 @@ function createAboutAnimations() {
         y: 0,
         duration: 0.8,
         ease: 'power2.out',
+        scrollTrigger: {
+          trigger: aboutImage,
+          start: 'top 100%',
+          toggleActions: 'play none none reverse',
+          // markers: true,
+        },
       },
       '-=0.4'
     );
@@ -601,6 +613,8 @@ function createAboutAnimations() {
   // BONUS: Animated stat counters (separate trigger)
   animateStatCounters();
 }
+
+// animate stat counters
 function animateStatCounters() {
   const statNumbers = document.querySelectorAll('.stat-number[data-count]');
 
@@ -755,6 +769,66 @@ function createSkillsAnimations() {
 }
 
 /**
+ * Fixed Certifications section animation
+ */
+function createCertificationsAnimations() {
+  const certificationsSection = document.querySelector('.certifications-section');
+  if (!certificationsSection) return;
+
+  // Get certification items/cards
+  const certificationItems = certificationsSection.querySelectorAll(
+    '.certification-item, .certification-card'
+  );
+
+  // Create timeline for certifications section
+  const certificationTimeline = gsap.timeline({
+    scrollTrigger: {
+      trigger: certificationsSection,
+      start: 'top 80%',
+      end: 'bottom 20%',
+      toggleActions: 'play none none reverse',
+    },
+  });
+
+  // Set initial states for certification items
+  if (certificationItems.length > 0) {
+    gsap.set(certificationItems, {
+      opacity: 0,
+      y: 30,
+      scale: 0.9,
+    });
+
+    // Animate certification items with stagger
+    certificationTimeline.to(certificationItems, {
+      opacity: 1,
+      y: 0,
+      scale: 1,
+      duration: ANIMATION_CONFIG.normal,
+      ease: ANIMATION_CONFIG.ease.bounce,
+      stagger: ANIMATION_CONFIG.stagger.normal, // Animate items one after another
+    });
+  } else {
+    // Fallback: animate the entire section if no items found
+    gsap.set(certificationsSection, {
+      opacity: 0,
+      y: 30,
+    });
+
+    certificationTimeline.to(certificationsSection, {
+      opacity: 1,
+      y: 0,
+      duration: ANIMATION_CONFIG.normal,
+      ease: ANIMATION_CONFIG.ease.bounce,
+    });
+  }
+
+  // Store timeline for cleanup
+  timelines.sections.set('certifications', certificationTimeline);
+
+  console.log('📜 Certifications animations created');
+}
+
+/**
  * Experience section - Pure GSAP timeline
  */
 function createExperienceAnimations() {
@@ -825,6 +899,116 @@ function createExperienceAnimations() {
 }
 
 /**
+ * Achievements Summary section animation
+ */
+function createAchievementsSummaryAnimations() {
+  const achievementsSection = document.querySelector('.achievements-summary');
+  if (!achievementsSection) return;
+
+  // Get achievement elements
+  const achievementsTitle = achievementsSection.querySelector('.achievements-title');
+  const achievementItems = achievementsSection.querySelectorAll('.achievement-item');
+  const achievementNumbers = achievementsSection.querySelectorAll('.achievement-number');
+
+  // Set initial states
+  if (achievementsTitle) {
+    gsap.set(achievementsTitle, {
+      opacity: 0,
+      y: 30,
+    });
+  }
+
+  if (achievementItems.length > 0) {
+    gsap.set(achievementItems, {
+      opacity: 0,
+      y: 50,
+      scale: 0.8,
+    });
+  }
+
+  // Create timeline for achievements section
+  const achievementsTimeline = gsap.timeline({
+    scrollTrigger: {
+      trigger: achievementsSection,
+      start: 'top 80%',
+      end: 'bottom 20%',
+      toggleActions: 'play none none reverse',
+    },
+  });
+
+  // Animate title first
+  if (achievementsTitle) {
+    achievementsTimeline.to(achievementsTitle, {
+      opacity: 1,
+      y: 0,
+      duration: ANIMATION_CONFIG.normal,
+      ease: ANIMATION_CONFIG.ease.smooth,
+    });
+  }
+
+  // Animate achievement items with stagger and bounce
+  if (achievementItems.length > 0) {
+    achievementsTimeline.to(
+      achievementItems,
+      {
+        opacity: 1,
+        y: 0,
+        scale: 1,
+        duration: ANIMATION_CONFIG.normal,
+        ease: ANIMATION_CONFIG.ease.bounce,
+        stagger: ANIMATION_CONFIG.stagger.normal, // 0.12s between each item
+      },
+      '-=0.3' // Start 0.3s before title animation completes
+    );
+  }
+
+  // Animate numbers counting up (separate trigger for better effect)
+  if (achievementNumbers.length > 0) {
+    achievementNumbers.forEach((numberEl) => {
+      const targetText = numberEl.textContent;
+      const targetValue = parseFloat(targetText.replace(/[^0-9.]/g, '')) || 0;
+      const suffix = targetText.replace(/[0-9.]/g, ''); // Get +, %, etc.
+
+      // Set initial value to 0
+      numberEl.textContent = '0' + suffix;
+
+      // Create counting animation
+      gsap.to(numberEl, {
+        innerHTML: targetValue,
+        duration: ANIMATION_CONFIG.slow * 1.5, // Slower counting for effect
+        ease: 'power2.out',
+        snap: { innerHTML: targetValue >= 1000 ? 50 : 1 }, // Snap to whole numbers
+        scrollTrigger: {
+          trigger: numberEl,
+          start: 'top 85%',
+          toggleActions: 'play none none reverse',
+        },
+        onUpdate: function () {
+          const currentValue = Math.round(this.targets()[0].innerHTML);
+
+          // Format the number properly
+          if (targetText.includes('+')) {
+            numberEl.textContent = currentValue.toLocaleString() + '+';
+          } else if (targetText.includes('%')) {
+            numberEl.textContent = currentValue + '%';
+          } else {
+            numberEl.textContent = currentValue.toLocaleString() + suffix;
+          }
+        },
+        onComplete: function () {
+          // Ensure final value is exactly what was intended
+          numberEl.textContent = targetText;
+        },
+      });
+    });
+  }
+
+  // Store timeline for cleanup
+  timelines.sections.set('achievements-summary', achievementsTimeline);
+
+  console.log('🏆 Achievements Summary animations created');
+}
+/**
  * Projects section - Pure GSAP cards
  */
 function createProjectsAnimations() {
@@ -863,12 +1047,50 @@ function createProjectsAnimations() {
 /**
  * Hobbies section - Pure GSAP rotation
  */
+/**
+ * Updated Hobbies section animation - handles complex two-column layout
+ */
 function createHobbiesAnimations() {
   const hobbiesSection = document.querySelector('#hobbies, .hobbies-section');
   if (!hobbiesSection) return;
 
-  const hobbyItems = hobbiesSection.querySelectorAll('.hobby-item');
+  // Get all the different elements in the hobbies section
+  const sectionHeader = hobbiesSection.querySelector('.section-header');
+  const sectionTitle = hobbiesSection.querySelector('.section-title');
+  const sectionSubtitle = hobbiesSection.querySelector('.section-subtitle');
 
+  // Photography column elements
+  const photographyColumn = hobbiesSection.querySelector('.photography-column');
+  const showcaseHeader = hobbiesSection.querySelector('.showcase-header');
+  const photoGallery = hobbiesSection.querySelector('.photo-gallery');
+  const galleryContainer = hobbiesSection.querySelector('.gallery-container');
+  const galleryControls = hobbiesSection.querySelector('.gallery-controls');
+  const galleryIndicators = hobbiesSection.querySelector('.gallery-indicators');
+
+  // Other interests column elements
+  const otherInterestsColumn = hobbiesSection.querySelector('.other-interests-column');
+  const hobbiesSummary = hobbiesSection.querySelector('.hobbies-summary');
+  const hobbiesSummaryContent = hobbiesSection.querySelector('.hobbies-summary-content');
+  const hobbyItems = hobbiesSection.querySelectorAll('.hobby-item');
+  const hobbiesGrid = hobbiesSection.querySelector('.hobbies-grid');
+
+  // Set initial states for all elements
+  if (sectionHeader) {
+    gsap.set([sectionTitle, sectionSubtitle], { opacity: 0, y: 30 });
+  }
+
+  if (photographyColumn) {
+    gsap.set(showcaseHeader, { opacity: 0, x: -50 });
+    gsap.set(galleryContainer, { opacity: 0, scale: 0.9 });
+    gsap.set([galleryControls, galleryIndicators], { opacity: 0, y: 20 });
+  }
+
+  if (otherInterestsColumn) {
+    gsap.set(hobbiesSummaryContent, { opacity: 0, x: 50 });
+    gsap.set(hobbyItems, { opacity: 0, rotation: -180, scale: 0 });
+  }
+
+  // Create main timeline
   const tl = gsap.timeline({
     scrollTrigger: {
       trigger: hobbiesSection,
@@ -878,21 +1100,219 @@ function createHobbiesAnimations() {
     },
   });
 
-  if (hobbyItems.length > 0) {
-    // Set initial rotation
-    gsap.set(hobbyItems, { rotation: -180, scale: 0 });
-
-    tl.to(hobbyItems, {
+  // SEQUENCE 1: Section Header
+  if (sectionTitle) {
+    tl.to(sectionTitle, {
       opacity: 1,
-      scale: 1,
-      rotation: 0,
+      y: 0,
       duration: ANIMATION_CONFIG.normal,
-      ease: ANIMATION_CONFIG.ease.elastic,
-      stagger: ANIMATION_CONFIG.stagger.fast,
+      ease: ANIMATION_CONFIG.ease.smooth,
     });
   }
 
+  if (sectionSubtitle) {
+    tl.to(
+      sectionSubtitle,
+      {
+        opacity: 1,
+        y: 0,
+        duration: ANIMATION_CONFIG.normal,
+        ease: ANIMATION_CONFIG.ease.smooth,
+      },
+      '-=0.3'
+    );
+  }
+
+  // SEQUENCE 2: Photography Column (Left side)
+  if (showcaseHeader) {
+    tl.to(
+      showcaseHeader,
+      {
+        opacity: 1,
+        x: 0,
+        duration: ANIMATION_CONFIG.normal,
+        ease: ANIMATION_CONFIG.ease.smooth,
+      },
+      '-=0.2'
+    );
+  }
+
+  if (galleryContainer) {
+    tl.to(
+      galleryContainer,
+      {
+        opacity: 1,
+        scale: 1,
+        duration: ANIMATION_CONFIG.normal,
+        ease: ANIMATION_CONFIG.ease.bounce,
+      },
+      '-=0.1'
+    );
+  }
+
+  // Gallery controls fade in
+  if (galleryControls) {
+    tl.to(
+      galleryControls,
+      {
+        opacity: 1,
+        y: 0,
+        duration: ANIMATION_CONFIG.fast,
+        ease: ANIMATION_CONFIG.ease.smooth,
+      },
+      '-=0.2'
+    );
+  }
+
+  if (galleryIndicators) {
+    tl.to(
+      galleryIndicators,
+      {
+        opacity: 1,
+        y: 0,
+        duration: ANIMATION_CONFIG.fast,
+        ease: ANIMATION_CONFIG.ease.smooth,
+      },
+      '-=0.4'
+    );
+  }
+
+  // SEQUENCE 3: Other Interests Column (Right side)
+  if (hobbiesSummaryContent) {
+    tl.to(
+      hobbiesSummaryContent,
+      {
+        opacity: 1,
+        x: 0,
+        duration: ANIMATION_CONFIG.normal,
+        ease: ANIMATION_CONFIG.ease.smooth,
+      },
+      '-=0.6' // Start before gallery finishes
+    );
+  }
+
+  // SEQUENCE 4: Hobby Items with rotation effect
+  if (hobbyItems.length > 0) {
+    tl.to(
+      hobbyItems,
+      {
+        opacity: 1,
+        scale: 1,
+        rotation: 0,
+        duration: ANIMATION_CONFIG.normal,
+        ease: ANIMATION_CONFIG.ease.elastic,
+        stagger: ANIMATION_CONFIG.stagger.fast, // 0.08s between each item
+      },
+      '-=0.4'
+    );
+  }
+
+  // Store timeline
   timelines.sections.set('hobbies', tl);
+
+  // BONUS: Add gallery photo cycling animation (separate from scroll trigger)
+  createGalleryAnimations();
+
+  console.log('🎨 Hobbies animations created with photography showcase');
+}
+
+/**
+ * Separate gallery animations for the photo slideshow
+ */
+function createGalleryAnimations() {
+  const galleryPhotos = document.querySelectorAll('.gallery-photo');
+  const indicatorDots = document.querySelectorAll('.indicator-dot');
+
+  if (galleryPhotos.length === 0) return;
+
+  // Set initial states for gallery photos
+  gsap.set(galleryPhotos, { opacity: 0, scale: 0.95 });
+
+  // Show first photo
+  if (galleryPhotos[0]) {
+    gsap.set(galleryPhotos[0], { opacity: 1, scale: 1 });
+  }
+
+  // Add subtle breathing animation to active photo
+  if (galleryPhotos[0]) {
+    gsap.to(galleryPhotos[0], {
+      scale: 1.02,
+      duration: 4,
+      ease: 'sine.inOut',
+      repeat: -1,
+      yoyo: true,
+    });
+  }
+
+  // Animate indicator dots on hover
+  indicatorDots.forEach((dot, index) => {
+    dot.addEventListener('mouseenter', () => {
+      gsap.to(dot, {
+        scale: 1.2,
+        duration: 0.2,
+        ease: 'power2.out',
+      });
+    });
+
+    dot.addEventListener('mouseleave', () => {
+      gsap.to(dot, {
+        scale: 1,
+        duration: 0.2,
+        ease: 'power2.out',
+      });
+    });
+  });
+
+  console.log('📸 Gallery animations initialized');
+}
+
+/**
+ * Helper function for photo transitions (can be called by gallery controls)
+ */
+function animatePhotoTransition(fromPhoto, toPhoto) {
+  if (!fromPhoto || !toPhoto) return;
+
+  const tl = gsap.timeline();
+
+  // Fade out current photo
+  tl.to(fromPhoto, {
+    opacity: 0,
+    scale: 0.95,
+    duration: 0.3,
+    ease: 'power2.out',
+  });
+
+  // Fade in new photo
+  tl.to(
+    toPhoto,
+    {
+      opacity: 1,
+      scale: 1,
+      duration: 0.4,
+      ease: 'power2.out',
+    },
+    '-=0.1'
+  );
+
+  // Add subtle zoom effect to new photo
+  tl.to(
+    toPhoto,
+    {
+      scale: 1.02,
+      duration: 4,
+      ease: 'sine.inOut',
+      repeat: -1,
+      yoyo: true,
+    },
+    '+=0.2'
+  );
+
+  return tl;
+}
+
+// Export the photo transition function for use by gallery controls
+if (typeof window !== 'undefined') {
+  window.animatePhotoTransition = animatePhotoTransition;
 }
 
 /**
