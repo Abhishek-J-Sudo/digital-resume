@@ -87,12 +87,6 @@ document.addEventListener('DOMContentLoaded', () => {
   // Register ScrollTrigger plugin
   if (typeof ScrollTrigger !== 'undefined') {
     gsap.registerPlugin(ScrollTrigger);
-
-    if (IS_IOS) {
-      // iOS: use normalize scroll
-      ScrollTrigger.normalizeScroll(true);
-      console.log('✅ Pure GSAP system initialized with normalizeScroll');
-    }
   }
 
   // Set global GSAP defaults
@@ -1210,7 +1204,7 @@ function setupResponsiveHandlers() {
     debounce(() => {
       ScrollTrigger.refresh();
       console.log('📱 Pure GSAP refreshed for resize');
-    }, 250)
+    }, 10)
   );
 
   // Orientation change
