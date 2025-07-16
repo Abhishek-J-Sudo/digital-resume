@@ -380,5 +380,13 @@
         }
       });
     </script>
+    <script>
+      // Hide console logs in production
+      if (window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1') {
+        console.log = function () {};
+        console.warn = function () {};
+        console.info = function () {};
+      }
+    </script>
   </body>
 </html>

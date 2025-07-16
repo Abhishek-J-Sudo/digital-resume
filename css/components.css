@@ -58,11 +58,11 @@
 .btn-secondary {
   background: var(--color-surface);
   color: var(--brand-primary);
-  border: 1px solid var(--brand-primary);
+  border: 1px solid var(--brand-accent);
 }
 
 .btn-secondary:hover:not(:disabled) {
-  background: var(--brand-primary);
+  background: var(--brand-accent);
   color: var(--color-text-inverse);
   transform: translateY(-2px);
   box-shadow: var(--shadow-md);

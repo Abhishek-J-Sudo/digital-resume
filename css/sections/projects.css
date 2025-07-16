@@ -92,7 +92,7 @@
   gap: var(--space-md);
 }
 
-.project-link {
+/* .project-link {
   display: inline-flex;
   align-items: center;
   gap: var(--space-xs);
@@ -106,7 +106,7 @@
 .project-link:hover {
   color: var(--brand-secondary);
   transform: translateY(-1px);
-}
+} */
 
 /* ===================================
    PROJECTS SECTION - ADDITIONAL STYLES
@@ -205,6 +205,8 @@
 
 /* Project Footer */
 .project-footer {
+  display: flex;
+  gap: 20px;
   padding: var(--space-xl) var(--space-lg);
   border-top: 1px solid rgba(0, 0, 0, var(--theme-border-opacity));
   /* margin-top: var(--space-lg); */
@@ -234,6 +236,7 @@
 
 .project-link:hover {
   background: var(--brand-secondary);
+  color: var(--color-text-inverse);
   transform: translateY(-1px);
   box-shadow: var(--shadow-md);
 }
@@ -318,7 +321,7 @@
 }
 
 .project-link.primary:hover {
-  background: var(--brand-secondary);
+  background: var(--brand-accent);
   transform: translateY(-1px);
 }
 
@@ -329,7 +332,7 @@
 }
 
 .project-link.secondary:hover {
-  background: var(--brand-primary);
+  background: var(--brand-accent);
   color: var(--color-text-inverse);
 }
 
@@ -554,7 +557,7 @@
 .summary-content-projects:hover {
   transform: translateY(-5px);
   box-shadow: var(--shadow-lg);
-  border-color: var(--brand-primary);
+  border-color: var(--brand-accent);
 }
 
 .summary-title {

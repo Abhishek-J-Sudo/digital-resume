@@ -39,7 +39,7 @@
   width: 64px;
   height: 64px;
   margin: 0 auto var(--space-lg);
-  background: var(--gradient-primary);
+  background: var(--gradient-accent-secondary);
   border-radius: var(--radius-xl);
   display: flex;
   align-items: center;
@@ -224,7 +224,7 @@
 }
 
 .certification-item:hover {
-  border-color: var(--brand-primary);
+  border-color: var(--brand-accent);
   transform: translateY(-3px);
   box-shadow: var(--shadow-md);
 }
@@ -234,7 +234,7 @@
   flex-shrink: 0;
   width: 48px;
   height: 48px;
-  background: var(--gradient-primary);
+  background: var(--gradient-accent-secondary);
   border-radius: var(--radius-lg);
   display: flex;
   align-items: center;

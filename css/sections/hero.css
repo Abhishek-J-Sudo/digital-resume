@@ -116,7 +116,7 @@
 .hero-cta.secondary {
   background: transparent;
   color: var(--brand-primary);
-  border: 2px solid var(--brand-primary);
+  border: 2px solid var(--brand-accent);
 }
 
 .hero-cta.secondary:hover {

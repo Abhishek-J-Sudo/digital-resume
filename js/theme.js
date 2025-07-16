@@ -83,7 +83,7 @@ if (window.ThemeSystemInitialized) {
     const theme = currentDataTheme || savedTheme || systemTheme;
 
     // Get saved company theme
-    const savedCompanyTheme = localStorage.getItem(ThemeSystem.storageKeys.companyTheme) || '';
+    const savedCompanyTheme = localStorage.getItem(ThemeSystem.storageKeys.companyTheme) || 'pgd';
 
     // Update internal state without re-applying (to avoid conflicts)
     ThemeSystem.currentTheme = theme;
