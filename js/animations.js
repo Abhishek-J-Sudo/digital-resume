@@ -431,6 +431,7 @@ function createScrollAnimations() {
     createCertificationsAnimations();
     createAchievementsSummaryAnimations();
     createProjectsAnimations();
+    createSummaryContentAnimations();
     createHobbiesAnimations();
     createContactAnimations();
 
@@ -474,141 +475,261 @@ function createAboutAnimations() {
   gsap.set(funFactItems, { opacity: 0, x: -20 });
   gsap.set(valueItems, { opacity: 0, y: 20 });
 
-  // Create main timeline with proper ScrollTrigger
-  const tl = gsap.timeline({
-    scrollTrigger: {
-      trigger: aboutSection,
-      start: 'top 60%',
-      end: 'bottom 20%',
-      toggleActions: 'play none none reverse',
-      scrub: false,
-      // markers: true,
-    },
-  });
+  // MOBILE OPTIMIZATION: Different approach for mobile vs desktop
+  const isMobile = window.innerWidth <= 768;
 
-  // ROW 1 ANIMATIONS
-  // Text from bottom
-  if (aboutText) {
-    tl.to(aboutText, {
-      opacity: 1,
-      y: 0,
-      duration: 0.8,
-      ease: 'power2.out',
-    });
-  }
+  if (isMobile) {
+    // MOBILE: Create separate ScrollTriggers for each major row
+    console.log('📱 Using mobile per-row about animation');
 
-  // Image from bottom with slight delay
-  if (aboutImage) {
-    tl.to(
-      aboutImage,
-      {
+    // ROW 1: Text and Image (separate triggers)
+    if (aboutText) {
+      gsap.to(aboutText, {
+        opacity: 1,
+        y: 0,
+        duration: 0.8,
+        ease: 'power2.out',
+        scrollTrigger: {
+          trigger: aboutText,
+          start: 'top 85%',
+          toggleActions: 'play none none reverse',
+        },
+      });
+    }
+
+    if (aboutImage) {
+      gsap.to(aboutImage, {
         opacity: 1,
         y: 0,
         duration: 0.8,
         ease: 'power2.out',
         scrollTrigger: {
           trigger: aboutImage,
-          start: 'top 100%',
+          start: 'top 85%',
           toggleActions: 'play none none reverse',
-          // markers: true,
         },
-      },
-      '-=0.4'
-    );
-  }
+      });
+    }
 
-  // ROW 2 ANIMATIONS
-  // Stats stagger animation
-  if (aboutStats.length > 0) {
-    tl.to(
-      aboutStats,
-      {
+    // ROW 2: Stats (separate trigger)
+    if (aboutStats.length > 0) {
+      gsap.to(aboutStats, {
         opacity: 1,
         y: 0,
         scale: 1,
-        duration: 0.3,
+        duration: 0.6,
         ease: 'back.out(1.7)',
         stagger: 0.1,
-      },
-      '-=0.2'
-    );
-  }
+        scrollTrigger: {
+          trigger: aboutStats[0].closest('.about-stats') || aboutStats[0],
+          start: 'top 85%',
+          toggleActions: 'play none none reverse',
+        },
+      });
+    }
 
-  // Fun Facts fade in with smoother easing
-  if (funFacts) {
-    tl.to(
-      funFacts,
-      {
+    // ROW 2: Fun Facts (separate trigger)
+    if (funFacts) {
+      const funFactTimeline = gsap.timeline({
+        scrollTrigger: {
+          trigger: funFacts,
+          start: 'top 85%',
+          toggleActions: 'play none none reverse',
+        },
+      });
+
+      funFactTimeline
+        .to(funFacts, {
+          opacity: 1,
+          y: 0,
+          duration: 0.5,
+          ease: 'power2.out',
+        })
+        .to(
+          funFactItems,
+          {
+            opacity: 1,
+            x: 0,
+            duration: 0.4,
+            ease: 'power2.out',
+            stagger: 0.08,
+          },
+          '-=0.3'
+        );
+    }
+
+    // ROW 3: Values (separate trigger)
+    if (aboutValues) {
+      const valuesTimeline = gsap.timeline({
+        scrollTrigger: {
+          trigger: aboutValues,
+          start: 'top 85%',
+          toggleActions: 'play none none reverse',
+        },
+      });
+
+      valuesTimeline
+        .to(aboutValues, {
+          opacity: 1,
+          y: 0,
+          duration: 0.5,
+          ease: 'power1.out',
+        })
+        .to(
+          valueItems,
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.4,
+            ease: 'power1.out',
+            stagger: 0.06,
+          },
+          '-=0.4'
+        );
+    }
+
+    // ROW 3: Actions (separate trigger)
+    if (aboutActions) {
+      gsap.to(aboutActions, {
         opacity: 1,
         y: 0,
-        duration: 0.5,
-        ease: 'power2.out', // Changed from power2.out for smoother animation
-      },
-      '-=0.3'
-    );
-  }
-
-  // Fun Fact items stagger
-  if (funFactItems.length > 0) {
-    tl.to(
-      funFactItems,
-      {
-        opacity: 1,
-        x: 0,
         duration: 0.6,
+        ease: 'power1.out',
+        scrollTrigger: {
+          trigger: aboutActions,
+          start: 'top 85%',
+          toggleActions: 'play none none reverse',
+        },
+      });
+    }
+
+    // Store mobile timelines
+    timelines.sections.set('about-mobile', true);
+  } else {
+    // DESKTOP: Use unified timeline approach (fixed)
+    console.log('🖥️ Using desktop unified about animation');
+
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: aboutSection,
+        start: 'top 60%',
+        end: 'bottom 20%',
+        toggleActions: 'play none none reverse',
+        scrub: false,
+      },
+    });
+
+    // ROW 1 ANIMATIONS (Desktop)
+    if (aboutText) {
+      tl.to(aboutText, {
+        opacity: 1,
+        y: 0,
+        duration: 0.8,
         ease: 'power2.out',
-        stagger: 0.1,
-      },
-      '-=0.4'
-    );
-  }
+      });
+    }
 
-  // ROW 3 ANIMATIONS - FIXED EASING
-  // Values section fade in with gentler easing
-  if (aboutValues) {
-    tl.to(
-      aboutValues,
-      {
-        opacity: 1,
-        y: 0,
-        duration: 0.5,
-        ease: 'power1.out', // Gentler easing to prevent snap effect
-      },
-      '-=0.2'
-    );
-  }
+    // FIXED: Remove nested ScrollTrigger from aboutImage
+    if (aboutImage) {
+      tl.to(
+        aboutImage,
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.8,
+          ease: 'power2.out',
+        },
+        '-=0.4'
+      );
+    }
 
-  // Value items stagger with smoother transition
-  if (valueItems.length > 0) {
-    tl.to(
-      valueItems,
-      {
-        opacity: 1,
-        y: 0,
-        duration: 0.6,
-        ease: 'power1.out', // Gentler easing
-        stagger: 0.08,
-      },
-      '-=0.6' // More overlap with parent container
-    );
-  }
+    // ROW 2 ANIMATIONS (Desktop)
+    if (aboutStats.length > 0) {
+      tl.to(
+        aboutStats,
+        {
+          opacity: 1,
+          y: 0,
+          scale: 1,
+          duration: 0.3,
+          ease: 'back.out(1.7)',
+          stagger: 0.1,
+        },
+        '-=0.2'
+      );
+    }
 
-  // Actions/CTA section with gentle easing
-  if (aboutActions) {
-    tl.to(
-      aboutActions,
-      {
-        opacity: 1,
-        y: 0,
-        duration: 0.6,
-        ease: 'power1.out', // Gentler easing to prevent snap
-      },
-      '-=0.5' // More overlap to feel connected
-    );
-  }
+    if (funFacts) {
+      tl.to(
+        funFacts,
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.5,
+          ease: 'power2.out',
+        },
+        '-=0.3'
+      );
+    }
 
-  // Store timeline
-  timelines.sections.set('about', tl);
+    if (funFactItems.length > 0) {
+      tl.to(
+        funFactItems,
+        {
+          opacity: 1,
+          x: 0,
+          duration: 0.6,
+          ease: 'power2.out',
+          stagger: 0.1,
+        },
+        '-=0.4'
+      );
+    }
+
+    // ROW 3 ANIMATIONS (Desktop)
+    if (aboutValues) {
+      tl.to(
+        aboutValues,
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.5,
+          ease: 'power1.out',
+        },
+        '-=0.2'
+      );
+    }
+
+    if (valueItems.length > 0) {
+      tl.to(
+        valueItems,
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.6,
+          ease: 'power1.out',
+          stagger: 0.08,
+        },
+        '-=0.6'
+      );
+    }
+
+    if (aboutActions) {
+      tl.to(
+        aboutActions,
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.6,
+          ease: 'power1.out',
+        },
+        '-=0.5'
+      );
+    }
+
+    // Store desktop timeline
+    timelines.sections.set('about', tl);
+  }
 
   // BONUS: Animated stat counters (separate trigger)
   animateStatCounters();
@@ -1045,6 +1166,105 @@ function createProjectsAnimations() {
 }
 
 /**
+ * Create animations for summary content sections
+ * Following the exact same pattern as working hobbies/about sections
+ */
+function createSummaryContentAnimations() {
+  console.log('📝 Creating summary content animations...');
+
+  // SKILLS SUMMARY - following hobbies pattern exactly
+  const skillsSection = document.querySelector('#skills, .skills-section');
+  if (skillsSection) {
+    const skillsSummary = skillsSection.querySelector('.skills-summary');
+    const skillsSummaryContent = skillsSection.querySelector('.skills-summary .summary-content');
+    const learningTags = skillsSection.querySelectorAll('.learning-tag');
+    if (skillsSummary || skillsSummaryContent) {
+      const targetElement = skillsSummaryContent || skillsSummary;
+
+      console.log('📊 Creating skills summary animation');
+
+      // Set initial state - exactly like hobbiesSummaryContent
+      gsap.set(targetElement, { opacity: 0, x: 50 });
+      if (learningTags.length > 0) {
+        gsap.set(learningTags, { opacity: 0, scale: 0.8 });
+      }
+
+      // Create timeline - exactly like hobbies
+      const skillsTimeline = gsap.timeline({
+        scrollTrigger: {
+          trigger: targetElement,
+          start: ANIMATION_CONFIG.scrollTrigger.start,
+          end: ANIMATION_CONFIG.scrollTrigger.end,
+          toggleActions: ANIMATION_CONFIG.scrollTrigger.toggleActions,
+        },
+      });
+
+      // Animate summary content - exactly like hobbies
+      skillsTimeline.to(targetElement, {
+        opacity: 1,
+        x: 0,
+        duration: ANIMATION_CONFIG.normal,
+        ease: ANIMATION_CONFIG.ease.smooth,
+      });
+
+      // Animate tags with stagger - like hobby items
+      if (learningTags.length > 0) {
+        skillsTimeline.to(
+          learningTags,
+          {
+            opacity: 1,
+            scale: 1,
+            duration: ANIMATION_CONFIG.fast,
+            ease: ANIMATION_CONFIG.ease.bounce,
+            stagger: ANIMATION_CONFIG.stagger.fast, // 0.08s like hobbies
+          },
+          '-=0.3'
+        );
+      }
+
+      timelines.sections.set('skills-summary', skillsTimeline);
+      console.log('✅ Skills summary animation created');
+    }
+  }
+
+  // PROJECTS SUMMARY - following hobbies pattern exactly
+  const projectsSection = document.querySelector('.projects-section');
+  if (projectsSection) {
+    const projectsSummary = projectsSection.querySelector('.summary-content-projects');
+
+    if (projectsSummary) {
+      console.log('🎯 Creating projects summary animation');
+
+      // Set initial state - exactly like hobbiesSummaryContent
+      gsap.set(projectsSummary, { opacity: 0, x: 50 });
+
+      // Create timeline - exactly like hobbies
+      const projectsTimeline = gsap.timeline({
+        scrollTrigger: {
+          trigger: projectsSummary,
+          start: ANIMATION_CONFIG.scrollTrigger.start,
+          end: ANIMATION_CONFIG.scrollTrigger.end,
+          toggleActions: ANIMATION_CONFIG.scrollTrigger.toggleActions,
+        },
+      });
+
+      // Animate summary - exactly like hobbies
+      projectsTimeline.to(projectsSummary, {
+        opacity: 1,
+        x: 0,
+        duration: ANIMATION_CONFIG.normal,
+        ease: ANIMATION_CONFIG.ease.smooth,
+      });
+
+      timelines.sections.set('projects-summary', projectsTimeline);
+      console.log('✅ Projects summary animation created');
+    }
+  }
+
+  console.log('📝 Summary content animations completed');
+}
+
+/**
  * Hobbies section - Pure GSAP rotation
  */
 /**
@@ -1196,6 +1416,7 @@ function createHobbiesAnimations() {
     tl.to(
       hobbyItems,
       {
+        trigger: hobbyItems,
         opacity: 1,
         scale: 1,
         rotation: 0,
@@ -1203,7 +1424,7 @@ function createHobbiesAnimations() {
         ease: ANIMATION_CONFIG.ease.elastic,
         stagger: ANIMATION_CONFIG.stagger.fast, // 0.08s between each item
       },
-      '-=0.4'
+      '-=0.2'
     );
   }
 
@@ -1361,6 +1582,7 @@ function createInteractionAnimations() {
   createHoverEffects();
   createClickEffects();
   createExpandAnimations();
+  addSummaryInteractions();
 
   console.log('🎯 Pure GSAP interactions created');
 }
@@ -1521,6 +1743,50 @@ function createExpandAnimations() {
       }
     });
   });
+}
+
+/**
+ * Enhanced learning tags hover effects (bonus)
+ * Only add interactions, don't animate initial state
+ */
+function addSummaryInteractions() {
+  const learningTags = document.querySelectorAll('.learning-tag, .tag, .skill-tag');
+
+  if (learningTags.length === 0) return;
+
+  learningTags.forEach((tag) => {
+    // Hover effects only - don't mess with initial states
+    tag.addEventListener('mouseenter', () => {
+      gsap.to(tag, {
+        scale: 1.05,
+        y: -2,
+        duration: 0.2,
+        ease: 'power2.out',
+      });
+    });
+
+    tag.addEventListener('mouseleave', () => {
+      gsap.to(tag, {
+        scale: 1,
+        y: 0,
+        duration: 0.2,
+        ease: 'power2.out',
+      });
+    });
+
+    // Click effect
+    tag.addEventListener('click', () => {
+      gsap.to(tag, {
+        scale: 0.95,
+        duration: 0.1,
+        ease: 'power2.out',
+        yoyo: true,
+        repeat: 1,
+      });
+    });
+  });
+
+  console.log(`🏷️ Added interactions to ${learningTags.length} learning tags`);
 }
 
 // ===================================
