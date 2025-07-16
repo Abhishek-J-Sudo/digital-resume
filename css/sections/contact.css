@@ -20,11 +20,13 @@
   border-radius: var(--radius-xl);
   padding: var(--space-md) var(--space-sm);
   text-align: center;
+  text-wrap: word;
   text-decoration: none;
   color: var(--color-text);
   transition: var(--transition-normal);
   border: 1px solid transparent;
   min-width: 180px;
+  max-width: 180px;
   opacity: 1;
   transform: translateY(20px);
   position: relative;
@@ -91,13 +93,12 @@
   font-size: var(--text-base);
   font-weight: var(--font-medium);
   color: var(--color-text);
-  margin-bottom: var(--space-xs);
+  /* margin-bottom: var(--space-xs); */
 }
 
 .contact-description {
   font-size: var(--text-xs);
   color: var(--color-text-tertiary);
-  margin: 0;
   line-height: var(--leading-normal);
 }
 
