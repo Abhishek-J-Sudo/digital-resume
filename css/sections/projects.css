@@ -486,6 +486,9 @@
 
   .project-link {
     justify-content: center;
+    font-size: var(--text-xs);
+    padding: var(--space-xs);
+    color: var(--color-text);
   }
   .project-impact {
     margin: var(--space-sm) 0;
@@ -599,7 +602,8 @@
 }
 
 .btn-primary:hover {
-  background: var(--brand-secondary);
+  background: var(--gradient-primary);
+  border: 2px solid var(--brand-accent);
   transform: translateY(-2px);
   box-shadow: var(--shadow-lg);
 }
@@ -641,6 +645,9 @@
     padding: 0;
     margin-left: var(--space-xs);
     margin-right: var(--space-xs);
+  }
+  .github-link .btn {
+    font-size: var(--text-sm);
   }
 }
 

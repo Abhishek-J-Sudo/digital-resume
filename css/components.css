@@ -45,27 +45,45 @@
 /* Button variants */
 .btn-primary {
   background: var(--gradient-primary);
-  color: var(--color-text-inverse);
+  color: var(--theme-text-inverse);
   box-shadow: var(--shadow-md);
 }
 
 .btn-primary:hover:not(:disabled) {
   transform: translateY(-2px);
   box-shadow: var(--shadow-glow), var(--shadow-lg);
-  color: var(--color-text-inverse);
+  color: var(--theme-text-inverse);
 }
 
 .btn-secondary {
-  background: var(--color-surface);
-  color: var(--brand-primary);
+  background: var(--brand-accent);
+  color: var(--color-text-inverse);
   border: 1px solid var(--brand-accent);
 }
+.btn-secondary svg {
+  color: var(--brand-accent-secondary);
+}
+/* .btn-secondary:hover:not(:disabled) svg {
+  color: var(--brand-primary);
+} */
 
 .btn-secondary:hover:not(:disabled) {
-  background: var(--brand-accent);
+  /* background: var(--brand-accent); */
   color: var(--color-text-inverse);
   transform: translateY(-2px);
   box-shadow: var(--shadow-md);
+}
+
+[data-theme='dark'] .btn-secondary {
+  background: var(--brand-accent);
+  color: var(--color-text);
+  border: 1px solid var(--brand-secondary);
+}
+
+[data-theme='dark'] .btn-secondary:hover {
+  /* background: var(--brand-accent); */
+  color: var(--color-text);
+  border: 1px solid var(--brand-accent-secondary);
 }
 
 .btn-outline {

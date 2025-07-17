@@ -270,7 +270,7 @@
 }
 
 .value-item:hover {
-  border-color: var(--brand-primary);
+  border-color: var(--brand-accent);
   transform: translateY(-2px);
   box-shadow: var(--shadow-sm);
 }

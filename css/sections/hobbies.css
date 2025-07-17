@@ -324,11 +324,13 @@
 
 /* Gallery Controls */
 .gallery-controls {
+  position: absolute;
+  bottom: -18%;
+  right: 35%;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: var(--space-sm);
-  margin-top: var(--space-md);
 }
 
 .control-btn {
@@ -608,7 +610,7 @@
 
 .action-left {
   display: flex;
-  gap: 16px;
+  gap: 0px;
 }
 
 .action-icon {
@@ -649,9 +651,9 @@
 }
 
 /* Hide your existing gallery controls in Instagram mode */
-.instagram-post .gallery-controls {
+/* .instagram-post .gallery-controls {
   display: none;
-}
+} */
 
 /* Update your existing indicators for Instagram style */
 .instagram-post .gallery-indicators {
@@ -744,6 +746,12 @@
     max-width: calc(100vw - 2rem); /* Account for container padding */
     width: 100%;
     margin: 0 auto;
+  }
+  .gallery-controls {
+    position: absolute;
+    bottom: -50px;
+    right: 20%;
+    display: flex;
   }
 
   .gallery-display {
