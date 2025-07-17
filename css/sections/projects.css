@@ -488,7 +488,7 @@
     justify-content: center;
     font-size: var(--text-xs);
     padding: var(--space-xs);
-    color: var(--color-text);
+    color: var(--color-text-inverse);
   }
   .project-impact {
     margin: var(--space-sm) 0;
